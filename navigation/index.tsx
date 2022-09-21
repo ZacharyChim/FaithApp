@@ -5,22 +5,14 @@
  */
 import { FontAwesome } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-} from '@react-navigation/native'
+import { NavigationContainer, DarkTheme } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import * as React from 'react'
-import { ColorSchemeName, Pressable } from 'react-native'
 
-import Colors from '../constants/Colors'
-import useColorScheme from '../hooks/useColorScheme'
 import BookingScreen from '../screens/BookingScreen'
-import CartScreen from '../screens/CartScreen'
+import CartScreen from '../screens/CartStackScreens/CartScreen'
 import ModalScreen from '../screens/ModalScreen'
 import NotFoundScreen from '../screens/NotFoundScreen'
-import ProductsScreen from '../screens/ProductStackScreens/ProductsScreen'
 import ProfileScreen from '../screens/ProfileScreen'
 
 import {
@@ -32,16 +24,9 @@ import HomeStackNavigator from './HomeStackNavigator'
 import LinkingConfiguration from './LinkingConfiguration'
 import ProductStackNavigator from './ProductStackNavigator'
 
-export default function Navigation({
-  colorScheme,
-}: {
-  colorScheme: ColorSchemeName
-}) {
+export default function Navigation() {
   return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-    >
+    <NavigationContainer linking={LinkingConfiguration}>
       <RootNavigator />
     </NavigationContainer>
   )
@@ -80,13 +65,14 @@ function RootNavigator() {
 const BottomTab = createBottomTabNavigator<RootTabParamList>()
 
 function BottomTabNavigator() {
-  const colorScheme = useColorScheme()
-
   return (
     <BottomTab.Navigator
       initialRouteName='Home'
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: '#fff',
+        tabBarActiveBackgroundColor: '#000',
+        tabBarInactiveBackgroundColor: '#000',
+        tabBarStyle: { backgroundColor: '#000' },
       }}
     >
       <BottomTab.Screen
@@ -96,6 +82,7 @@ function BottomTabNavigator() {
           title: 'Home',
           tabBarIcon: ({ color }) => <TabBarIcon name='home' color={color} />,
           headerShown: false,
+
           // headerRight: () => (
           //   <Pressable
           //     onPress={() => navigation.navigate('Modal')}
@@ -118,6 +105,7 @@ function BottomTabNavigator() {
         options={{
           title: 'Product',
           tabBarIcon: ({ color }) => <TabBarIcon name='list' color={color} />,
+          headerShown: false,
         }}
       />
       <BottomTab.Screen

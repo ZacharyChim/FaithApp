@@ -199,6 +199,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 50,
+    backgroundColor: '#fff',
   },
   twoColumn: {
     flex: 1,

@@ -1,0 +1,88 @@
+const glove1 = require('../assets/images/products/glove.png')
+
+export const products = [
+  {
+    categoryId: 1,
+    id: 1,
+    name: 'Glove 1Glove 1Glove 1',
+    imageUri: glove1,
+    price: 99,
+    discountPrice: 89,
+    description:
+      'Lorem ipson Lorem ipson Lorem ipson Lorem ipson Lorem ipson Lorem ipson',
+  },
+  {
+    categoryId: 1,
+    id: 2,
+    name: 'Glove 2Glove 2Glove 2',
+    imageUri: glove1,
+    price: 99,
+    discountPrice: 89,
+    description:
+      'Lorem ipsonLorem ipson Lorem ipson Lorem ipsonLorem ipson Lorem ipson Lorem ipsonLorem ipson Lorem ipson Lorem ipson',
+  },
+  {
+    categoryId: 1,
+    id: 3,
+    name: 'Glove 3',
+    imageUri: glove1,
+    price: 99,
+    discountPrice: 99,
+    description: 'Lorem ipsonLorem ipson Lorem ipson Lorem ipson',
+  },
+  {
+    categoryId: 1,
+    id: 4,
+    name: 'Glove 4',
+    imageUri: glove1,
+    price: 99,
+    discountPrice: 99,
+    description:
+      'Lorem ipsonLorem ipson Lorem ipson Lorem ipsonLorem ipson Lorem ipson Lorem ipson',
+  },
+  {
+    categoryId: 2,
+    id: 5,
+    name: 'Wear 1',
+    imageUri: glove1,
+    price: 99,
+    discountPrice: 89,
+    description: 'Lorem ipson',
+  },
+  {
+    categoryId: 2,
+    id: 6,
+    name: 'Wear 2',
+    imageUri: glove1,
+    price: 99,
+    discountPrice: 89,
+    description: 'Lorem ipson',
+  },
+  {
+    categoryId: 2,
+    id: 7,
+    name: 'Wear 3',
+    imageUri: glove1,
+    price: 99,
+    discountPrice: 89,
+    description: 'Lorem ipson',
+  },
+  {
+    categoryId: 3,
+    id: 8,
+    name: 'Short 1',
+    imageUri: glove1,
+    price: 99,
+    discountPrice: 89,
+    description: 'Lorem ipson',
+  },
+  {
+    categoryId: 3,
+    id: 9,
+    name: 'Short 2',
+    imageUri: glove1,
+    price: 99,
+    discountPrice: 89,
+    description: 'Lorem ipson',
+  },
+]

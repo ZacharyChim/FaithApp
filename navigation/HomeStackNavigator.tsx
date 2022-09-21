@@ -23,6 +23,13 @@ function HomeStackNavigator() {
         component={TeamScreen}
         options={{
           title: 'Our Team',
+          headerShadowVisible: false,
+          headerStyle: {
+            backgroundColor: '#fff',
+          },
+          headerTitleStyle: {
+            color: '#000',
+          },
         }}
       />
       <HomeStack.Screen
@@ -30,13 +37,27 @@ function HomeStackNavigator() {
         component={TrainerScreen}
         options={{
           title: '',
+          headerShadowVisible: false,
+          headerStyle: {
+            backgroundColor: '#fff',
+          },
+          headerTitleStyle: {
+            color: '#000',
+          },
         }}
       />
       <HomeStack.Screen
         name='JoinUsPage'
         component={JoinUsScreen}
         options={{
-          title: 'Join Us',
+          title: '',
+          headerShadowVisible: false,
+          headerStyle: {
+            backgroundColor: '#fff',
+          },
+          headerTitleStyle: {
+            color: '#000',
+          },
         }}
       />
     </HomeStack.Navigator>

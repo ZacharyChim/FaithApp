@@ -1,9 +1,14 @@
 import React from 'react'
-import { Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  View,
+} from 'react-native'
 
-import EditScreenInfo from '../../components/EditScreenInfo'
 import GreetingText from '../../components/GreetingText'
-import { Text, View } from '../../components/Themed'
 import { HomeStackScreenProps } from '../../types'
 
 import Slider from '../../components/Slider'
@@ -54,6 +59,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#fff',
   },
   image: {
     width: 150,

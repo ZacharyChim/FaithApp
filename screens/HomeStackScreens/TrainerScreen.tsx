@@ -1,8 +1,5 @@
 import React from 'react'
-import { Image, SafeAreaView, StyleSheet } from 'react-native'
-
-import EditScreenInfo from '../../components/EditScreenInfo'
-import { Text, View } from '../../components/Themed'
+import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 
 import { trainers } from '../../data/Trainers'
 import { HomeStackScreenProps } from '../../types'
@@ -30,6 +27,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#fff',
   },
   imageContainer: {
     flex: 1,

@@ -41,19 +41,40 @@ export type HomeStackParamList = {
 export type HomeStackScreenProps<Screen extends keyof HomeStackParamList> =
   NativeStackScreenProps<HomeStackParamList, Screen>
 
+type Product = {
+  categoryId: number
+  id: number
+  name: string
+  imageUri: ImageSourcePropType
+  price: number
+  discountPrice: number
+  description: string
+}
+
 export type ProductStackParamList = {
   ProductsPage: undefined
   CategoryPage: {
-    category: string
+    categoryId: number
   }
   ProductPage: {
-    id: string
+    item: Product
   }
 }
 
 export type ProductStackScreenProps<
   Screen extends keyof ProductStackParamList
 > = NativeStackScreenProps<ProductStackParamList, Screen>
+
+export type CartStackParamList = {
+  CartPage: undefined
+  InfoPage: undefined
+  ConfirmPage: undefined
+  EmptyPage: undefined
+}
+
+export type CartStackScreenProps<
+  Screen extends keyof CartStackParamList
+> = NativeStackScreenProps<CartStackParamList, Screen>
 
 export type RootTabParamList = {
   Home: undefined

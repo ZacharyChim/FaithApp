@@ -6,7 +6,7 @@ import { ProductStackParamList } from '../types'
 
 const ProductStack = createNativeStackNavigator<ProductStackParamList>()
 
-function ProductStackNavigator() {
+function CartStackNavigator() {
   return (
     <ProductStack.Navigator>
       <ProductStack.Screen

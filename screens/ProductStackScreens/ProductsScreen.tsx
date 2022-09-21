@@ -1,30 +1,55 @@
 import React from 'react'
-import { Dimensions, FlatList, Image, StyleSheet } from 'react-native'
-
-import EditScreenInfo from '../../components/EditScreenInfo'
-import { Text, View } from '../../components/Themed'
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 
 import { categories } from '../../data/Categories'
+import { ProductStackScreenProps } from '../../types'
 
 const width = Dimensions.get('window').width
 
-const oneProduct = ({ item }) => (
-  <View style={styles.product}>
-    <Text style={styles.productName}>{item.name}</Text>
-    <Image
-      style={styles.productImage}
-      source={require('../../assets/images/products/product.png')}
-    />
-  </View>
-)
+// const oneProduct = ({ item }) => (
+//   <View style={styles.product}>
+//     <TouchableOpacity onPress={() => navigation.navigate('CategoryPage')}>
+//       <Text style={styles.productName}>{item.name}</Text>
+//       <Image
+//         style={styles.productImage}
+//         source={require('../../assets/images/products/product.png')}
+//       />
+//     </TouchableOpacity>
+//   </View>
+// )
 
-export default function ProductScreen() {
+export default function ProductsScreen({
+  navigation,
+}: ProductStackScreenProps<'ProductsPage'>) {
   return (
     <View style={styles.container}>
       <FlatList
         showsVerticalScrollIndicator={false}
         data={categories}
-        renderItem={oneProduct}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.product}
+            onPress={() =>
+              navigation.navigate('CategoryPage', {
+                categoryId: item.id,
+              })
+            }
+          >
+            <Text style={styles.productName}>{item.name}</Text>
+            <Image
+              style={styles.productImage}
+              source={require('../../assets/images/products/product.png')}
+            />
+          </TouchableOpacity>
+        )}
       />
     </View>
   )
@@ -35,9 +60,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#fff',
   },
   product: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: width - 40,
@@ -47,6 +72,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 0.5,
     borderColor: '#BDBDBD',
+    backgroundColor: 'white',
   },
   productName: {
     alignSelf: 'center',

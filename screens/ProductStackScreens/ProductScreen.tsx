@@ -1,68 +1,223 @@
 import React from 'react'
-import { Dimensions, FlatList, Image, StyleSheet } from 'react-native'
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 
-import { Text, View } from '../../components/Themed'
+import { ProductStackScreenProps } from '../../types'
+import { useForm, Controller } from 'react-hook-form'
+import RNPickerSelect from 'react-native-picker-select'
+import { Button } from '../../components/Button'
 
-import { products } from '../../data/Categories'
+export default function ProductScreen({
+  navigation,
+  route,
+}: ProductStackScreenProps<'ProductPage'>) {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    defaultValues: {
+      color: '',
+      size: '',
+      quantity: '',
+    },
+  })
 
-const width = Dimensions.get('window').width
+  const onSubmit = (data) => {
+    console.log(data)
+    
+    reset()
+  }
 
-const oneProduct = ({ item }) => (
-  <View style={styles.product}>
-    <Text style={styles.productName}>{item.name}</Text>
-    <Image
-      style={styles.productImage}
-      source={require('../../assets/images/products/product.png')}
-    />
-  </View>
-)
-
-export default function ProductScreen() {
+  const colorOptions = [
+    { value: 'blue', label: 'Blue' },
+    { value: 'red', label: 'Red' },
+  ]
+  const sizeOptions = [
+    { value: 'small', label: 'Small' },
+    { value: 'medium', label: 'Medium' },
+    { value: 'large', label: 'Large' },
+  ]
+  const quantityOptions = [
+    { value: 1, label: '1' },
+    { value: 2, label: '2' },
+    { value: 3, label: '3' },
+  ]
   return (
     <View style={styles.container}>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={products}
-        renderItem={oneProduct}
-      />
+      <View style={styles.imageContainer}>
+        <Image style={styles.image} source={route.params.item.imageUri} />
+      </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.name}>{route.params.item.name}</Text>
+        <Text style={styles.desc}>{route.params.item.description}</Text>
+        <Text style={styles.price}>
+          {'$' + route.params.item.discountPrice + '.00'}
+        </Text>
+        <View style={styles.twoColumn}>
+          <View style={styles.item}>
+            <Text>Color</Text>
+            <Controller
+              name='color'
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field: { onChange, value, ref } }) => (
+                <RNPickerSelect
+                  placeholder={{
+                    label: 'Select Color',
+                  }}
+                  items={colorOptions}
+                  value={value}
+                  onValueChange={onChange}
+                  style={pickerSelectStyles}
+                />
+              )}
+            />
+            {errors.color && <Text>This is required.</Text>}
+          </View>
+          <View style={styles.item}>
+            <Text>Size</Text>
+            <Controller
+              name='size'
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field: { onChange, value, ref } }) => (
+                <RNPickerSelect
+                  placeholder={{
+                    label: 'Select Size',
+                  }}
+                  items={sizeOptions}
+                  value={value}
+                  onValueChange={onChange}
+                  style={pickerSelectStyles}
+                />
+              )}
+            />
+            {errors.size && <Text>This is required.</Text>}
+          </View>
+        </View>
+        <View style={styles.oneColumn}>
+          <Text>Quantity</Text>
+          <Controller
+            name='quantity'
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, value, ref } }) => (
+              <RNPickerSelect
+                placeholder={{
+                  label: 'Select Quantity',
+                }}
+                items={quantityOptions}
+                value={value}
+                onValueChange={onChange}
+                style={pickerSelectStyles}
+              />
+            )}
+          />
+          {errors.quantity && <Text>This is required.</Text>}
+        </View>
+      </View>
+      <Button title='Add to Cart' onPress={handleSubmit(onSubmit)} />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 5,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#fff',
   },
-  product: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: width - 40,
-    marginTop: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-    borderWidth: 0.5,
-    borderColor: '#BDBDBD',
+  imageContainer: {
+    flex: 2,
+    marginBottom: 20,
   },
-  productName: {
-    alignSelf: 'center',
-    fontWeight: 'bold',
-    fontSize: 16,
+  textContainer: {
+    flex: 3,
   },
-  productImage: {
-    width: 50,
-    height: 50,
+  image: {
+    // flex: 1,
+    // width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
+    // marginVertical: 20,
   },
-  title: {
+  name: {
+    position: 'relative',
     fontSize: 20,
     fontWeight: 'bold',
+    marginHorizontal: 20,
+    marginBottom: 10,
+    alignSelf: 'flex-start',
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  desc: {
+    fontSize: 16,
+    lineHeight: 30,
+    marginHorizontal: 20,
+  },
+  price: {
+    fontSize: 25,
+    marginHorizontal: 20,
+    marginVertical: 20,
+    alignSelf: 'flex-start',
+  },
+  twoColumn: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    marginHorizontal: 20,
+    padding: 10,
+  },
+  item: {
+    width: '50%',
+    paddingRight: 10,
+  },
+  oneColumn: {
+    flex: 1,
+    marginHorizontal: 30,
+    // width: '100%',
+  },
+  fullWidth: {
+    width: '100%',
+  },
+})
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    // fontSize: 16,
+    width: '100%',
+    marginVertical: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 10,
+    color: 'black',
+    paddingRight: 10, // to ensure the text is never behind the icon
+  },
+  inputAndroid: {
+    // fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 0.5,
+    borderColor: 'purple',
+    borderRadius: 10,
+    color: 'black',
+    paddingRight: 10, // to ensure the text is never behind the icon
   },
 })
