@@ -2,9 +2,11 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 
 import { Text, View } from '../../components/Themed'
-import { RootTabScreenProps } from '../../types'
+import { CartStackScreenProps } from '../../types'
 
-export default function CartScreen({ navigation }: RootTabScreenProps<'Cart'>) {
+export default function CartScreen({
+  navigation,
+}: CartStackScreenProps<'CartPage'>) {
   return (
     <View style={styles.container}>
       <View style={styles.stepContainer}>

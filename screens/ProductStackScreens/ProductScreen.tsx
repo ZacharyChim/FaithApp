@@ -1,12 +1,5 @@
-import React from 'react'
-import {
-  Dimensions,
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
+import React, { useState } from 'react'
+import { Image, StyleSheet, Text, View } from 'react-native'
 
 import { ProductStackScreenProps } from '../../types'
 import { useForm, Controller } from 'react-hook-form'
@@ -32,24 +25,36 @@ export default function ProductScreen({
 
   const onSubmit = (data) => {
     console.log(data)
-    
     reset()
+    
   }
 
-  const colorOptions = [
-    { value: 'blue', label: 'Blue' },
-    { value: 'red', label: 'Red' },
-  ]
-  const sizeOptions = [
-    { value: 'small', label: 'Small' },
-    { value: 'medium', label: 'Medium' },
-    { value: 'large', label: 'Large' },
-  ]
-  const quantityOptions = [
-    { value: 1, label: '1' },
-    { value: 2, label: '2' },
-    { value: 3, label: '3' },
-  ]
+  let colorOptions: { value: string; label: string }[] = []
+  for (let i = 0; i < route.params.item.color.length; i++) {
+    colorOptions.push({
+      value: route.params.item.color[i],
+      label: route.params.item.color[i],
+    })
+  }
+
+  let sizeOptions: { value: string; label: string }[] = []
+  for (let i = 0; i < route.params.item.size.length; i++) {
+    sizeOptions.push({
+      value: route.params.item.size[i],
+      label: route.params.item.size[i],
+    })
+  }
+
+  let quantityOptions: { value: number; label: string }[] = []
+  for (let i = 1; i < route.params.item.stock + 1; i++) {
+    quantityOptions.push({
+      value: i,
+      label: i.toString(),
+    })
+  }
+
+  const [productsInCart, setProductsInCart] = useState([])
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>

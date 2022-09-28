@@ -10,6 +10,9 @@ export const products = [
     discountPrice: 89,
     description:
       'Lorem ipson Lorem ipson Lorem ipson Lorem ipson Lorem ipson Lorem ipson',
+    color: ['blue', 'red', 'white'],
+    size: ['small', 'medium', 'large'],
+    stock: 5,
   },
   {
     categoryId: 1,
@@ -20,6 +23,9 @@ export const products = [
     discountPrice: 89,
     description:
       'Lorem ipsonLorem ipson Lorem ipson Lorem ipsonLorem ipson Lorem ipson Lorem ipsonLorem ipson Lorem ipson Lorem ipson',
+    color: ['blue', 'red', 'white'],
+    size: ['small', 'medium', 'large'],
+    stock: 5,
   },
   {
     categoryId: 1,
@@ -29,6 +35,9 @@ export const products = [
     price: 99,
     discountPrice: 99,
     description: 'Lorem ipsonLorem ipson Lorem ipson Lorem ipson',
+    color: ['blue', 'red', 'white'],
+    size: ['small', 'medium', 'large'],
+    stock: 5,
   },
   {
     categoryId: 1,
@@ -39,6 +48,9 @@ export const products = [
     discountPrice: 99,
     description:
       'Lorem ipsonLorem ipson Lorem ipson Lorem ipsonLorem ipson Lorem ipson Lorem ipson',
+    color: ['blue', 'red', 'white'],
+    size: ['small', 'medium', 'large'],
+    stock: 5,
   },
   {
     categoryId: 2,
@@ -48,6 +60,9 @@ export const products = [
     price: 99,
     discountPrice: 89,
     description: 'Lorem ipson',
+    color: ['blue', 'red', 'white'],
+    size: ['small', 'medium', 'large'],
+    stock: 5,
   },
   {
     categoryId: 2,
@@ -57,6 +72,9 @@ export const products = [
     price: 99,
     discountPrice: 89,
     description: 'Lorem ipson',
+    color: ['blue', 'red', 'white'],
+    size: ['small', 'medium', 'large'],
+    stock: 5,
   },
   {
     categoryId: 2,
@@ -66,6 +84,9 @@ export const products = [
     price: 99,
     discountPrice: 89,
     description: 'Lorem ipson',
+    color: ['blue', 'red', 'white'],
+    size: ['small', 'medium', 'large'],
+    stock: 5,
   },
   {
     categoryId: 3,
@@ -75,6 +96,9 @@ export const products = [
     price: 99,
     discountPrice: 89,
     description: 'Lorem ipson',
+    color: ['blue', 'red', 'white'],
+    size: ['small', 'medium', 'large'],
+    stock: 5,
   },
   {
     categoryId: 3,
@@ -84,5 +108,8 @@ export const products = [
     price: 99,
     discountPrice: 89,
     description: 'Lorem ipson',
+    color: ['blue', 'red', 'white'],
+    size: ['small', 'medium', 'large'],
+    stock: 5,
   },
 ]

@@ -49,6 +49,9 @@ type Product = {
   price: number
   discountPrice: number
   description: string
+  color: Array<string>
+  size: Array<string>
+  stock: number
 }
 
 export type ProductStackParamList = {
@@ -72,9 +75,8 @@ export type CartStackParamList = {
   EmptyPage: undefined
 }
 
-export type CartStackScreenProps<
-  Screen extends keyof CartStackParamList
-> = NativeStackScreenProps<CartStackParamList, Screen>
+export type CartStackScreenProps<Screen extends keyof CartStackParamList> =
+  NativeStackScreenProps<CartStackParamList, Screen>
 
 export type RootTabParamList = {
   Home: undefined
