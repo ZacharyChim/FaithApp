@@ -4,7 +4,7 @@ export const products = [
   {
     categoryId: 1,
     id: 1,
-    name: 'Glove 1Glove 1Glove 1',
+    name: 'New Glove 1 Glove 1 Glove 1',
     imageUri: glove1,
     price: 99,
     discountPrice: 89,
@@ -17,7 +17,7 @@ export const products = [
   {
     categoryId: 1,
     id: 2,
-    name: 'Glove 2Glove 2Glove 2',
+    name: 'Glove 2 Glove 2 Glove 2',
     imageUri: glove1,
     price: 99,
     discountPrice: 89,

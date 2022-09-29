@@ -41,7 +41,7 @@ export type HomeStackParamList = {
 export type HomeStackScreenProps<Screen extends keyof HomeStackParamList> =
   NativeStackScreenProps<HomeStackParamList, Screen>
 
-type Product = {
+export type Product = {
   categoryId: number
   id: number
   name: string
@@ -52,6 +52,23 @@ type Product = {
   color: Array<string>
   size: Array<string>
   stock: number
+}
+
+export type CartProduct = {
+  categoryId: number
+  id: number
+  name: string
+  imageUri: ImageSourcePropType
+  price: number
+  discountPrice: number
+  description: string
+  color: string
+  size: string
+  quantity: number
+}
+
+export type CartProductList = {
+  products: Array<CartProduct>
 }
 
 export type ProductStackParamList = {

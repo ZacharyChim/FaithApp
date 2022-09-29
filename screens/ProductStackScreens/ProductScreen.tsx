@@ -6,6 +6,10 @@ import { useForm, Controller } from 'react-hook-form'
 import RNPickerSelect from 'react-native-picker-select'
 import { Button } from '../../components/Button'
 
+// redux
+import { useDispatch } from 'react-redux'
+import { addProduct } from '../../redux/features/cart'
+
 export default function ProductScreen({
   navigation,
   route,
@@ -23,10 +27,24 @@ export default function ProductScreen({
     },
   })
 
+  const dispatch = useDispatch()
+
   const onSubmit = (data) => {
     console.log(data)
+    const product = {
+      categoryId: route.params.item.categoryId,
+      id: route.params.item.id,
+      name: route.params.item.name,
+      imageUri: route.params.item.imageUri,
+      price: route.params.item.price,
+      discountPrice: route.params.item.discountPrice,
+      description: route.params.item.description,
+      color: data.color,
+      size: data.size,
+      quantity: data.quantity,
+    }
+    dispatch(addProduct(product))
     reset()
-    
   }
 
   let colorOptions: { value: string; label: string }[] = []
@@ -52,8 +70,6 @@ export default function ProductScreen({
       label: i.toString(),
     })
   }
-
-  const [productsInCart, setProductsInCart] = useState([])
 
   return (
     <View style={styles.container}>
