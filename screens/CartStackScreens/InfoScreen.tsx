@@ -16,9 +16,9 @@ const width = Dimensions.get('window').width
 import { useSelector } from 'react-redux'
 import { Button } from '../../components/Button'
 
-export default function CartScreen({
+export default function InfoScreen({
   navigation,
-}: CartStackScreenProps<'CartPage'>) {
+}: CartStackScreenProps<'InfoPage'>) {
   const products = useSelector((state) => state.cart.value)
   console.log(products)
   return (
@@ -112,11 +112,6 @@ export default function CartScreen({
           </View>
         </View>
       </ScrollView>
-      <Button
-        style={styles.button}
-        title='Checkout'
-        onPress={() => navigation.navigate('InfoPage')}
-      />
     </View>
   )
 }

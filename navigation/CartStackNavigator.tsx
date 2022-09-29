@@ -1,43 +1,47 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import ProductsScreen from '../screens/ProductStackScreens/ProductsScreen'
-import CategoryScreen from '../screens/ProductStackScreens/CategoryScreen'
-import ProductScreen from '../screens/ProductStackScreens/ProductScreen'
-import { ProductStackParamList } from '../types'
+import CartScreen from '../screens/CartStackScreens/CartScreen'
+import InfoScreen from '../screens/CartStackScreens/InfoScreen'
+// import ProductScreen from '../screens/ProductStackScreens/ProductScreen'
+import { CartStackParamList } from '../types'
 
-const ProductStack = createNativeStackNavigator<ProductStackParamList>()
+const CartStack = createNativeStackNavigator<CartStackParamList>()
 
 function CartStackNavigator() {
   return (
-    <ProductStack.Navigator>
-      <ProductStack.Screen
-        name='ProductsPage'
-        component={ProductsScreen}
+    <CartStack.Navigator>
+      <CartStack.Screen
+        name='CartPage'
+        component={CartScreen}
         options={{
-          title: 'Products',
-          headerShadowVisible: false,
-          headerStyle: {
-            backgroundColor: '#fff',
-          },
-          headerTitleStyle: {
-            color: '#000',
-          },
+          title: 'Cart',
+          headerShown: false,
+
+          // headerShadowVisible: false,
+          // headerStyle: {
+          //   backgroundColor: '#fff',
+          // },
+          // headerTitleStyle: {
+          //   color: '#000',
+          // },
         }}
       />
-      <ProductStack.Screen
-        name='CategoryPage'
-        component={CategoryScreen}
+      <CartStack.Screen
+        name='InfoPage'
+        component={InfoScreen}
         options={{
-          title: 'Category',
-          headerShadowVisible: false,
-          headerStyle: {
-            backgroundColor: '#fff',
-          },
-          headerTitleStyle: {
-            color: '#000',
-          },
+          title: 'Info',
+          headerShown: false,
+
+          // headerShadowVisible: false,
+          // headerStyle: {
+          //   backgroundColor: '#fff',
+          // },
+          // headerTitleStyle: {
+          //   color: '#000',
+          // },
         }}
       />
-      <ProductStack.Screen
+      {/* <CartStack.Screen
         name='ProductPage'
         component={ProductScreen}
         options={{
@@ -50,9 +54,9 @@ function CartStackNavigator() {
             color: '#000',
           },
         }}
-      />
-    </ProductStack.Navigator>
+      /> */}
+    </CartStack.Navigator>
   )
 }
 
-export default ProductStackNavigator
+export default CartStackNavigator

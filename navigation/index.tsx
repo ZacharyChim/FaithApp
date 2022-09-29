@@ -20,7 +20,9 @@ import {
   RootTabParamList,
   RootTabScreenProps,
 } from '../types'
+import CartStackNavigator from './CartStackNavigator'
 import HomeStackNavigator from './HomeStackNavigator'
+
 import LinkingConfiguration from './LinkingConfiguration'
 import ProductStackNavigator from './ProductStackNavigator'
 
@@ -120,7 +122,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name='Cart'
-        component={CartScreen}
+        component={CartStackNavigator}
         options={{
           title: 'Cart',
           tabBarIcon: ({ color }) => (
