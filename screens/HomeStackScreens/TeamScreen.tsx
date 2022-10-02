@@ -43,6 +43,7 @@ export default function TeamScreen({
         )}
       ></FlatList>
       <Button
+        style={{ width: '90%' }}
         title='Become Our Trainer'
         onPress={() => navigation.navigate('JoinUsPage')}
       />

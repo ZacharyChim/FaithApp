@@ -8,10 +8,13 @@ import Navigation from './navigation'
 import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
 import cartReducer from './redux/features/cart'
+import orderReducer from './redux/features/order'
+import order from './redux/features/order'
 
 const store = configureStore({
   reducer: {
     cart: cartReducer,
+    order: orderReducer,
   },
 })
 

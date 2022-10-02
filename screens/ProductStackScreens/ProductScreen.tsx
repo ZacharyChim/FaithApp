@@ -30,7 +30,6 @@ export default function ProductScreen({
   const dispatch = useDispatch()
 
   const onSubmit = (data) => {
-    console.log(data)
     const product = {
       categoryId: route.params.item.categoryId,
       id: route.params.item.id,
@@ -45,6 +44,7 @@ export default function ProductScreen({
     }
     dispatch(addProduct(product))
     reset()
+    navigation.navigate('CartPage')
   }
 
   let colorOptions: { value: string; label: string }[] = []
@@ -151,7 +151,11 @@ export default function ProductScreen({
           {errors.quantity && <Text>This is required.</Text>}
         </View>
       </View>
-      <Button title='Add to Cart' onPress={handleSubmit(onSubmit)} />
+      <Button
+        style={{ width: '95%' }}
+        title='Add to Cart'
+        onPress={handleSubmit(onSubmit)}
+      />
     </View>
   )
 }

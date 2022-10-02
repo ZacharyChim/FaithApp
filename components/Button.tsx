@@ -31,12 +31,13 @@ export const Button = ({ title, onPress, style, disabled }: IButtonProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: width - 40,
+    // width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'stretch',
     margin: 20,
     paddingVertical: 10,
+    paddingHorizontal: 20,
     backgroundColor: 'black',
     borderRadius: 10,
     elevation: 3,

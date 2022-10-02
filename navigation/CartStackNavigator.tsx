@@ -1,6 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import CartScreen from '../screens/CartStackScreens/CartScreen'
 import InfoScreen from '../screens/CartStackScreens/InfoScreen'
+import ConfirmScreen from '../screens/CartStackScreens/ConfirmScreen'
+import EmptyScreen from '../screens/CartStackScreens/EmptyScreen'
 // import ProductScreen from '../screens/ProductStackScreens/ProductScreen'
 import { CartStackParamList } from '../types'
 
@@ -41,20 +43,34 @@ function CartStackNavigator() {
           // },
         }}
       />
-      {/* <CartStack.Screen
-        name='ProductPage'
-        component={ProductScreen}
+      <CartStack.Screen
+        name='ConfirmPage'
+        component={ConfirmScreen}
         options={{
-          title: '',
+          title: 'Confirm',
           headerShadowVisible: false,
-          headerStyle: {
-            backgroundColor: '#fff',
-          },
-          headerTitleStyle: {
-            color: '#000',
-          },
+          // headerStyle: {
+          //   backgroundColor: '#fff',
+          // },
+          // headerTitleStyle: {
+          //   color: '#000',
+          // },
         }}
-      /> */}
+      />
+      <CartStack.Screen
+        name='EmptyPage'
+        component={EmptyScreen}
+        options={{
+          title: 'Empty',
+          headerShadowVisible: false,
+          // headerStyle: {
+          //   backgroundColor: '#fff',
+          // },
+          // headerTitleStyle: {
+          //   color: '#000',
+          // },
+        }}
+      />
     </CartStack.Navigator>
   )
 }

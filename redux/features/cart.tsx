@@ -5,8 +5,6 @@ interface CartSlice {
   value: CartProductList
 }
 
-const defaultImage = require('../../assets/images/products/product.png')
-
 const initialState = {
   value: [] as CartProductList[],
 }
@@ -18,9 +16,14 @@ export const cartSlice = createSlice({
     addProduct: (state, action) => {
       state.value.push(action.payload)
     },
+    delProduct: (state, action) => {
+      state.value = state.value.filter(
+        (product) => product.id !== action.payload.id
+      )
+    },
   },
 })
 
-export const { addProduct } = cartSlice.actions
+export const { addProduct, delProduct } = cartSlice.actions
 
 export default cartSlice.reducer

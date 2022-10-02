@@ -91,9 +91,19 @@ export type CartStackParamList = {
   ConfirmPage: undefined
   EmptyPage: undefined
 }
-
 export type CartStackScreenProps<Screen extends keyof CartStackParamList> =
   NativeStackScreenProps<CartStackParamList, Screen>
+
+export type ProfileStackParamList = {
+  SettingPage: undefined
+  DetailPage: undefined
+  EditPage: undefined
+  ContactPage: undefined
+}
+
+export type ProfileStackScreenProps<Screen extends keyof ProfileStackParamList> =
+  NativeStackScreenProps<ProfileStackParamList, Screen>
+
 
 export type RootTabParamList = {
   Home: undefined

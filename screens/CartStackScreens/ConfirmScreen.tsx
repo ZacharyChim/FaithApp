@@ -8,8 +8,6 @@ import {
   ScrollView,
   TextInput,
   Linking,
-  Touchable,
-  TouchableOpacity,
 } from 'react-native'
 
 import { CartStackScreenProps } from '../../types'
@@ -19,38 +17,42 @@ import RNPickerSelect from 'react-native-picker-select'
 
 import * as DocumentPicker from 'expo-document-picker'
 
-let upload
+import { useDispatch } from 'react-redux'
+import { addAdvice } from '../../redux/features/order'
+
+let doc
 
 const pickDocument = async () => {
-  upload = await DocumentPicker.getDocumentAsync({})
+  let doc = await DocumentPicker.getDocumentAsync({})
   // alert(result.uri);
-  // console.log(upload)
+  // console.log(result)
 }
 
 const EMAIL_REGEX =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 const deliveryOptions = [
-  { value: 'Store pick up', label: 'Store pick up' },
-  { value: 'SF Express', label: 'SF Express' },
+  { value: 'store', label: 'Store Pick up' },
+  { value: 'sfExperss', label: 'SF Express' },
 ]
 const paymentOptions = [
   { value: 'fps', label: 'FPS' },
   { value: 'bank', label: 'Bank' },
 ]
-import { Button } from '../../components/Button'
 
 const width = Dimensions.get('window').width
 
 //Redux
-import { useSelector, useDispatch } from 'react-redux'
-import { addOrder } from '../../redux/features/order'
+import { useSelector } from 'react-redux'
+import { Button } from '../../components/Button'
 
 export default function InfoScreen({
   navigation,
 }: CartStackScreenProps<'InfoPage'>) {
-  const products = useSelector((state) => state.cart.value)
   const orders = useSelector((state) => state.order.value)
+  const order = orders[orders.length - 1]
+  const dispatch = useDispatch()
+
   const {
     control,
     handleSubmit,
@@ -58,48 +60,35 @@ export default function InfoScreen({
     reset,
   } = useForm({
     defaultValues: {
-      name: '',
+      fullName: '',
       age: '',
       delivery: 'store',
       payment: 'fps',
       phone: '',
       email: '',
-      remark: '',
     },
   })
 
-  const dispatch = useDispatch()
-
   const onSubmit = (data) => {
-    const order = {
-      orderId: orders.length + 1,
-      name: data.name,
-      phone: data.phone,
-      email: data.email,
-      delivery: data.delivery,
-      advice: '',
-      remark: data.remark,
-    }
-    dispatch(addOrder(order))
+    dispatch(addAdvice(doc))
+    console.log(doc)
     reset()
-    navigation.navigate('ConfirmPage')
+    navigation.navigate('EmptyPage')
   }
   return (
     <View style={styles.container}>
       <View style={styles.stepContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('CartPage')}>
-          <View style={styles.step}>
-            <View style={styles.circle}>
-              <Text style={styles.circleText}>1</Text>
-            </View>
-            <View>
-              <Text style={styles.topText}>Shopping</Text>
-              <Text style={styles.topText}>Cart</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
         <View style={styles.step}>
-          <View style={styles.active}>
+          <View style={styles.circle}>
+            <Text style={styles.circleText}>1</Text>
+          </View>
+          <View>
+            <Text style={styles.topText}>Shopping</Text>
+            <Text style={styles.topText}>Cart</Text>
+          </View>
+        </View>
+        <View style={styles.step}>
+          <View style={styles.circle}>
             <Text style={styles.circleText}>2</Text>
           </View>
           <View>
@@ -108,7 +97,7 @@ export default function InfoScreen({
           </View>
         </View>
         <View style={styles.step}>
-          <View style={styles.circle}>
+          <View style={styles.active}>
             <Text style={styles.circleText}>3</Text>
           </View>
           <View>
@@ -121,88 +110,42 @@ export default function InfoScreen({
       <ScrollView style={styles.mainContainer}>
         <View style={styles.productBox}>
           <Text style={styles.label}>Full name*</Text>
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                placeholder=''
-              />
-            )}
-            name='name'
+          <TextInput
+            style={styles.input}
+            editable={false}
+            selectTextOnFocus={false}
+            value={order.name}
           />
-          {errors.fullName && <Text>This is required.</Text>}
+
           <Text style={styles.label}>Phone*</Text>
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                placeholder=''
-              />
-            )}
-            name='phone'
+          <TextInput
+            style={styles.input}
+            editable={false}
+            selectTextOnFocus={false}
+            value={order.phone}
           />
-          {errors.phone && <Text>This is required.</Text>}
+
           <Text style={styles.label}>Email*</Text>
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-              pattern: {
-                value: EMAIL_REGEX,
-                message: 'Not a valid email',
-              },
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                placeholder=''
-              />
-            )}
-            name='email'
+          <TextInput
+            style={styles.input}
+            editable={false}
+            selectTextOnFocus={false}
+            value={order.email}
           />
-          {errors.email && <Text>Email is invalid.</Text>}
+
           <Text style={styles.label}>Delivery Method*</Text>
-          <Controller
-            name='delivery'
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, value, ref } }) => (
-              <RNPickerSelect
-                placeholder={{
-                  label: 'Choose Delivery Method',
-                }}
-                items={deliveryOptions}
-                value={value}
-                onValueChange={onChange}
-                style={pickerSelectStyles}
-              />
-            )}
+          <TextInput
+            style={styles.input}
+            editable={false}
+            selectTextOnFocus={false}
+            value={order.delivery}
           />
           <Text style={styles.moreText}>
             If choosing SF Express, delivery fee to be collected on Receiver
             Paid.
           </Text>
-          {errors.delivery && <Text>This is required.</Text>}
 
+          <Text style={styles.label}>Payment Method:</Text>
           {/* <Controller
             name='payment'
             control={control}
@@ -222,26 +165,71 @@ export default function InfoScreen({
             )}
           /> */}
 
+          <View style={styles.paymentGroup}>
+            <Text style={styles.paymentText}>FPS:</Text>
+            <Text style={styles.paymentText}>Bank: HSBC</Text>
+            <Text style={styles.paymentText}>FPS Identifier: 33333333</Text>
+            <Text style={styles.paymentText}>Payment send to: Faith Cxxxx</Text>
+            <Image
+              style={styles.payment}
+              source={require('../../assets/images/fps.png')}
+            />
+          </View>
+
+          <View style={styles.paymentGroup}>
+            <Text style={styles.paymentText}>Payme:</Text>
+            <Text style={styles.paymentText}>Paycode to Payme</Text>
+            <Text
+              style={{ color: 'blue' }}
+              onPress={() => Linking.openURL('http://payme.hsbc/faith')}
+            >
+              http://payme.hsbc/faith
+            </Text>
+            <Image
+              style={styles.payment}
+              source={require('../../assets/images/payme.png')}
+            />
+          </View>
+
+          <View style={styles.paymentGroup}>
+            <Text style={styles.paymentText}>Bank: HSBC</Text>
+            <Text style={styles.paymentText}>
+              Account number：033 333333 333
+            </Text>
+            <Text style={styles.paymentText}>Account name：Faith Cxxxxxxx</Text>
+          </View>
+
           {/* {errors.payment && <Text>This is required.</Text>} */}
+          <Text style={styles.moreText}>
+            Please settle the payment by ATM/FPS/PAYME in 24 hours, and upload
+            the payment of Deposit Advice to confirm your payment.
+          </Text>
+          <Text style={styles.moreText}>
+            Please make sure the payment of Deposit Advice clearly shows the
+            deposit date, time, account number and name, otherwise order may be
+            treated as invalid.
+          </Text>
+          <Text style={styles.label}>Payment of Deposit Advice * </Text>
+          <Button title='Upload' onPress={pickDocument} />
 
           <Text style={styles.label}>Remark</Text>
-          <Controller
-            control={control}
-            rules={{
-              required: false,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
+          <View style={styles.textAreaContainer}>
+            {order.remark === '' ? (
               <TextInput
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                placeholder=''
+                style={styles.textArea}
+                value='N/A'
+                editable={false}
+                selectTextOnFocus={false}
+              />
+            ) : (
+              <TextInput
+                style={styles.textArea}
+                value={order.remark}
+                editable={false}
+                selectTextOnFocus={false}
               />
             )}
-            name='remark'
-          />
-
+          </View>
           <Button title='Submit' onPress={handleSubmit(onSubmit)} />
         </View>
       </ScrollView>
@@ -256,13 +244,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   stepContainer: {
-    flex: 2 / 10,
+    flex: 3 / 10,
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
     // backgroundColor: '#ccc',
-    marginTop: 40,
   },
   mainContainer: {
     flex: 5 / 10,
@@ -373,15 +360,15 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   input: {
-    borderColor: 'gray',
+    backgroundColor: '#BDBDBD',
     width: '90%',
-    borderWidth: 1,
     borderRadius: 10,
     padding: 10,
     margin: 10,
   },
   paymentGroup: {
     marginHorizontal: 10,
+    marginTop: 20,
   },
   payment: { width: 100, height: 120 },
   paymentText: { marginBottom: 5 },
@@ -395,9 +382,8 @@ const styles = StyleSheet.create({
   textArea: {
     // height: 150,
     justifyContent: 'flex-start',
-    // backgroundColor: '#ccc',
-    padding: 8,
-    fontSize: 16,
+    backgroundColor: '#ccc',
+    padding: 5,
   },
 })
 

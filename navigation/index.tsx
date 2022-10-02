@@ -21,7 +21,10 @@ import {
   RootTabScreenProps,
 } from '../types'
 import CartStackNavigator from './CartStackNavigator'
+
 import HomeStackNavigator from './HomeStackNavigator'
+
+import ProfileStackNavigator from './ProfileStackNavigator'
 
 import LinkingConfiguration from './LinkingConfiguration'
 import ProductStackNavigator from './ProductStackNavigator'
@@ -125,6 +128,7 @@ function BottomTabNavigator() {
         component={CartStackNavigator}
         options={{
           title: 'Cart',
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <TabBarIcon name='shopping-cart' color={color} />
           ),
@@ -132,9 +136,10 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name='Profile'
-        component={ProfileScreen}
+        component={ProfileStackNavigator}
         options={{
           title: 'Profile',
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <TabBarIcon name='user-circle-o' color={color} />
           ),
