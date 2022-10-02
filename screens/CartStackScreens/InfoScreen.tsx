@@ -45,12 +45,15 @@ const width = Dimensions.get('window').width
 //Redux
 import { useSelector, useDispatch } from 'react-redux'
 import { addOrder } from '../../redux/features/order'
+import { number } from 'prop-types'
+import { register } from '../../redux/features/user'
 
 export default function InfoScreen({
   navigation,
 }: CartStackScreenProps<'InfoPage'>) {
   const products = useSelector((state) => state.cart.value)
   const orders = useSelector((state) => state.order.value)
+  const users = useSelector((state) => state.user.value)
   const {
     control,
     handleSubmit,
@@ -80,7 +83,16 @@ export default function InfoScreen({
       advice: '',
       remark: data.remark,
     }
+    const user = {
+      userId: users.length + 1,
+      name: data.name,
+      phone: data.phone,
+      email: data.email,
+      password: '',
+      isLogin: true,
+    }
     dispatch(addOrder(order))
+    dispatch(register(user))
     reset()
     navigation.navigate('ConfirmPage')
   }

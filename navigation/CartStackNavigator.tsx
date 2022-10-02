@@ -63,6 +63,7 @@ function CartStackNavigator() {
         options={{
           title: 'Empty',
           headerShadowVisible: false,
+          headerShown: false,
           // headerStyle: {
           //   backgroundColor: '#fff',
           // },

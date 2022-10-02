@@ -44,7 +44,7 @@ export default function ProductScreen({
     }
     dispatch(addProduct(product))
     reset()
-    navigation.navigate('CartPage')
+    // navigation.navigate('CartPage')
   }
 
   let colorOptions: { value: string; label: string }[] = []

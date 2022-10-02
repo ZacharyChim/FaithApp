@@ -59,19 +59,12 @@ export default function InfoScreen({
     formState: { errors },
     reset,
   } = useForm({
-    defaultValues: {
-      fullName: '',
-      age: '',
-      delivery: 'store',
-      payment: 'fps',
-      phone: '',
-      email: '',
-    },
+    defaultValues: {},
   })
 
   const onSubmit = (data) => {
     dispatch(addAdvice(doc))
-    console.log(doc)
+    // console.log(doc)
     reset()
     navigation.navigate('EmptyPage')
   }

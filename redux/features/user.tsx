@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface userObject {
+  userId: number
   name: string
   phone: number
   email: string
   password: string
+  isLogin: boolean
 }
 
 interface UserSlice {
@@ -23,12 +25,19 @@ export const userSlice = createSlice({
       state.value.push(action.payload)
     },
 
-    // logout: (state, action) => {
-    //   state.value = initialState
-    // },
+    logout: (state, action) => {
+      const index = state.value.findIndex(
+        (user) => user.userId === action.payload
+      )
+      let old = state.value[index]
+      old.isLogin = false
+      let oldUsers = state.value
+      oldUsers[index] = old
+      state.value = oldUsers
+    },
   },
 })
 
-export const { register } = userSlice.actions
+export const { register, logout } = userSlice.actions
 
 export default userSlice.reducer
