@@ -152,7 +152,7 @@ export default function ProductScreen({
         </View>
       </View>
       <Button
-        style={{ width: '95%' }}
+        style={{ width: '85%' }}
         title='Add to Cart'
         onPress={handleSubmit(onSubmit)}
       />

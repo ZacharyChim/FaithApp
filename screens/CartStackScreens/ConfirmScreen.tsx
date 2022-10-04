@@ -203,7 +203,7 @@ export default function InfoScreen({
             treated as invalid.
           </Text>
           <Text style={styles.label}>Payment of Deposit Advice * </Text>
-          <Button title='Upload' onPress={pickDocument} />
+          <Button title='Upload' style={styles.button} onPress={pickDocument} />
 
           <Text style={styles.label}>Remark</Text>
           <View style={styles.textAreaContainer}>
@@ -223,7 +223,11 @@ export default function InfoScreen({
               />
             )}
           </View>
-          <Button title='Submit' onPress={handleSubmit(onSubmit)} />
+          <Button
+            title='Submit'
+            style={styles.button}
+            onPress={handleSubmit(onSubmit)}
+          />
         </View>
       </ScrollView>
     </View>
@@ -248,7 +252,7 @@ const styles = StyleSheet.create({
     flex: 5 / 10,
     // marginTop: 10,
   },
-  button: { flex: 2 / 10 },
+  button: { flex: 2 / 10, alignSelf: 'center', width: '95%', marginTop: 10 },
   step: {
     flexDirection: 'column',
     // justifyContent: 'center',

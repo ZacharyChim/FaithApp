@@ -35,9 +35,18 @@ export const userSlice = createSlice({
       oldUsers[index] = old
       state.value = oldUsers
     },
+    updateUser: (state, action) => {
+      const index = state.value.findIndex(
+        (user) => user.userId === action.payload.userId
+      )
+
+      let oldUsers = state.value
+      oldUsers[index] = action.payload
+      state.value = oldUsers
+    },
   },
 })
 
-export const { register, logout } = userSlice.actions
+export const { register, logout, updateUser } = userSlice.actions
 
 export default userSlice.reducer

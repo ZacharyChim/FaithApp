@@ -29,10 +29,10 @@ function ProfileStackNavigator() {
         name='DetailPage'
         component={DetailScreen}
         options={{
-          title: 'Detail',
+          title: 'Profile',
           headerShadowVisible: false,
           headerStyle: {
-            backgroundColor: '#fff',
+            backgroundColor: '#f2f2f2',
           },
           headerTitleStyle: {
             color: '#000',
@@ -43,7 +43,7 @@ function ProfileStackNavigator() {
         name='EditPage'
         component={EditScreen}
         options={{
-          title: '',
+          title: 'Profile',
           headerShadowVisible: false,
           headerStyle: {
             backgroundColor: '#fff',

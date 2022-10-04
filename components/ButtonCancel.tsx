@@ -17,7 +17,12 @@ interface IButtonProps {
 
 const width = Dimensions.get('window').width
 
-export const Button = ({ title, onPress, style, disabled }: IButtonProps) => {
+export const ButtonCancel = ({
+  title,
+  onPress,
+  style,
+  disabled,
+}: IButtonProps) => {
   return (
     <View style={[style, disabled ? { opacity: 0.4 } : {}]}>
       <TouchableWithoutFeedback onPress={onPress} disabled={disabled}>
@@ -36,12 +41,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'stretch',
     // marginHorizontal: 20,
-    marginBottom: 10,
+    marginVertical: 10,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    backgroundColor: 'black',
+    backgroundColor: '#E5E5E5',
     borderRadius: 10,
     elevation: 3,
+    borderWidth: 1,
+    borderColor: '#B00020',
   },
-  text: { color: 'white', fontSize: 20 },
+  text: { color: '#000', fontSize: 20 },
 })

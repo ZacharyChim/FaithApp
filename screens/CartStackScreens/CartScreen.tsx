@@ -100,11 +100,13 @@ export default function CartScreen({
           </View>
         </ScrollView>
 
-        <Button
-          style={styles.button}
-          title='Checkout'
-          onPress={() => navigation.navigate('InfoPage')}
-        />
+        <View style={styles.bottom}>
+          <Button
+            style={styles.button}
+            title='Checkout'
+            onPress={() => navigation.navigate('InfoPage')}
+          />
+        </View>
       </View>
     )
   } else {
@@ -246,6 +248,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   button: {
+    width: '90%',
+  },
+  top: {
     width: '100%',
+    // alignItems: 'stretch',
+    // marginTop: 100,
+    marginHorizontal: 20,
+  },
+  bottom: {
+    width: '100%',
+    marginTop: 10,
+    marginLeft: 40,
+    // alignItems: 'stretch',
   },
 })
