@@ -94,6 +94,14 @@ export type CartStackParamList = {
 export type CartStackScreenProps<Screen extends keyof CartStackParamList> =
   NativeStackScreenProps<CartStackParamList, Screen>
 
+export type BookingStackParamList = {
+  CalendarPage: undefined
+  BookingPage: undefined
+}
+export type BookingStackScreenProps<
+  Screen extends keyof BookingStackParamList
+> = NativeStackScreenProps<BookingStackParamList, Screen>
+
 export type ProfileStackParamList = {
   SettingPage: undefined
   DetailPage: undefined
@@ -101,9 +109,9 @@ export type ProfileStackParamList = {
   ContactPage: undefined
 }
 
-export type ProfileStackScreenProps<Screen extends keyof ProfileStackParamList> =
-  NativeStackScreenProps<ProfileStackParamList, Screen>
-
+export type ProfileStackScreenProps<
+  Screen extends keyof ProfileStackParamList
+> = NativeStackScreenProps<ProfileStackParamList, Screen>
 
 export type RootTabParamList = {
   Home: undefined

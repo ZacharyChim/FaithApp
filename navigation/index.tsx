@@ -9,11 +9,8 @@ import { NavigationContainer, DarkTheme } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import * as React from 'react'
 
-import BookingScreen from '../screens/BookingScreen'
-import CartScreen from '../screens/CartStackScreens/CartScreen'
 import ModalScreen from '../screens/ModalScreen'
 import NotFoundScreen from '../screens/NotFoundScreen'
-import ProfileScreen from '../screens/ProfileScreen'
 
 import {
   RootStackParamList,
@@ -25,6 +22,7 @@ import CartStackNavigator from './CartStackNavigator'
 import HomeStackNavigator from './HomeStackNavigator'
 
 import ProfileStackNavigator from './ProfileStackNavigator'
+import BookingStackNavigator from './BookingStackNavigator'
 
 import LinkingConfiguration from './LinkingConfiguration'
 import ProductStackNavigator from './ProductStackNavigator'
@@ -115,7 +113,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name='Booking'
-        component={BookingScreen}
+        component={BookingStackNavigator}
         options={{
           title: 'Booking',
           tabBarIcon: ({ color }) => (

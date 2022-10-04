@@ -57,7 +57,7 @@ function ProfileStackNavigator() {
         name='ContactPage'
         component={ContactScreen}
         options={{
-          title: '',
+          title: 'Contact Us',
           headerShadowVisible: false,
           headerStyle: {
             backgroundColor: '#fff',
