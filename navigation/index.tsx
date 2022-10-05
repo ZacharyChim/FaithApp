@@ -116,6 +116,7 @@ function BottomTabNavigator() {
         component={BookingStackNavigator}
         options={{
           title: 'Booking',
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <TabBarIcon name='hand-rock-o' color={color} />
           ),

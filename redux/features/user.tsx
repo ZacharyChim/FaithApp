@@ -14,7 +14,16 @@ interface UserSlice {
 }
 
 const initialState = {
-  value: [] as userObject[],
+  value: [
+    {
+      userId: 1,
+      name: 'Chan',
+      phone: 60816364,
+      email: 'Chan@gmail.com',
+      password: '',
+      isLogin: true,
+    },
+  ] as userObject[],
 }
 
 export const userSlice = createSlice({
@@ -22,6 +31,14 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     register: (state, action) => {
+      // Logout the old user
+      const index = state.value.findIndex((user) => user.isLogin)
+      let old = state.value[index]
+      old.isLogin = false
+      let oldUsers = state.value
+      oldUsers[index] = old
+      state.value = oldUsers
+
       state.value.push(action.payload)
     },
 

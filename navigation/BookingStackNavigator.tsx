@@ -10,7 +10,7 @@ function BookingStackNavigator() {
   return (
     <BookingStack.Navigator>
       <BookingStack.Screen
-        name='Calendar'
+        name='CalendarPage'
         component={CalendarScreen}
         options={{
           title: 'Calendar',
@@ -25,11 +25,12 @@ function BookingStackNavigator() {
         }}
       />
       <BookingStack.Screen
-        name='My Bookings'
+        name='BookingPage'
         component={BookingScreen}
         options={{
-          title: 'Profile',
+          title: 'My Bookings',
           headerShadowVisible: false,
+          // headerShown: false,
           headerStyle: {
             backgroundColor: '#f2f2f2',
           },

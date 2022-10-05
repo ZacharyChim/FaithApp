@@ -10,12 +10,14 @@ import { Provider } from 'react-redux'
 import cartReducer from './redux/features/cart'
 import orderReducer from './redux/features/order'
 import userReducer from './redux/features/user'
+import classReducer from './redux/features/class'
 
 const store = configureStore({
   reducer: {
     cart: cartReducer,
     order: orderReducer,
     user: userReducer,
+    class: classReducer,
   },
 })
 

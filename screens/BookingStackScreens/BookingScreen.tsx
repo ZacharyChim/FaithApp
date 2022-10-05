@@ -1,22 +1,92 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, View } from 'react-native'
 
-import EditScreenInfo from '../../components/EditScreenInfo'
-import {  } from '../../components/Themed'
-import { RootTabScreenProps } from '../../types'
+import { BookingStackScreenProps } from '../../types'
+import { Card, Avatar, Button } from 'react-native-paper'
+
+import trainer2 from '../../assets/images/trainers/course.png'
+
+const item = {
+  id: 2,
+  title: '17:15泰拳小組訓練',
+  dateTime: '2022-10-05T09:15:00+08:00',
+  duration: '60min',
+  trainer: '阿陳',
+  image: trainer2,
+  isFull: false,
+  users: [1],
+}
+
+const width = Dimensions.get('window').width
 
 export default function BookingScreen({
   navigation,
-}: RootTabScreenProps<'Booking'>) {
+}: BookingStackScreenProps<'BookingPage'>) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Booking</Text>
-      <View
-        style={styles.separator}
-        lightColor='#eee'
-        darkColor='rgba(255,255,255,0.1)'
-      />
-      <EditScreenInfo path='/screens/TabOneScreen.tsx' />
+      <View style={styles.bar}>
+        <Text style={styles.bold}>Wed</Text>
+        <Text>1 Jun 2022</Text>
+      </View>
+      <Card style={{ margin: 20 }}>
+        <Card.Content>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              // width: '80%',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar.Image size={50} source={item.image} />
+            <View>
+              <Text style={styles.title}>{item.title}</Text>
+              <Text style={styles.smallText}>
+                {item.duration} {item.trainer}
+              </Text>
+            </View>
+            <Button
+              style={{ borderRadius: 10 }}
+              textColor='black'
+              buttonColor='#28A745'
+            >
+              Booked
+            </Button>
+          </View>
+        </Card.Content>
+      </Card>
+
+      <View style={styles.bar}>
+        <Text style={styles.bold}>Thu</Text>
+        <Text>2 Jun 2022</Text>
+      </View>
+      <Card style={{ marginTop: 17, marginHorizontal: 20 }}>
+        <Card.Content>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              // width: '80%',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar.Image size={50} source={item.image} />
+            <View>
+              <Text style={styles.title}>{item.title}</Text>
+              <Text style={styles.smallText}>
+                {item.duration} {item.trainer}
+              </Text>
+            </View>
+            <Button
+              style={{ borderRadius: 10 }}
+              textColor='black'
+              buttonColor='#28A745'
+            >
+              Booked
+            </Button>
+          </View>
+        </Card.Content>
+      </Card>
     </View>
   )
 }
@@ -24,16 +94,28 @@ export default function BookingScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    width: width,
+  },
+  bar: {
+    backgroundColor: '#BDBDBD',
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    width: '100%',
+    flexDirection: 'row',
+  },
+  bold: {
+    fontWeight: 'bold',
+    marginRight: 10,
   },
   title: {
-    fontSize: 20,
     fontWeight: 'bold',
+    fontSize: 16,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  smallText: {
+    fontSize: 12,
+    color: '#757575',
+    marginTop: 5,
   },
 })
