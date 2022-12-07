@@ -17,11 +17,48 @@ const linking: LinkingOptions<RootStackParamList> = {
     screens: {
       Root: {
         screens: {
-          Home: 'home',
-          Products: 'products',
-          Booking: 'booking',
-          Cart: 'cart',
-          Profile: 'profile'
+          Home: {
+            path: 'home',
+            screens: {
+              HomePage: '',
+              TeamPage: 'team',
+              TrainerPage: 'trainer',
+              JoinUsPage: 'join_us'
+            }
+          },
+          Products: {
+            path: 'products',
+            screens: {
+              ProductsPage: '',
+              CategoryPage: 'category',
+              ProductPage: 'detail'
+            }
+          },
+          Booking: {
+            path: 'booking',
+            screens: {
+              BookingPage: '',
+              CalendarPage: 'calendar'
+            }
+          },
+          Cart: {
+            path: 'cart',
+            screens: {
+              CartPage: '',
+              InfoPage: 'info',
+              ConfirmPage: 'confirm',
+              EmptyPage: 'empty',
+            }
+          },
+          Profile: {
+            path: 'profile',
+            screens: {
+              SettingPage: 'setting',
+              DetailPage: 'detail',
+              EditPage: 'edit',
+              ContactPage: 'contact'
+            }
+          }
         },
       },
       Modal: 'modal',

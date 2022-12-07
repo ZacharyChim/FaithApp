@@ -101,10 +101,10 @@ export type ProfileStackScreenProps<
 
 export type RootTabParamList = {
   Home: NavigatorScreenParams<HomeStackParamList>
-  Products: undefined
-  Booking: undefined
-  Cart: undefined
-  Profile: undefined
+  Products: NavigatorScreenParams<ProductStackParamList>
+  Booking: NavigatorScreenParams<BookingStackParamList>
+  Cart: NavigatorScreenParams<CartStackParamList>
+  Profile: NavigatorScreenParams<ProfileStackParamList>
 }
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
