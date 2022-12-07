@@ -1,12 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text } from 'react-native'
 
-interface Props {
-  user: string
-}
 
-const GreetingText: React.FC<Props> = ({ user }) => {
-  return <Text style={styles.title}>Good Morning, {user}!</Text>
+const GreetingText: React.FC = ({ }) => {
+  return <Text style={styles.title}>Welcome back!</Text>
 }
 
 export default GreetingText

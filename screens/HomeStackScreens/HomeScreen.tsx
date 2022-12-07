@@ -1,24 +1,21 @@
+import GreetingText from '../../components/GreetingText'
 import React from 'react'
+import Slider from '../../components/Slider'
+import TeamScroll from '../../components/TeamScroll'
+import { HomeStackScreenProps } from '../../types'
+import { images } from '../../data/SliderImages'
 import {
   Image,
-  ScrollView,
   StyleSheet,
-  TouchableOpacity,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native'
 
-import GreetingText from '../../components/GreetingText'
-import { HomeStackScreenProps } from '../../types'
-
-import Slider from '../../components/Slider'
-import { images } from '../../data/SliderImages'
-import TeamScroll from '../../components/TeamScroll'
 
 export default function HomeScreen({
   navigation,
 }: HomeStackScreenProps<'HomePage'>) {
-  let testUser = 'Jane'
 
   return (
     <View style={styles.container}>
@@ -26,30 +23,14 @@ export default function HomeScreen({
         style={styles.image}
         source={require('../../assets/images/faith.png')}
       ></Image>
-      <GreetingText user={testUser} />
+      <GreetingText />
       <Slider images={images} />
-      {/* <View
-        style={styles.separator}
-        lightColor='#eee'
-        darkColor='rgba(255,255,255,0.1)'
-      /> */}
       <View style={styles.TextContainer}>
         <TouchableOpacity onPress={() => navigation.navigate('TeamPage')}>
           <Text style={styles.TextOurTeam}>Our Team</Text>
         </TouchableOpacity>
       </View>
       <TeamScroll navigation={navigation} />
-      {/* <View>
-        <TouchableOpacity onPress={() => navigation.navigate('TeamPage')}>
-          <Text>Team</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('TrainerPage')}>
-          <Text>Trainer</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('JoinUsPage')}>
-          <Text>Join Us</Text>
-        </TouchableOpacity>
-      </View> */}
     </View>
   )
 }
@@ -82,9 +63,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'left',
   },
-  // separator: {
-  //   marginVertical: 30,
-  //   height: 1,
-  //   width: '80%',
-  // },
 })
