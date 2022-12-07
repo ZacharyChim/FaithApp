@@ -1,5 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { CartProductList } from '../../types'
+import { ImageSourcePropType } from 'react-native'
+
+
+export type CartProduct = {
+  categoryId: number
+  id: number
+  name: string
+  imageUri: ImageSourcePropType
+  price: number
+  discountPrice: number
+  description: string
+  color: string
+  size: string
+  quantity: number
+}
+
+export type CartProductList = {
+  products: Array<CartProduct>
+}
 
 interface CartSlice {
   value: CartProductList

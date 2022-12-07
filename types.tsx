@@ -1,15 +1,18 @@
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
+import { ImageSourcePropType } from 'react-native'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import {
+  CompositeScreenProps,
+  NavigatorScreenParams,
+} from '@react-navigation/native'
+
+
 /**
  * Learn more about using TypeScript with React Navigation:
  * https://reactnavigation.org/docs/typescript/
  */
 
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
-import {
-  CompositeScreenProps,
-  NavigatorScreenParams,
-} from '@react-navigation/native'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { ImageSourcePropType } from 'react-native'
+
 
 declare global {
   namespace ReactNavigation {
@@ -18,7 +21,7 @@ declare global {
 }
 
 export type RootStackParamList = {
-  Root: NavigatorScreenParams<RootTabParamList> | undefined
+  Root: NavigatorScreenParams<RootTabParamList>
   Modal: undefined
   NotFound: undefined
 }
@@ -52,23 +55,6 @@ export type Product = {
   color: Array<string>
   size: Array<string>
   stock: number
-}
-
-export type CartProduct = {
-  categoryId: number
-  id: number
-  name: string
-  imageUri: ImageSourcePropType
-  price: number
-  discountPrice: number
-  description: string
-  color: string
-  size: string
-  quantity: number
-}
-
-export type CartProductList = {
-  products: Array<CartProduct>
 }
 
 export type ProductStackParamList = {
@@ -114,7 +100,7 @@ export type ProfileStackScreenProps<
 > = NativeStackScreenProps<ProfileStackParamList, Screen>
 
 export type RootTabParamList = {
-  Home: undefined
+  Home: NavigatorScreenParams<HomeStackParamList>
   Products: undefined
   Booking: undefined
   Cart: undefined
