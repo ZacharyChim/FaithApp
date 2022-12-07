@@ -1,19 +1,24 @@
 import React from 'react'
-import { Dimensions, StyleSheet, Text, TextInput, View } from 'react-native'
-import { ProfileStackScreenProps } from '../../types'
-
 import { Button } from '../../components/Button'
 import { ButtonCancel } from '../../components/ButtonCancel'
+import { ButtonLight } from '../../components/ButtonLight'
+import { Controller, useForm } from 'react-hook-form'
+import {
+    Dimensions,
+    StyleSheet,
+    Text,
+    TextInput,
+    View
+    } from 'react-native'
+import { ProfileStackScreenProps } from '../../types'
+import { updateUser } from '../../redux/slice/user'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { useForm, Controller } from 'react-hook-form'
 
 const EMAIL_REGEX =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-import { useSelector, useDispatch } from 'react-redux'
-import { updateUser } from '../../redux/features/user'
 
-import { ButtonLight } from '../../components/ButtonLight'
 
 const width = Dimensions.get('window').width
 

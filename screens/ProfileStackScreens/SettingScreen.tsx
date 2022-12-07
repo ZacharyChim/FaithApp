@@ -1,4 +1,9 @@
 import React from 'react'
+import { ButtonLight } from '../../components/ButtonLight'
+import { FontAwesome } from '@expo/vector-icons'
+import { logout } from '../../redux/slice/user'
+import { ProfileStackScreenProps } from '../../types'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Dimensions,
   StyleSheet,
@@ -7,12 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import { ProfileStackScreenProps } from '../../types'
-import { FontAwesome } from '@expo/vector-icons'
-import { useSelector, useDispatch } from 'react-redux'
-import { ButtonLight } from '../../components/ButtonLight'
 
-import { logout } from '../../redux/features/user'
 
 const width = Dimensions.get('window').width
 

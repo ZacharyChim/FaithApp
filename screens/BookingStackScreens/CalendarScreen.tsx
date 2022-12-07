@@ -1,18 +1,20 @@
-import { BookingStackScreenProps } from '../../types'
-
+import ButtonToggle from '../../components/ButtonToggle'
 import React, { useState } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
-import { Agenda } from 'react-native-calendars'
-import { Card, Avatar, Button } from 'react-native-paper'
-
-import { Button as myButton } from '../../components/Button'
-
-import { useSelector, useDispatch } from 'react-redux'
-import { addClass, addStudent, removeStudent } from '../../redux/features/class'
-
 import trainer1 from '../../assets/images/trainers/trainer.png'
 import trainer2 from '../../assets/images/trainers/course.png'
-import ButtonToggle from '../../components/ButtonToggle'
+import { addClass, addStudent, removeStudent } from '../../redux/slice/class'
+import { Agenda } from 'react-native-calendars'
+import { Avatar, Button, Card } from 'react-native-paper'
+import { BookingStackScreenProps } from '../../types'
+import { Button as myButton } from '../../components/Button'
+import {
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
+    } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+
 
 export default function CalendarScreen({
   navigation,

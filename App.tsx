@@ -1,25 +1,17 @@
-import { StatusBar } from 'expo-status-bar'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
-
-import useCachedResources from './hooks/useCachedResources'
+import cartReducer from './redux/slice/cart'
+import classReducer from './redux/slice/class'
 import Navigation from './navigation'
-
-// Redux
-import { configureStore } from '@reduxjs/toolkit'
+import orderReducer from './redux/slice/order'
+import useCachedResources from './hooks/useCachedResources'
+import userReducer from './redux/slice/user'
+import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
-import cartReducer from './redux/features/cart'
-import orderReducer from './redux/features/order'
-import userReducer from './redux/features/user'
-import classReducer from './redux/features/class'
+import { reduxStore } from './redux'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { StatusBar } from 'expo-status-bar'
+// Redux
 
-const store = configureStore({
-  reducer: {
-    cart: cartReducer,
-    order: orderReducer,
-    user: userReducer,
-    class: classReducer,
-  },
-})
+const { store, persistor } = reduxStore({ reducers: { cart: cartReducer, order: orderReducer, user: userReducer, class: classReducer } })
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
@@ -28,12 +20,14 @@ export default function App() {
     return null
   } else {
     return (
-      <SafeAreaProvider>
-        <Provider store={store}>
-          <Navigation />
-        </Provider>
-        <StatusBar />
-      </SafeAreaProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <SafeAreaProvider>
+          <Provider store={store}>
+            <Navigation />
+          </Provider>
+          <StatusBar />
+        </SafeAreaProvider>
+      </PersistGate>
     )
   }
 }

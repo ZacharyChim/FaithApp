@@ -1,14 +1,18 @@
 import React, { useState } from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
-
-import { ProductStackScreenProps } from '../../types'
-import { useForm, Controller } from 'react-hook-form'
 import RNPickerSelect from 'react-native-picker-select'
+import { addProduct } from '../../redux/slice/cart'
 import { Button } from '../../components/Button'
+import { Controller, useForm } from 'react-hook-form'
+import {
+    Image,
+    StyleSheet,
+    Text,
+    View
+    } from 'react-native'
+import { ProductStackScreenProps } from '../../types'
+import { useDispatch } from 'react-redux'
 
 // redux
-import { useDispatch } from 'react-redux'
-import { addProduct } from '../../redux/features/cart'
 
 export default function ProductScreen({
   navigation,

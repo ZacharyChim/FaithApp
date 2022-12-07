@@ -1,24 +1,25 @@
+import * as DocumentPicker from 'expo-document-picker'
 import React from 'react'
+import RNPickerSelect from 'react-native-picker-select'
+import { addAdvice } from '../../redux/slice/order'
+import { Button } from '../../components/Button'
+import { CartStackScreenProps } from '../../types'
+import { Controller, useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+
 import {
+  Dimensions,
+  Image,
+  Linking,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  Image,
-  Dimensions,
-  ScrollView,
   TextInput,
-  Linking,
+  View,
 } from 'react-native'
 
-import { CartStackScreenProps } from '../../types'
-
-import { useForm, Controller } from 'react-hook-form'
-import RNPickerSelect from 'react-native-picker-select'
-
-import * as DocumentPicker from 'expo-document-picker'
-
-import { useDispatch } from 'react-redux'
-import { addAdvice } from '../../redux/features/order'
+//Redux
 
 let doc
 
@@ -42,9 +43,6 @@ const paymentOptions = [
 
 const width = Dimensions.get('window').width
 
-//Redux
-import { useSelector } from 'react-redux'
-import { Button } from '../../components/Button'
 
 export default function InfoScreen({
   navigation,
