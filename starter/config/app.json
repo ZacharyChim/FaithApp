@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Faith",
-    "slug": "Faith",
+    "name": "example_dev",
+    "slug": "example_dev",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -39,4 +39,3 @@
     }
   }
 }
-

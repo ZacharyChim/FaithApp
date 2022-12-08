@@ -1,0 +1,29 @@
+{
+  "en": {
+    "permissiontDenied": "Permission Denied",
+    "noPhotoLibrayPermisstionDescription": "Please grant the permission to access your photo library to choose image!",
+    "ok": "OK",
+    "noCameraPermissionDescription": "Please grant the permission to access your camera to take photo!",
+    "takePhoto": "Take Photo",
+    "chooseFromLibrary": "Choose From Photo Library",
+    "cancel": "Cancel"
+  },
+  "zh": {
+    "permissiontDenied": "沒有權限",
+    "noPhotoLibrayPermisstionDescription": "請授予訪問你的照片庫選擇圖片的權限！",
+    "ok": "好的",
+    "noCameraPermissionDescription": "請授予訪問相機拍照的許可！",
+    "takePhoto": "拍照",
+    "chooseFromLibrary": "選擇從圖片庫",
+    "cancel": "取消"
+  },
+  "zh_CN": {
+    "permissiontDenied": "没有权限",
+    "noPhotoLibrayPermisstionDescription": "请授予访问你的照片库选择图片的权限！",
+    "ok": "好的",
+    "noCameraPermissionDescription": "请授予访问相机拍照的许可！",
+    "takePhoto": "拍照",
+    "chooseFromLibrary": "选择从图片库",
+    "cancel": "取消"
+  }
+}
