@@ -6,12 +6,11 @@ import useCachedResources from './hooks/useCachedResources'
 import userReducer from './redux/slice/user'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
-import { reduxStore } from './redux'
+import { redux } from '@starter'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
-// Redux
 
-const { store, persistor } = reduxStore({ reducers: { cart: cartReducer, order: orderReducer, user: userReducer, class: classReducer } })
+const { store, persistor } = redux({ reducers: { cart: cartReducer, order: orderReducer, user: userReducer, class: classReducer } })
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
