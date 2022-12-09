@@ -3,7 +3,7 @@ import { IImage } from './../types'
 type ITrainerStatuses = 'pending' | 'accepted' | 'rejected' | 'on-hold'
 type ISexes = 'M' | 'F' | 'N/A'
 
-export interface ITrainer {
+export interface ITrainerAttributes {
     createdAt: string // "2022-12-08T15:38:01.809Z"
     description: string
     email: string //"peterchan19950202@gmail.com"
@@ -16,4 +16,8 @@ export interface ITrainer {
     status: ITrainerStatuses
     updatedAt: string // "2022-12-08T15:39:26.835Z"
     image: IImage
+}
+
+export interface ITrainer extends ITrainerAttributes {
+    id: number
 }

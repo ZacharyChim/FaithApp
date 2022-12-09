@@ -1,6 +1,6 @@
 import { api } from '@starter'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { ITrainer } from './trainerType'
+import { ITrainer, ITrainerAttributes } from './trainerType'
 import { StoreStatus } from '@starter'
 
 
@@ -11,13 +11,14 @@ export interface ITrainerState {
 
 interface ITrainerResponse {
   data: {
-    attributes: ITrainer
+    attributes: ITrainerAttributes
+    id: number
   }[]
 }
 
 export const getTrainer = createAsyncThunk('trainer/get', async (_, {rejectWithValue}) => {
   const response = await api().get<ITrainerResponse>('/trainers')
-  const trainers = response.data?.data.map(d => d.attributes)
+  const trainers = response.data?.data.map(d => ({...d.attributes, id: d.id}))
   if (trainers) {
     return trainers
   } else {
