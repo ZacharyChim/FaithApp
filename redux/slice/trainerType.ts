@@ -1,7 +1,7 @@
 import { IImage } from './../types'
 
 type ITrainerStatuses = 'pending' | 'accepted' | 'rejected' | 'on-hold'
-type ISexes = 'M' | 'F' | 'N/A'
+export type ISexes = 'M' | 'F' | 'N/A'
 
 export interface ITrainerAttributes {
     createdAt: string // "2022-12-08T15:38:01.809Z"

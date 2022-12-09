@@ -76,6 +76,9 @@ export const FormSelect = ({
           <Text style={[styles.text, { color: textColor }]}>{text || placeHolder || ' '}</Text>
           <Entypo name='chevron-thin-down' size={size[4]} color={iconColor} />
         </View>
+        <Text style={styles.errorText} allowFontScaling={false}>
+          {!!error ? error : ' '}
+        </Text>
       </View>
     </TouchableWithoutFeedback>
   )
