@@ -2,7 +2,8 @@ import React from 'react'
 import { Button } from '../../components/Button'
 import { HomeStackScreenProps } from '../../types'
 import { TrainerCard } from '../../components/TrainerCard'
-import { trainers } from '../../data/Trainers'
+import { trainerSeletor } from '../../redux/slice/trainer'
+import { useSelector } from 'react-redux'
 import {
   FlatList,
   SafeAreaView,
@@ -14,16 +15,18 @@ import {
 export default function TeamScreen({
   navigation,
 }: HomeStackScreenProps<'TeamPage'>) {
+  const {trainers} = useSelector(trainerSeletor)
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
         numColumns={2}
         data={trainers}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => `trainer_${item.id}`}
         renderItem={({ item }) => (
           <TouchableOpacity
             key={item.id}
-            onPress={() => navigation.navigate('TrainerPage', { ...item })}
+            onPress={() => navigation.navigate('TrainerPage', { id: item.id })}
           >
             <TrainerCard
               style={{
@@ -34,7 +37,7 @@ export default function TeamScreen({
                 borderColor: '#ddd',
               }}
               imageStyle={{ height: 130, width: 110 }}
-              imageUri={item.imageUri}
+              imageUri={`http://165.22.255.85:1337${item.image.data.attributes.url}`}
               name={item.name}
             />
           </TouchableOpacity>
