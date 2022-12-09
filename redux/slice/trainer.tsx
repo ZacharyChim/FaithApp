@@ -1,15 +1,33 @@
+import { api } from '@starter'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { ITrainer } from './trainerType'
 import { StoreStatus } from '@starter'
 
 
-export type ITrainerState = {
+export interface ITrainerState {
   status: StoreStatus
+  trainers: ITrainer[]
 }
 
-export const trainerApiRequest = createAsyncThunk('trainer/api/action', async () => {})
+interface ITrainerResponse {
+  data: {
+    attributes: ITrainer
+  }[]
+}
+
+export const getTrainer = createAsyncThunk('trainer/get', async (_, {rejectWithValue}) => {
+  const response = await api().get<ITrainerResponse>('/trainers')
+  const trainers = response.data?.data.map(d => d.attributes)
+  if (trainers) {
+    return trainers
+  } else {
+    return rejectWithValue('')
+  }
+})
 
 const initialState: ITrainerState = {
   status: 'idle',
+  trainers: []
 }
 
 export const trainerSlice = createSlice({
@@ -25,13 +43,14 @@ export const trainerSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(trainerApiRequest.pending, (state, action) => {
+      .addCase(getTrainer.pending, (state, action) => {
         state.status = 'loading'
       })
-      .addCase(trainerApiRequest.fulfilled, (state, action) => {
-        state.status = 'success'
+      .addCase(getTrainer.fulfilled, (state, action) => {
+        state.status = 'idle'
+        state.trainers = action.payload
       })
-      .addCase(trainerApiRequest.rejected, (state, action) => {
+      .addCase(getTrainer.rejected, (state, action) => {
         state.status = 'failed'
       })
   },

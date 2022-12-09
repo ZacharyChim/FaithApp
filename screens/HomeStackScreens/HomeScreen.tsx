@@ -1,9 +1,11 @@
 import GreetingText from '../../components/GreetingText'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Slider from '../../components/Slider'
 import TeamScroll from '../../components/TeamScroll'
+import { getTrainer } from '../../redux/slice/trainer'
 import { HomeStackScreenProps } from '../../types'
 import { images } from '../../data/SliderImages'
+import { useDispatch } from 'react-redux'
 import {
   Image,
   StyleSheet,
@@ -16,6 +18,11 @@ import {
 export default function HomeScreen({
   navigation,
 }: HomeStackScreenProps<'HomePage'>) {
+  const dispatch = useDispatch<any>()
+
+  useEffect(() => {
+    dispatch(getTrainer())
+  }, [])
 
   return (
     <View style={styles.container}>
