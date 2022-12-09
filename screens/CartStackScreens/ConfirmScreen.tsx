@@ -1,7 +1,7 @@
 import * as DocumentPicker from 'expo-document-picker'
 import React from 'react'
 import RNPickerSelect from 'react-native-picker-select'
-import { addAdvice } from '../../redux/slice/order'
+import { addAdvice } from '../../reducers/slice/order'
 import { Button } from '../../components/Button'
 import { CartStackScreenProps } from '../../types'
 import { Controller, useForm } from 'react-hook-form'

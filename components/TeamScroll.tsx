@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { ITrainer } from '../redux/slice/trainerType'
+import { ITrainer } from '../reducers/slice/trainerType'
 import {
   ScrollView,
   StyleSheet,

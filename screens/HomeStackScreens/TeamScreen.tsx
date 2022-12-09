@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from '../../components/Button'
 import { HomeStackScreenProps } from '../../types'
 import { TrainerCard } from '../../components/TrainerCard'
-import { trainerSeletor } from '../../redux/slice/trainer'
+import { trainerSeletor } from '../../reducers/slice/trainer'
 import { useSelector } from 'react-redux'
 import {
   FlatList,

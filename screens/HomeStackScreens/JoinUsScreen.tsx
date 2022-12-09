@@ -2,7 +2,7 @@ import * as DocumentPicker from 'expo-document-picker'
 import React from 'react'
 import { Button, FormSelect, FormText } from '@starter'
 import { Controller, useForm } from 'react-hook-form'
-import { ISexes } from '../../redux/slice/trainerType'
+import { ISexes } from '../../reducers/slice/trainerType'
 import { size } from '../../starter/themes/size'
 import { Spacing } from '../../starter/component/Spacing'
 
@@ -133,6 +133,7 @@ export default function JoinUsScreen() {
       <Button title='Select Document' type='outline' onPress={pickDocument} />
       <Spacing height={size[8]} />
       <Button title='Submit' onPress={handleSubmit(onSubmit)} />
+      <Spacing height={size[8]}/>
     </ScrollView>
   )
 }

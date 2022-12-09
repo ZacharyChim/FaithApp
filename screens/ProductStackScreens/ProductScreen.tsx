@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import RNPickerSelect from 'react-native-picker-select'
-import { addProduct } from '../../redux/slice/cart'
+import { addProduct } from '../../reducers/slice/cart'
 import { Button } from '../../components/Button'
 import { Controller, useForm } from 'react-hook-form'
 import {

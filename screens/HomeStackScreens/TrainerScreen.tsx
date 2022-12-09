@@ -6,7 +6,7 @@ import {
   Text,
   View
   } from 'react-native'
-import { trainerSeletor } from '../../redux/slice/trainer'
+import { trainerSeletor } from '../../reducers/slice/trainer'
 import { useSelector } from 'react-redux'
 
 

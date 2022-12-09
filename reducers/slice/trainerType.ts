@@ -1,4 +1,4 @@
-import { IImage } from './../types'
+import { IImage } from '../types'
 
 type ITrainerStatuses = 'pending' | 'accepted' | 'rejected' | 'on-hold'
 export type ISexes = 'M' | 'F' | 'N/A'

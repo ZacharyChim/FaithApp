@@ -11,7 +11,7 @@ import {
     View
     } from 'react-native'
 import { ProfileStackScreenProps } from '../../types'
-import { updateUser } from '../../redux/slice/user'
+import { updateUser } from '../../reducers/slice/user'
 import { useDispatch, useSelector } from 'react-redux'
 
 

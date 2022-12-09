@@ -1,7 +1,7 @@
 import GreetingText from '../../components/GreetingText'
 import React, { useEffect } from 'react'
 import Slider from '../../components/Slider'
-import { getTrainer, trainerSeletor } from '../../redux/slice/trainer'
+import { getTrainer, trainerSeletor } from '../../reducers/slice/trainer'
 import { HomeStackScreenProps } from '../../types'
 import { images } from '../../data/SliderImages'
 import { TeamScroll } from '../../components/TeamScroll'

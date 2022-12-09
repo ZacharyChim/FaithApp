@@ -1,12 +1,12 @@
 import * as DocumentPicker from 'expo-document-picker'
 import React from 'react'
 import RNPickerSelect from 'react-native-picker-select'
-import { addOrder } from '../../redux/slice/order'
+import { addOrder } from '../../reducers/slice/order'
 import { Button } from '../../components/Button'
 import { CartStackScreenProps } from '../../types'
 import { Controller, useForm } from 'react-hook-form'
 import { number } from 'prop-types'
-import { register } from '../../redux/slice/user'
+import { register } from '../../reducers/slice/user'
 import { useDispatch, useSelector } from 'react-redux'
 
 import {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ButtonLight } from '../../components/ButtonLight'
 import { FontAwesome } from '@expo/vector-icons'
-import { logout } from '../../redux/slice/user'
+import { logout } from '../../reducers/slice/user'
 import { ProfileStackScreenProps } from '../../types'
 import { useDispatch, useSelector } from 'react-redux'
 import {
