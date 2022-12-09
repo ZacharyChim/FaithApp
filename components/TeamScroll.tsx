@@ -1,12 +1,20 @@
-import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
-import { HomeStackScreenProps } from '../types'
-import { View } from './Themed'
-import TrainerCard from './TrainerCard'
-import { trainers } from '../data/Trainers'
+import { FC } from 'react'
+import { ITrainer } from '../redux/slice/trainerType'
+import {
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View
+  } from 'react-native'
+import { TrainerCard } from './TrainerCard'
 
-export default function TeamScroll({
-  navigation,
-}: HomeStackScreenProps<'HomePage'>) {
+
+interface ITeamScroll {
+  onSelected: (id: number) => void
+  trainers: ITrainer[]
+}
+
+export const TeamScroll: FC<ITeamScroll> = ({onSelected, trainers}) => {
   return (
     <View style={styles.TeamList}>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -14,7 +22,7 @@ export default function TeamScroll({
           return (
             <TouchableOpacity
               key={index}
-              onPress={() => navigation.navigate('TrainerPage', { ...item })}
+              onPress={() => onSelected(item.id)}
             >
               <TrainerCard
                 style={{
@@ -25,7 +33,7 @@ export default function TeamScroll({
                   borderColor: '#ddd',
                 }}
                 imageStyle={{ height: 90, width: 80 }}
-                imageUri={item.imageUri}
+                imageUri={`http://165.22.255.85:1337${item.image.data.attributes.url}`}
                 name={item.name}
               ></TrainerCard>
             </TouchableOpacity>

@@ -1,11 +1,11 @@
 import GreetingText from '../../components/GreetingText'
 import React, { useEffect } from 'react'
 import Slider from '../../components/Slider'
-import TeamScroll from '../../components/TeamScroll'
-import { getTrainer } from '../../redux/slice/trainer'
+import { getTrainer, trainerSeletor } from '../../redux/slice/trainer'
 import { HomeStackScreenProps } from '../../types'
 import { images } from '../../data/SliderImages'
-import { useDispatch } from 'react-redux'
+import { TeamScroll } from '../../components/TeamScroll'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Image,
   StyleSheet,
@@ -18,11 +18,16 @@ import {
 export default function HomeScreen({
   navigation,
 }: HomeStackScreenProps<'HomePage'>) {
+  const {trainers} = useSelector(trainerSeletor)
   const dispatch = useDispatch<any>()
 
   useEffect(() => {
     dispatch(getTrainer())
   }, [])
+
+  const navigationToTrainerDetail = (id: number) => {
+    navigation.navigate('TrainerPage', {id})
+  }
 
   return (
     <View style={styles.container}>
@@ -37,7 +42,7 @@ export default function HomeScreen({
           <Text style={styles.TextOurTeam}>Our Team</Text>
         </TouchableOpacity>
       </View>
-      <TeamScroll navigation={navigation} />
+      <TeamScroll trainers={trainers} onSelected={navigationToTrainerDetail} />
     </View>
   )
 }

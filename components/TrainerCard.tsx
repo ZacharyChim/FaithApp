@@ -1,43 +1,56 @@
-import React, { Component } from 'react'
+import React, { FC } from 'react'
+import { View } from './Themed'
 import {
   Image,
-  ImageSourcePropType,
-  SafeAreaView,
+  ImageStyle,
   StyleProp,
   StyleSheet,
   Text,
   ViewStyle,
 } from 'react-native'
-import { View } from './Themed'
 
-interface Props {
+
+interface ITrainerCard {
   style?: StyleProp<ViewStyle>
-  imageStyle?: StyleProp<ViewStyle>
-  imageUri: ImageSourcePropType
+  imageStyle?: StyleProp<ImageStyle>
+  imageUri: string
   name: string
 }
 
-export default class TrainerCard extends React.Component<Props> {
-  render() {
-    return (
-      <View style={[styles.container, this.props.style]}>
-        <View style={styles.imageContainer}>
-          <Image
-            style={[styles.image, this.props.imageStyle]}
-            source={this.props.imageUri}
-          />
-        </View>
-        <View style={styles.textContainer}>
-          <Text>{this.props.name}</Text>
-        </View>
-      </View>
-    )
-  }
+export const TrainerCard: FC<ITrainerCard> = ({style, imageStyle, imageUri, name}) => {
+  return <View style={[styles.container, style]}>
+  <View style={styles.imageContainer}>
+    <Image
+      style={[styles.image, imageStyle]}
+      source={{uri: imageUri}}
+    />
+  </View>
+  <View style={styles.textContainer}>
+    <Text>{name}</Text>
+  </View>
+</View>
 }
+
+// export default class TrainerCard extends React.Component<Props> {
+//   render() {
+//     return (
+//       <View style={[styles.container, this.props.style]}>
+//         <View style={styles.imageContainer}>
+//           <Image
+//             style={[styles.image, this.props.imageStyle]}
+//             source={{uri: this.props.imageUri}}
+//           />
+//         </View>
+//         <View style={styles.textContainer}>
+//           <Text>{this.props.name}</Text>
+//         </View>
+//       </View>
+//     )
+//   }
+// }
 
 const styles = StyleSheet.create({
   container: {
-    // paddingHorizontal: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -1,4 +1,8 @@
 import React from 'react'
+import { Button } from '../../components/Button'
+import { HomeStackScreenProps } from '../../types'
+import { TrainerCard } from '../../components/TrainerCard'
+import { trainers } from '../../data/Trainers'
 import {
   FlatList,
   SafeAreaView,
@@ -6,12 +10,6 @@ import {
   TouchableOpacity,
 } from 'react-native'
 
-import TrainerCard from '../../components/TrainerCard'
-
-import { trainers } from '../../data/Trainers'
-import { HomeStackScreenProps } from '../../types'
-
-import { Button } from '../../components/Button'
 
 export default function TeamScreen({
   navigation,

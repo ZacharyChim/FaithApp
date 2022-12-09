@@ -1,22 +1,30 @@
 import React from 'react'
-import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native'
-
-import { trainers } from '../../data/Trainers'
 import { HomeStackScreenProps } from '../../types'
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View
+  } from 'react-native'
+import { trainerSeletor } from '../../redux/slice/trainer'
+import { useSelector } from 'react-redux'
+
 
 export default function TrainerScreen({
   route,
   navigation,
 }: HomeStackScreenProps<'TrainerPage'>) {
-  const { id, imageUri, name, description } = route.params
+  const { trainers } = useSelector(trainerSeletor)
+  const { id } = route.params
+  const trainer = trainers.find(d => d.id == id)
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image source={imageUri} style={styles.image} />
-        <Text style={styles.title}>{name}</Text>
+        <Image source={{ uri: `http://165.22.255.85:1337${trainer?.image.data.attributes.url}` }} style={styles.image} />
+        <Text style={styles.title}>{trainer?.name}</Text>
       </View>
       <View style={styles.TextContainer}>
-        <Text style={styles.desc}>{description}</Text>
+        <Text style={styles.desc}>{trainer?.description}</Text>
       </View>
     </View>
   )

@@ -33,10 +33,7 @@ export type HomeStackParamList = {
   HomePage: undefined
   TeamPage: undefined
   TrainerPage: {
-    id: string
-    imageUri: ImageSourcePropType
-    name: string
-    description: string
+    id: number
   }
   JoinUsPage: undefined
 }

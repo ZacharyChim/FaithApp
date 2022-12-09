@@ -17,7 +17,7 @@ interface ITrainerResponse {
 }
 
 export const getTrainer = createAsyncThunk('trainer/get', async (_, {rejectWithValue}) => {
-  const response = await api().get<ITrainerResponse>('/trainers')
+  const response = await api().get<ITrainerResponse>('/trainers', {populate: '*'})
   const trainers = response.data?.data.map(d => ({...d.attributes, id: d.id}))
   if (trainers) {
     return trainers
@@ -58,4 +58,4 @@ export const trainerSlice = createSlice({
 })
 
 export const trainerActions = trainerSlice.actions
-export const trainerSeletor = (state: any) => state.trainer
+export const trainerSeletor = (state: any) => state.trainer as ITrainerState
