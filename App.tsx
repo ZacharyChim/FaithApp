@@ -4,11 +4,14 @@ import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
 import { reducers } from './reducers'
-import { redux } from '@starter'
+import { redux, setUpI18n } from '@starter'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 
+
 const { store, persistor } = redux({ reducers: reducers })
+
+setUpI18n({})
 
 export default function App() {
   const isLoadingComplete = useCachedResources()

@@ -1,6 +1,7 @@
+import * as DocumentPicker from 'expo-document-picker'
 import * as ImagePicker from 'expo-image-picker'
 import React from 'react'
-import { Alert, TouchableWithoutFeedback } from 'react-native'
+import { Alert, Platform, TouchableWithoutFeedback } from 'react-native'
 import { getFilename } from '../../helper/utility'
 import { pathOr } from 'ramda'
 import { t } from '../../helper/i18n'
@@ -68,30 +69,35 @@ export const ChooseImageWrapper = ({ onSetImage, children }: IProps) => {
     resultHander(result)
   }
 
-  const onPressUpload = () => {
+  const onPressUpload = async () => {
     if (!onSetImage) {
       return
     }
-    const options = [t('takePhoto'), t('chooseFromLibrary'), t('cancel')]
-    const cancelButtonIndex = 2
-    showActionSheetWithOptions(
-      {
-        options,
-        cancelButtonIndex,
-      },
-      async (index) => {
-        switch (index) {
-          case 0:
-            await takePhoto()
-            break
-          case 1:
-            await pickImage()
-            break
-          default:
-            break
+    if (Platform.OS === 'web') {
+      let result = await DocumentPicker.getDocumentAsync({type: ['png', 'jpeg', 'pdf', 'JPG', 'PNG']}) as any as IImageOutput
+      resultHander(result)
+    } else {
+      const options = [t('takePhoto'), t('chooseFromLibrary'), t('cancel')]
+      const cancelButtonIndex = 2
+      showActionSheetWithOptions(
+        {
+          options,
+          cancelButtonIndex,
+        },
+        async (index) => {
+          switch (index) {
+            case 0:
+              await takePhoto()
+              break
+            case 1:
+              await pickImage()
+              break
+            default:
+              break
+          }
         }
-      }
-    )
+      )
+    }
   }
 
   return <TouchableWithoutFeedback onPress={onPressUpload}>{children}</TouchableWithoutFeedback>

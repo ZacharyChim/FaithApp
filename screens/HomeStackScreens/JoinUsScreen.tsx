@@ -1,6 +1,11 @@
 import * as DocumentPicker from 'expo-document-picker'
 import React from 'react'
-import { Button, FormSelect, FormText } from '@starter'
+import {
+  Button,
+  FormImage,
+  FormSelect,
+  FormText
+  } from '@starter'
 import { Controller, useForm } from 'react-hook-form'
 import { ISexes } from '../../reducers/slice/trainerType'
 import { size } from '../../starter/themes/size'
@@ -127,6 +132,7 @@ export default function JoinUsScreen() {
         name='email'
       />
       <Text>Profile picture*</Text>
+      <FormImage title='Select Document' onPickImage={(result) => {console.log(result)}}/>
       <Button title='Select Document' type='outline' onPress={pickDocument} />
       <Spacing height={size[4]} />
       <Text>Resume*</Text>
