@@ -1,9 +1,9 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import HomeScreen from '../screens/HomeStackScreens/HomeScreen'
-import JoinUsScreen from '../screens/HomeStackScreens/JoinUsScreen'
 import TeamScreen from '../screens/HomeStackScreens/TeamScreen'
 import TrainerScreen from '../screens/HomeStackScreens/TrainerScreen'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { HomeStackParamList } from '../types'
+import { JoinUsScreen } from '../screens/HomeStackScreens/JoinUsScreen'
 
 const HomeStack = createNativeStackNavigator<HomeStackParamList>()
 

@@ -6,6 +6,7 @@ import { StoreStatus } from '@starter'
 
 export interface ITrainerState {
   status: StoreStatus
+  registerStatus: StoreStatus
   trainers: ITrainer[]
 }
 
@@ -19,6 +20,11 @@ interface ITrainerResponse {
 export const registerTrainer = createAsyncThunk<{}, ITrainerRequest>('trainer/post', async (payload, { rejectWithValue }) => {
   const response = await api().post('/trainers', { data: payload })
   console.log(response)
+  if (response.status == 200) {
+    return {}
+  } else {
+    return rejectWithValue({})
+  }
 })
 
 export const getTrainer = createAsyncThunk('trainer/get', async (_, { rejectWithValue }) => {
@@ -33,6 +39,7 @@ export const getTrainer = createAsyncThunk('trainer/get', async (_, { rejectWith
 
 const initialState: ITrainerState = {
   status: 'idle',
+  registerStatus: 'idle',
   trainers: []
 }
 
@@ -42,6 +49,7 @@ export const trainerSlice = createSlice({
   reducers: {
     resetStatus: (state) => {
       state.status = 'idle'
+      state.registerStatus = 'idle'
     },
     resetLogin: (state) => {
       state.status = 'idle'
@@ -58,6 +66,15 @@ export const trainerSlice = createSlice({
       })
       .addCase(getTrainer.rejected, (state, action) => {
         state.status = 'failed'
+      })
+      .addCase(registerTrainer.pending, (state, action) => {
+        state.registerStatus = 'loading'
+      })
+      .addCase(registerTrainer.fulfilled, (state, action) => {
+        state.registerStatus = 'success'
+      })
+      .addCase(registerTrainer.rejected, (state, action) => {
+        state.registerStatus = 'failed'
       })
   },
 })
