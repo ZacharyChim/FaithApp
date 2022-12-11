@@ -1,6 +1,6 @@
 import { api } from '@starter'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { ITrainer, ITrainerAttributes } from './trainerType'
+import { ITrainer, ITrainerAttributes, ITrainerRequest } from './trainerType'
 import { StoreStatus } from '@starter'
 
 
@@ -15,6 +15,11 @@ interface ITrainerResponse {
     id: number
   }[]
 }
+
+export const registerTrainer = createAsyncThunk<{}, ITrainerRequest>('trainer/post', async (payload, { rejectWithValue }) => {
+  const response = await api().post('/trainers', { data: payload })
+  console.log(response)
+})
 
 export const getTrainer = createAsyncThunk('trainer/get', async (_, { rejectWithValue }) => {
   const response = await api().get<ITrainerResponse>('/trainers', { populate: '*', 'filters[status][$eq]': 'accepted' })

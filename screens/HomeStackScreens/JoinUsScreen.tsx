@@ -9,9 +9,11 @@ import {
   } from '@starter'
 import { Controller, useForm } from 'react-hook-form'
 import { ISexes } from '../../reducers/slice/trainerType'
+import { registerTrainer } from '@slice/trainer'
 import { size } from '../../starter/themes/size'
 import { Spacing } from '../../starter/component/Spacing'
 import { uploadFile } from '../../helpers/fileHelper'
+import { useDispatch } from 'react-redux'
 
 import {
   ScrollView,
@@ -21,14 +23,15 @@ import {
 
 
 interface IForm {
-  firstName: string,
-  lastName: string,
+  first_name: string,
+  last_name: string,
   age: string,
   sex: ISexes,
   phone: string,
   email: string,
   profile: IImageOutput
   resume: IImageOutput
+  description: string
 }
 
 const options = [
@@ -41,6 +44,7 @@ const EMAIL_REGEX =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 export default function JoinUsScreen() {
+  const dispatch = useDispatch<any>()
   const {
     control,
     handleSubmit,
@@ -48,19 +52,32 @@ export default function JoinUsScreen() {
     reset,
   } = useForm<IForm>({
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      first_name: '',
+      last_name: '',
       age: '',
       sex: 'M',
       phone: '',
       email: '',
       profile: undefined,
-      resume: undefined
+      resume: undefined,
+      description: ''
     },
   })
-  const onSubmit = (data: IForm) => {
-    const profileId = uploadFile(data.profile)
-    const resumeId = uploadFile(data.resume)
+  const onSubmit = async (data: IForm) => {
+    const profileId = await uploadFile(data.profile)
+    const resumeId = await uploadFile(data.resume)
+    dispatch(registerTrainer({
+      first_name: data.first_name,
+      last_name: data.last_name,
+      phone: data.phone,
+      email: data.email,
+      sex: data.sex,
+      description: data.description,
+      image: profileId,
+      resume: resumeId,
+      status: 'pending',
+      name: `${data.last_name} ${data.first_name}`
+    }))
   }
 
   return (
@@ -74,9 +91,9 @@ export default function JoinUsScreen() {
           required: true,
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <FormText title='First name*' onChangeText={onChange} error={errors.firstName && 'This is required.'} />
+          <FormText title='First name*' onChangeText={onChange} error={errors.first_name && 'This is required.'} />
         )}
-        name='firstName'
+        name='first_name'
       />
       <Controller
         control={control}
@@ -84,9 +101,9 @@ export default function JoinUsScreen() {
           required: true,
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <FormText title='Last name*' onChangeText={onChange} error={errors.lastName && 'This is required.'} />
+          <FormText title='Last name*' onChangeText={onChange} error={errors.last_name && 'This is required.'} />
         )}
-        name='lastName'
+        name='last_name'
       />
       <Controller
         control={control}
@@ -105,7 +122,7 @@ export default function JoinUsScreen() {
           required: true,
         }}
         render={({ field: { onChange, value, ref } }) => (
-          <FormSelect title={'sex'} onChangeOption={(o) => onChange(o.value)} options={options} error={errors.sex && 'This is required.'} />
+          <FormSelect title={'sex'} text={value} onChangeOption={(o) => onChange(o.value)} options={options} error={errors.sex && 'This is required.'} />
         )}
       />
       <Controller
@@ -138,6 +155,16 @@ export default function JoinUsScreen() {
       <Controller control={control} rules={{ required: true }} name='resume' render={({ field: { onChange } }) => {
         return <FormImage title='Resume' onPickImage={onChange} />
       }} />
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <FormText title='Description' onChangeText={onChange} error={errors.description && 'This is required.'} multiline={true} />
+        )}
+        name='description'
+      />
       <Button title='Submit' onPress={handleSubmit(onSubmit)} />
       <Spacing height={size[8]} />
     </ScrollView>

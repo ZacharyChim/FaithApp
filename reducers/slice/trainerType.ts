@@ -1,6 +1,6 @@
 import { IImage } from '../types'
 
-type ITrainerStatuses = 'pending' | 'accepted' | 'rejected' | 'on-hold'
+export type ITrainerStatuses = 'pending' | 'accepted' | 'rejected' | 'on-hold'
 export type ISexes = 'M' | 'F' | 'N/A'
 
 export interface ITrainerAttributes {
@@ -20,4 +20,17 @@ export interface ITrainerAttributes {
 
 export interface ITrainer extends ITrainerAttributes {
     id: number
+}
+
+export interface ITrainerRequest {
+    name: string
+    image: number
+    description: string
+    status: ITrainerStatuses
+    first_name: string
+    last_name: string
+    phone: string
+    email: string
+    resume: number
+    sex: ISexes
 }
