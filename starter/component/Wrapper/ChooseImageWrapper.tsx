@@ -73,31 +73,26 @@ export const ChooseImageWrapper = ({ onSetImage, children }: IProps) => {
     if (!onSetImage) {
       return
     }
-    if (Platform.OS === 'web') {
-      let result = await DocumentPicker.getDocumentAsync({type: ['png', 'jpeg', 'pdf', 'JPG', 'PNG']}) as any as IImageOutput
-      resultHander(result)
-    } else {
-      const options = [t('takePhoto'), t('chooseFromLibrary'), t('cancel')]
-      const cancelButtonIndex = 2
-      showActionSheetWithOptions(
-        {
-          options,
-          cancelButtonIndex,
-        },
-        async (index) => {
-          switch (index) {
-            case 0:
-              await takePhoto()
-              break
-            case 1:
-              await pickImage()
-              break
-            default:
-              break
-          }
+    const options = [t('takePhoto'), t('chooseFromLibrary'), t('cancel')]
+    const cancelButtonIndex = 2
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+      },
+      async (index) => {
+        switch (index) {
+          case 0:
+            await takePhoto()
+            break
+          case 1:
+            await pickImage()
+            break
+          default:
+            break
         }
-      )
-    }
+      }
+    )
   }
 
   return <TouchableWithoutFeedback onPress={onPressUpload}>{children}</TouchableWithoutFeedback>

@@ -1,15 +1,17 @@
 import * as DocumentPicker from 'expo-document-picker'
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Button,
   FormImage,
   FormSelect,
-  FormText
+  FormText,
+  IImageOutput
   } from '@starter'
 import { Controller, useForm } from 'react-hook-form'
 import { ISexes } from '../../reducers/slice/trainerType'
 import { size } from '../../starter/themes/size'
 import { Spacing } from '../../starter/component/Spacing'
+import { uploadFile } from '../../helpers/fileHelper'
 
 import {
   ScrollView,
@@ -25,6 +27,8 @@ interface IForm {
   sex: ISexes,
   phone: string,
   email: string,
+  profile: IImageOutput
+  resume: IImageOutput
 }
 
 const options = [
@@ -50,16 +54,13 @@ export default function JoinUsScreen() {
       sex: 'M',
       phone: '',
       email: '',
+      profile: undefined,
+      resume: undefined
     },
   })
   const onSubmit = (data: IForm) => {
-    console.log(data)
-    reset()
-  }
-
-  const pickDocument = async () => {
-    let result = await DocumentPicker.getDocumentAsync({})
-    console.log(result)
+    const profileId = uploadFile(data.profile)
+    const resumeId = uploadFile(data.resume)
   }
 
   return (
@@ -131,15 +132,14 @@ export default function JoinUsScreen() {
         )}
         name='email'
       />
-      <Text>Profile picture*</Text>
-      <FormImage title='Select Document' onPickImage={(result) => {console.log(result)}}/>
-      <Button title='Select Document' type='outline' onPress={pickDocument} />
-      <Spacing height={size[4]} />
-      <Text>Resume*</Text>
-      <Button title='Select Document' type='outline' onPress={pickDocument} />
-      <Spacing height={size[8]} />
+      <Controller control={control} rules={{ required: true }} name='profile' render={({ field: { onChange } }) => {
+        return <FormImage title='Profile picture*' onPickImage={onChange} />
+      }} />
+      <Controller control={control} rules={{ required: true }} name='resume' render={({ field: { onChange } }) => {
+        return <FormImage title='Resume' onPickImage={onChange} />
+      }} />
       <Button title='Submit' onPress={handleSubmit(onSubmit)} />
-      <Spacing height={size[8]}/>
+      <Spacing height={size[8]} />
     </ScrollView>
   )
 }
