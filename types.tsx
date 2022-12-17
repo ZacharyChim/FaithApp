@@ -57,7 +57,7 @@ export type Product = {
 export type ProductStackParamList = {
   ProductsPage: undefined
   CategoryPage: {
-    name: string
+    id: number
   }
   ProductPage: {
     item: Product

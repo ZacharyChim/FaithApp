@@ -35,7 +35,7 @@ export default function ProductsScreen({
             style={styles.product}
             onPress={() =>
               navigation.navigate('CategoryPage', {
-                name: item.name
+                id: item.id
               })
             }
           >

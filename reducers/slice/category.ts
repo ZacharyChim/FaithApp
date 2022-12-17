@@ -11,7 +11,7 @@ export type ICategoryState = {
 
 export const getCategories = createAsyncThunk('category/get', async () => {
     const response = await api().get<IGetCategories>('/product-categories', {populate: '*'})
-    return response.data?.data.map(d => d.attributes) || []
+    return response.data?.data.map(d => ({...d.attributes, id: d.id})) || []
 })
 
 const initialState: ICategoryState = {
