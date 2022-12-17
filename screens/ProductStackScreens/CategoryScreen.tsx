@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { getProducts, productSeletor } from '@slice/product'
+import { ProductStackScreenProps } from '../../types'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Dimensions,
   FlatList,
@@ -9,8 +12,6 @@ import {
   View,
 } from 'react-native'
 
-import { products } from '../../data/Products'
-import { ProductStackScreenProps } from '../../types'
 
 const width = Dimensions.get('window').width
 let isDiscount = false
@@ -18,34 +19,35 @@ export default function CategoryScreen({
   navigation,
   route,
 }: ProductStackScreenProps<'CategoryPage'>) {
-  const productList = products.filter(
-    (item) => item.categoryId == route.params.categoryId
-  )
+  const dispatch = useDispatch<any>()
+  const { products } = useSelector(productSeletor)
+
+  useEffect(() => {
+    dispatch(getProducts({ id: route.params.id }))
+  }, [])
+
+
   return (
     <View style={styles.container}>
       <FlatList
         numColumns={2}
         showsHorizontalScrollIndicator={false}
-        data={productList}
+        data={products}
         // keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity
             key={item.id}
-            onPress={() => navigation.navigate('ProductPage', { item })}
+            onPress={() => navigation.navigate('ProductPage', { id: item.id })}
           >
             <View style={styles.productContainer}>
-              <Image style={styles.image} source={item.imageUri} />
+              <Image style={styles.image} source={{ uri: `http://165.22.255.85:1337${item.images.data[0].attributes.url}` }} />
               <View style={styles.priceContainer}>
-                {item.discountPrice < item.price && (
-                  <Text style={styles.strikethrough}>{item.price}</Text>
-                )}
-                <Text style={styles.price}>{item.discountPrice}</Text>
+                <Text style={styles.price}>{item.price}</Text>
               </View>
               <Text style={styles.desc}>
                 {item.description.length > 30
                   ? item.description.substring(0, 29) + '...'
                   : item.description}
-                {/* Todo: Word break */}
               </Text>
             </View>
           </TouchableOpacity>

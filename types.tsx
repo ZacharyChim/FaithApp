@@ -60,7 +60,7 @@ export type ProductStackParamList = {
     id: number
   }
   ProductPage: {
-    item: Product
+    id: number
   }
 }
 
