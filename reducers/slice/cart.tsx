@@ -1,42 +1,47 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ImageSourcePropType } from 'react-native'
+import { createSlice } from '@reduxjs/toolkit'
+import { IProduct } from './productType'
+import { StoreStatus } from '@starter'
+
+export type ICartState = {
+  status: StoreStatus
+  items: CartItem[]
+}
 
 
-export type CartProduct = {
-  categoryId: number
-  id: number
-  name: string
-  imageUri: ImageSourcePropType
-  price: number
-  discountPrice: number
-  description: string
+export type CartItem = {
+  product: IProduct
   color: string
   size: string
-  quantity: number
+  quantity: string
 }
 
 export type CartProductList = {
-  products: Array<CartProduct>
+  items: CartItem[]
 }
 
-interface CartSlice {
-  value: CartProductList
-}
-
-const initialState = {
-  value: [] as CartProductList[],
+const initialState: ICartState = {
+  status: 'idle',
+  items: []
 }
 
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addProduct: (state, action) => {
-      state.value.push(action.payload)
+    addProduct: (state, action: { payload: CartItem }) => {
+      state.items = [...state.items.map(i => ({
+        product: i.product,
+        color: i.color,
+        size: i.size,
+        quantity: i.quantity
+      })), action.payload]
     },
-    delProduct: (state, action) => {
-      state.value = state.value.filter(
-        (product) => product.id !== action.payload.id
+    delProduct: (state, action: { payload: CartItem }) => {
+      state.items = state.items.filter(
+        (i) => {
+          const { size, quantity, color, product } = action.payload
+          return i.size === size && i.quantity === quantity && i.color === color && i.product.id === product.id
+        }
       )
     },
   },

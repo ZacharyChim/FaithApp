@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import RNPickerSelect from 'react-native-picker-select'
+import React from 'react'
 import { addProduct } from '../../reducers/slice/cart'
 import { Button } from '../../components/Button'
 import { Controller, useForm } from 'react-hook-form'
@@ -48,27 +47,16 @@ export default function ProductScreen({
   const dispatch = useDispatch()
 
   const onSubmit = (data: IForm) => {
-    const product = {
-      categoryId: route.params.item.categoryId,
-      id: route.params.item.id,
-      name: route.params.item.name,
-      imageUri: route.params.item.imageUri,
-      price: route.params.item.price,
-      discountPrice: route.params.item.discountPrice,
-      description: route.params.item.description,
-      color: data.color,
-      size: data.size,
-      quantity: data.quantity,
+    if (!product) {
+      return
     }
-    dispatch(addProduct(product))
+    dispatch(addProduct({...data, product: product}))
     reset()
   }
 
   let colorOptions: { value: string; title: string }[] = product?.availability.map(d => ({ value: d.product_color.data.attributes.name, title: d.product_color.data.attributes.name })) || []
 
   let sizeOptions: { value: string; title: string }[] = product?.availability.map(d => ({ value: d.product_size.data.attributes.name, title: d.product_size.data.attributes.name })) || []
-
-  console.log(product?.images.data[0].attributes.url)
 
   return (
     <View style={styles.container}>
@@ -172,30 +160,5 @@ const styles = StyleSheet.create({
   },
   fullWidth: {
     width: '100%',
-  },
-})
-
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    // fontSize: 16,
-    width: '100%',
-    marginVertical: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 10,
-    color: 'black',
-    paddingRight: 10, // to ensure the text is never behind the icon
-  },
-  inputAndroid: {
-    // fontSize: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderWidth: 0.5,
-    borderColor: 'purple',
-    borderRadius: 10,
-    color: 'black',
-    paddingRight: 10, // to ensure the text is never behind the icon
   },
 })
