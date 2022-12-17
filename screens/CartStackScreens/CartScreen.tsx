@@ -13,8 +13,6 @@ import {
 } from 'react-native'
 
 
-//Redux
-
 const width = Dimensions.get('window').width
 
 

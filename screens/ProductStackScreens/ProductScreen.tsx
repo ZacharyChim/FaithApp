@@ -1,16 +1,17 @@
 import React from 'react'
 import { addProduct } from '../../reducers/slice/cart'
-import { Button } from '../../components/Button'
-import { Controller, useForm } from 'react-hook-form'
-import { FormSelect } from '../../starter/component/Form/FormSelect'
-import { FormText } from '../../starter/component/Form/FormText'
 import {
+  Alert,
   Image,
   ScrollView,
   StyleSheet,
   Text,
   View
   } from 'react-native'
+import { Button } from '../../components/Button'
+import { Controller, useForm } from 'react-hook-form'
+import { FormSelect } from '../../starter/component/Form/FormSelect'
+import { FormText } from '../../starter/component/Form/FormText'
 import { productSeletor } from '@slice/product'
 import { ProductStackScreenProps } from '../../types'
 import { size } from '../../starter/themes/size'
@@ -40,7 +41,7 @@ export default function ProductScreen({
     defaultValues: {
       color: '',
       size: '',
-      quantity: ''
+      quantity: '1'
     },
   })
 
@@ -50,8 +51,12 @@ export default function ProductScreen({
     if (!product) {
       return
     }
-    dispatch(addProduct({...data, product: product}))
-    reset()
+    dispatch(addProduct({ ...data, product: product }))
+    Alert.alert('Item added', undefined, [{
+      text: 'ok', onPress: () => {
+        navigation.popToTop()
+      }
+    }])
   }
 
   let colorOptions: { value: string; title: string }[] = product?.availability.map(d => ({ value: d.product_color.data.attributes.name, title: d.product_color.data.attributes.name })) || []
@@ -64,7 +69,7 @@ export default function ProductScreen({
       <ScrollView style={styles.textContainer}>
         <Text style={styles.name}>{product?.name}</Text>
         <Spacing height={size[4]} />
-        
+
         <Text style={styles.price}>
           {'$' + product?.price}
         </Text>
@@ -96,7 +101,7 @@ export default function ProductScreen({
             required: true,
           }}
           render={({ field: { onChange, value, ref } }) => (
-            <FormText title='Quantity' onChangeText={onChange} error={errors.quantity && 'This is required.'} keyboardType='number-pad'/>
+            <FormText title='Quantity' onChangeText={onChange} error={errors.quantity && 'This is required.'} keyboardType='number-pad' />
           )}
         />
         <Spacing height={size[4]} />
