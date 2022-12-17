@@ -1,27 +1,28 @@
 import React from 'react'
-import uuid from 'react-native-uuid'
+import { Button } from '../../components/Button'
+import { cartSeletor } from '@slice/cart'
+import { CartStackScreenProps } from '../../types'
+import { useSelector } from 'react-redux'
 import {
+  Dimensions,
+  Image,
+  ScrollView,
   StyleSheet,
   Text,
   View,
-  Image,
-  Dimensions,
-  ScrollView,
 } from 'react-native'
 
-import { CartStackScreenProps } from '../../types'
+
+//Redux
 
 const width = Dimensions.get('window').width
 
-//Redux
-import { useSelector } from 'react-redux'
-import { Button } from '../../components/Button'
 
 export default function CartScreen({
   navigation,
 }: CartStackScreenProps<'CartPage'>) {
-  const products = useSelector((state) => state.cart.value)
-  if (products.length > 0) {
+  const { items } = useSelector(cartSeletor)
+  if (items.length > 0) {
     return (
       <View style={styles.container}>
         <View style={styles.stepContainer}>
@@ -53,34 +54,31 @@ export default function CartScreen({
             </View>
           </View>
         </View>
-
         <ScrollView style={styles.mainContainer}>
-          {products.map((product) => {
+          {items.map((i, index) => {
             return (
-              <View key={uuid.v4()} style={styles.productBox}>
+              <View key={`item_${index}`} style={styles.productBox}>
                 <View style={styles.productTop}>
                   <View style={styles.imageBox}>
                     <Image
                       style={styles.productImage}
-                      source={product.imageUri}
+                      source={{ uri: `http://165.22.255.85:1337${i.product.images.data[0].attributes.url}` }}
                     />
                   </View>
                   <View style={styles.descBox}>
-                    <Text style={styles.title}>{product.name}</Text>
-                    <Text style={styles.smallText}>Color: {product.color}</Text>
-                    <Text style={styles.smallText}>Size: {product.size}</Text>
+                    <Text style={styles.title}>{i.product.name}</Text>
+                    <Text style={styles.smallText}>Color: {i.color}</Text>
+                    <Text style={styles.smallText}>Size: {i.size}</Text>
                   </View>
                 </View>
-
                 <View style={styles.priceBox}>
                   <View style={styles.quantity}>
-                    <Text style={styles.priceText}>Qty:</Text>
-                    <Text style={styles.priceText}>{product.quantity}</Text>
+                    <Text style={styles.priceText}>{`Qty:`}</Text>
+                    <Text style={styles.priceText}>{i.quantity}</Text>
                   </View>
                   <View style={styles.price}>
-                    <Text style={styles.priceText}>${product.price}</Text>
                     <Text style={[styles.priceText, styles.textBold]}>
-                      ${product.discountPrice}
+                      ${i.product.price}
                     </Text>
                   </View>
                 </View>
@@ -89,12 +87,12 @@ export default function CartScreen({
           })}
           <View style={styles.totalBox}>
             <Text style={styles.totalText}>
-              Total ({products.length} Items)
+              Total ({items.length} Items)
             </Text>
             <Text style={styles.totalText}>
               $
-              {products.reduce((accumulator, product) => {
-                return accumulator + product.discountPrice * product.quantity
+              {items.reduce((accumulator, product) => {
+                return accumulator + product.product.price * Number(product.quantity)
               }, 0)}
             </Text>
           </View>
