@@ -46,4 +46,4 @@ export const categorySlice = createSlice({
 })
 
 export const categoryActions = categorySlice.actions
-export const categorySeletor = (state: any) => state.category
+export const categorySeletor = (state: {category: ICategoryState}) => state.category

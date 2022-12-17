@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { categorySeletor, getCategories } from '@slice/category'
+import { ProductStackScreenProps } from '../../types'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Dimensions,
   FlatList,
@@ -9,26 +12,19 @@ import {
   View,
 } from 'react-native'
 
-import { categories } from '../../data/Categories'
-import { ProductStackScreenProps } from '../../types'
 
 const width = Dimensions.get('window').width
-
-// const oneProduct = ({ item }) => (
-//   <View style={styles.product}>
-//     <TouchableOpacity onPress={() => navigation.navigate('CategoryPage')}>
-//       <Text style={styles.productName}>{item.name}</Text>
-//       <Image
-//         style={styles.productImage}
-//         source={require('../../assets/images/products/product.png')}
-//       />
-//     </TouchableOpacity>
-//   </View>
-// )
 
 export default function ProductsScreen({
   navigation,
 }: ProductStackScreenProps<'ProductsPage'>) {
+  const {categories} = useSelector(categorySeletor)
+  const dispatch = useDispatch<any>()
+
+  useEffect(() => {
+    dispatch(getCategories())
+  }, [])
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -39,14 +35,14 @@ export default function ProductsScreen({
             style={styles.product}
             onPress={() =>
               navigation.navigate('CategoryPage', {
-                categoryId: item.id,
+                name: item.name
               })
             }
           >
             <Text style={styles.productName}>{item.name}</Text>
             <Image
               style={styles.productImage}
-              source={require('../../assets/images/products/product.png')}
+              source={{uri: `http://165.22.255.85:1337${item.image.data.attributes.url}`}}
             />
           </TouchableOpacity>
         )}
