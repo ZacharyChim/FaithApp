@@ -19,6 +19,7 @@ import {
   View,
 } from 'react-native'
 
+
 //Redux
 
 let doc
@@ -46,7 +47,7 @@ const width = Dimensions.get('window').width
 
 export default function InfoScreen({
   navigation,
-}: CartStackScreenProps<'InfoPage'>) {
+}: CartStackScreenProps<'ConfirmPage'>) {
   const orders = useSelector((state) => state.order.value)
   const order = orders[orders.length - 1]
   const dispatch = useDispatch()

@@ -1,10 +1,9 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import CartScreen from '../screens/CartStackScreens/CartScreen'
-import InfoScreen from '../screens/CartStackScreens/InfoScreen'
 import ConfirmScreen from '../screens/CartStackScreens/ConfirmScreen'
 import EmptyScreen from '../screens/CartStackScreens/EmptyScreen'
-// import ProductScreen from '../screens/ProductStackScreens/ProductScreen'
+import InfoScreen from '../screens/CartStackScreens/InfoScreen'
 import { CartStackParamList } from '../types'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 const CartStack = createNativeStackNavigator<CartStackParamList>()
 
@@ -17,14 +16,6 @@ function CartStackNavigator() {
         options={{
           title: 'Cart',
           headerShown: false,
-
-          // headerShadowVisible: false,
-          // headerStyle: {
-          //   backgroundColor: '#fff',
-          // },
-          // headerTitleStyle: {
-          //   color: '#000',
-          // },
         }}
       />
       <CartStack.Screen
@@ -33,14 +24,6 @@ function CartStackNavigator() {
         options={{
           title: 'Info',
           headerShown: false,
-
-          // headerShadowVisible: false,
-          // headerStyle: {
-          //   backgroundColor: '#fff',
-          // },
-          // headerTitleStyle: {
-          //   color: '#000',
-          // },
         }}
       />
       <CartStack.Screen
@@ -49,12 +32,6 @@ function CartStackNavigator() {
         options={{
           title: 'Confirm',
           headerShadowVisible: false,
-          // headerStyle: {
-          //   backgroundColor: '#fff',
-          // },
-          // headerTitleStyle: {
-          //   color: '#000',
-          // },
         }}
       />
       <CartStack.Screen
@@ -64,12 +41,6 @@ function CartStackNavigator() {
           title: 'Empty',
           headerShadowVisible: false,
           headerShown: false,
-          // headerStyle: {
-          //   backgroundColor: '#fff',
-          // },
-          // headerTitleStyle: {
-          //   color: '#000',
-          // },
         }}
       />
     </CartStack.Navigator>

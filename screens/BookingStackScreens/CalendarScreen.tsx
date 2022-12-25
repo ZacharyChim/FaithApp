@@ -1,4 +1,3 @@
-import * as XDate from 'xdate'
 import ButtonToggle from '../../components/ButtonToggle'
 import React, { useEffect, useState } from 'react'
 import { Agenda } from 'react-native-calendars'
@@ -9,6 +8,9 @@ import { ICourse } from '@slice/courseType'
 import { size } from '../../starter/themes/size'
 import { StyleSheet, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+
+
+const XDate = require('xdate')
 
 
 
@@ -96,23 +98,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
   smallText: {
     fontSize: 12,
     color: '#757575',
     marginTop: 5,
-  },
-  emptyContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  empty: {
-    fontSize: 20,
   },
   button: {
     width: '90%',

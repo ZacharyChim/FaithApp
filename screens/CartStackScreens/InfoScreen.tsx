@@ -21,6 +21,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+
+
 //Redux
 
 
