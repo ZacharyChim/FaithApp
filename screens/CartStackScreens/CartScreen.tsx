@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from '../../components/Button'
 import { cartSeletor } from '@slice/cart'
 import { CartStackScreenProps } from '../../types'
+import { userInfoSeletor } from '@slice/userInfo'
 import { useSelector } from 'react-redux'
 import {
   Dimensions,
@@ -20,6 +21,17 @@ export default function CartScreen({
   navigation,
 }: CartStackScreenProps<'CartPage'>) {
   const { items } = useSelector(cartSeletor)
+  const {user} = useSelector(userInfoSeletor)
+
+  const onPressCheckOut = () => {
+    if (!user) {
+      // @ts-ignore
+      navigation.navigate('Profile')
+    } else {
+      navigation.navigate('InfoPage')
+    }
+  }
+
   if (items.length > 0) {
     return (
       <View style={styles.container}>
@@ -100,7 +112,7 @@ export default function CartScreen({
           <Button
             style={styles.button}
             title='Checkout'
-            onPress={() => navigation.navigate('InfoPage')}
+            onPress={onPressCheckOut}
           />
         </View>
       </View>

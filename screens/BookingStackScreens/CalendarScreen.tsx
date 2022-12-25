@@ -8,6 +8,7 @@ import { ICourse } from '@slice/courseType'
 import { size } from '../../starter/themes/size'
 import { StyleSheet, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import { userInfoSeletor } from '@slice/userInfo'
 
 
 const XDate = require('xdate')
@@ -18,6 +19,7 @@ export default function CalendarScreen({
   navigation,
 }: BookingStackScreenProps<'CalendarPage'>) {
   const { courses } = useSelector(courseSeletor)
+  const { user } = useSelector(userInfoSeletor)
   const [selected, setSelected] = useState<Date>(new Date())
   const dispatch = useDispatch<any>()
 
@@ -30,7 +32,12 @@ export default function CalendarScreen({
   }
 
   const onPressMyBook = () => {
-    navigation.navigate('BookingPage')
+    if (!user) {
+      // @ts-ignore
+      navigation.navigate('Profile')
+    } else {
+      navigation.navigate('BookingPage')
+    }
   }
 
   return (
