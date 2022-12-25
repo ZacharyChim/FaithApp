@@ -1,50 +1,22 @@
-import React, { useState } from 'react'
-import { View, StyleSheet } from 'react-native'
+import React, { FC } from 'react'
 import { Button } from 'react-native-paper'
 
-const toggleText = (text) => {
-  if (text === 'Booked') {
-    return 'Cancel?'
-  } else if (text === 'Book') {
-    return 'Booked'
-  } else if (text === 'Cancel?') {
-    return 'Book'
-  }
+
+interface IButtonToggle {
+  onPress: () => void
+  title: string
+  color: '#FFC107' | '#28A745'
 }
 
-const toggleColor = (text) => {
-  if (text === 'Booked') {
-    return ['#FFC107', 'black']
-  } else if (text === 'Cancel?') {
-    return ['black', 'white']
-  } else {
-    return ['#28A745', 'black']
-  }
-}
-
-const ButtonToggle = (props) => {
-  const [buttonText, setButtonText] = useState(props.buttonText)
-  const [textColor, setTextColor] = useState(props.textColor)
-  const [buttonColor, setButtonColor] = useState(props.buttonColor)
-
-  function doChanges() {
-    setButtonText(toggleText(buttonText))
-    console.log(buttonText)
-    let colors = toggleColor(buttonText)
-    setButtonColor(colors[0])
-    setTextColor(colors[1])
-  }
-
+const ButtonToggle: FC<IButtonToggle> = ({onPress, title, color}) => {
   return (
     <Button
-      textColor={textColor}
-      buttonColor={buttonColor}
+      textColor={'white'}
+      buttonColor={color}
       style={{ borderRadius: 10 }}
-      onPress={() => {
-        doChanges()
-      }}
+      onPress={onPress}
     >
-      {buttonText}
+      {title}
     </Button>
   )
 }
