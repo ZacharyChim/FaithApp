@@ -1,24 +1,21 @@
+import * as XDate from 'xdate'
 import ButtonToggle from '../../components/ButtonToggle'
-import React, { useState } from 'react'
-import trainer1 from '../../assets/images/trainers/trainer.png'
-import trainer2 from '../../assets/images/trainers/course.png'
-import { addClass, addStudent, removeStudent } from '../../reducers/slice/class'
+import React, { useEffect, useState } from 'react'
 import { Agenda } from 'react-native-calendars'
 import { Avatar, Button, Card } from 'react-native-paper'
 import { BookingStackScreenProps } from '../../types'
-import { Button as myButton } from '../../components/Button'
-import {
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
-    } from 'react-native'
+import { courseGet, courseSeletor } from '@slice/course'
+import { StyleSheet, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+
 
 
 export default function CalendarScreen({
   navigation,
 }: BookingStackScreenProps<'CalendarPage'>) {
+  const { courses } = useSelector(courseSeletor)
+  const [selected, setSelected] = useState<Date>(new Date())
+
   const classes = useSelector((state) => state.class.value)
   const users = useSelector((state) => state.user.value)
   let currentUser
@@ -30,14 +27,14 @@ export default function CalendarScreen({
     }
   }
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<any>()
 
-  // items.map((item) => {
-  //   dispatch(addClass(item))
-  // })
-  // function loadItems(day): void {}
+  useEffect(() => {
+    dispatch(courseGet())
+  }, [])
 
   const renderItem = (item) => {
+    console.log(item)
     const showButton = () => {
       if (item.isFull) {
         return (
@@ -67,58 +64,9 @@ export default function CalendarScreen({
             buttonColor='black'
           />
         )
-
-        // if (status === 'Booked') {
-        //   return (
-        //     <Button
-        //       buttonColor='#28A745'
-        //       textColor='black'
-        //       onPress={handlePress}
-        //     >
-        //       {booked}
-        //     </Button>
-        //   )
-        // } else {
-        //   return (
-        //     <Button
-        //       buttonColor='#28A745'
-        //       textColor='black'
-        //       onPress={() => {
-        //         dispatch(
-        //           removeStudent({
-        //             classId: item.id,
-        //             studentId: currentUser.userId,
-        //             date: item.dateTime.split('T', 1)[0],
-        //           })
-        //         )
-        //       }}
-        //     >
-        //       Cancel?
-        //     </Button>
-        //   )
-        //   }
-        // } else {
-        //   return (
-        //     <Button
-        //       buttonColor='black'
-        //       textColor='white'
-        //       onPress={() => {
-        //         dispatch(
-        //           addStudent({
-        //             classId: item.id,
-        //             studentId: currentUser.userId,
-        //             date: item.dateTime.split('T', 1)[0],
-        //           })
-        //         )
-        //       }}
-        //     >
-        //       book
-        //     </Button>
-        //   )
       }
     }
     return (
-      // <TouchableOpacity style={{ marginRight: 10, marginTop: 17 }}>
       <Card style={{ marginRight: 10, marginTop: 17 }}>
         <Card.Content>
           <View
@@ -139,17 +87,45 @@ export default function CalendarScreen({
           </View>
         </Card.Content>
       </Card>
-      // </TouchableOpacity>
     )
   }
+
   if (isLogin) {
     return (
       <View style={{ flex: 1, marginTop: 40 }}>
         <Agenda
-          items={classes}
-          // loadItemsForMonth={loadItems}
-          selected={'2022-10-05'}
-          renderItem={renderItem}
+          selected={new XDate(selected).toString('yyyy-MM-dd')}
+          onDayPress={(d) => {
+            setSelected(new Date(d.dateString))
+          }}
+          renderEmptyData={() => {
+            const date = selected.getDay()
+            const month = selected.getMonth()
+            const items = courses.filter(c => c.available_date.includes(date) && c.available_month.includes(month + 1))
+            return <View>
+              <Text style={styles.title}>{new XDate(selected).toLocaleDateString()}</Text>
+              {items.map(i =>
+                <Card style={{ marginRight: 10, marginTop: 17 }} key={i.id}>
+                  <Card.Content>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-evenly',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Avatar.Image size={50} source={{ uri: `http://165.22.255.85:1337${i.trainer.data.attributes.image.data.attributes.url}` }} />
+                      <View>
+                        <Text style={styles.title}>{i.name}</Text>
+                        <Text style={styles.smallText}>{'60 mins'} {i.trainer.data.attributes.name}
+                        </Text>
+                      </View>
+                      {/* {showButton()} */}
+                    </View>
+                  </Card.Content>
+                </Card>)}
+            </View>
+          }}
         />
         <Button
           style={styles.button}
@@ -187,9 +163,6 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
-  title: {
-    fontWeight: 'bold',
-  },
   smallText: {
     fontSize: 12,
     color: '#757575',
@@ -205,7 +178,6 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '90%',
-    // marginHorizontal: 20,
     margin: 20,
     borderRadius: 10,
   },

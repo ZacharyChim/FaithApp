@@ -8,7 +8,7 @@ export type ICourseState = {
 }
 
 export const courseGet = createAsyncThunk<ICourse[]>('course/api/get', async () => {
-  const response = await api().get<IGetCourse>('/courses', { 'populate[trainer][populate][0]': '*' })
+  const response = await api().get<IGetCourse>('/courses', { 'populate[trainer][populate][0]': 'image' })
   console.log(response)
   return response.data?.data.map((d) => ({ ...d.attributes, id: d.id })) || []
 })
