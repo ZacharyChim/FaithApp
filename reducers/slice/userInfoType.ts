@@ -20,6 +20,19 @@ interface IUserInfoRegisterRequest {
     address: string
 }
 
+interface IUserInfoRegisterResponse {
+    jwt: string
+    user: {
+        address: string
+        blocked: boolean
+        confirmed: boolean
+        email: string
+        id: number
+        phone: string
+        username: string
+    }
+}
+
 interface IUser {
     username: string
     email: string

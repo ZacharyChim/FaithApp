@@ -1,14 +1,21 @@
+import { api, StoreStatus } from '@starter'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { StoreStatus } from '@starter'
-
 
 export type IUserInfoState = {
   status: StoreStatus
   user?: IUser
 }
 
-export const userInfoRegister = createAsyncThunk<{}, IUserInfoRegisterRequest>('userInfo/api/register', async () => {
-
+export const userInfoRegister = createAsyncThunk<IUserInfoRegisterRequest, IUserInfoRegisterRequest>('userInfo/api/register', async (data, {rejectWithValue}) => {
+  const registerResponse = await api().post<IUserInfoRegisterResponse>('/auth/local/register', {...data})
+  console.log(registerResponse)
+  if (registerResponse.status === 200 && registerResponse.data) {
+    const addClient = await api().post('/clients', {data: {users_permissions_user: registerResponse.data.user.id, ...data}})
+    if (addClient.status === 200) {
+      return data
+    }
+  }
+  return rejectWithValue('')
 })
 
 const initialState: IUserInfoState = {
@@ -33,6 +40,7 @@ export const userInfoSlice = createSlice({
       })
       .addCase(userInfoRegister.fulfilled, (state, action) => {
         state.status = 'success'
+        state.user = action.payload
       })
       .addCase(userInfoRegister.rejected, (state, action) => {
         state.status = 'failed'

@@ -1,84 +1,107 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { ProfileStackScreenProps } from '../../types'
-
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { Alert, StyleSheet, View } from 'react-native'
 import { Button } from '../../components/Button'
+import { Controller, useForm } from 'react-hook-form'
+import {
+  FormText,
+  Row,
+  SectionWrapper,
+  size,
+  Spacing
+  } from '@starter'
+import { ProfileStackScreenProps } from '../../types'
+import { useDispatch, useSelector } from 'react-redux'
+import { userInfoActions, userInfoRegister, userInfoSeletor } from '@slice/userInfo'
+
+
+interface IForm extends IUserInfoRegisterRequest {
+}
 
 export default function DetailScreen({
   navigation,
 }: ProfileStackScreenProps<'DetailPage'>) {
-  const users = useSelector((state) => state.user.value)
-  let currentUser = users.find((user) => user.isLogin)
-  return (
-    <View style={styles.container}>
-      <View style={styles.top}>
-        <Text style={styles.label}>Name*</Text>
-        <View style={styles.box}>
-          <Text style={styles.text}>{currentUser.name}</Text>
-        </View>
+  const { user, status } = useSelector(userInfoSeletor)
+  useEffect(() => {
+    if (status === 'failed') {
+      Alert.alert('Register failed', 'Username or email has been used, please change it', [{ text: 'ok' }])
+    } else if (status === 'success') {
+      Alert.alert('Register Success', undefined, [{
+        text: 'ok', onPress: () => {
+          dispatch(userInfoActions.resetStatus())
+          navigation.goBack()
+        }
+      }])
+    }
+  }, [status])
 
-        <Text style={styles.label}>Phone*</Text>
-        <View style={styles.box}>
-          <Text style={styles.text}>{currentUser.phone}</Text>
-        </View>
 
-        <Text style={styles.label}>Email*</Text>
-        <View style={styles.box}>
-          <Text style={styles.text}>{currentUser.email}</Text>
-        </View>
+  const dispatch = useDispatch<any>()
+  const { control, handleSubmit, formState: { errors } } = useForm<IForm>({
+    defaultValues: {
+      username: '',
+      email: '',
+      password: '',
+      phone: '',
+      address: '',
+    }
+  })
 
-        <Text style={styles.label}>Password*</Text>
-        <View style={styles.box}>
-          <Text style={styles.text}>********</Text>
-        </View>
-      </View>
+  const onPressRegister = (data: IForm) => {
+    dispatch(userInfoRegister(data))
+  }
 
-      <View style={styles.bottom}>
+  const onPressEdit = () => {
+    navigation.navigate('EditPage')
+  }
+
+  if (!user) {
+    return <View style={styles.container}>
+      <Controller control={control} name='username' rules={{ required: true }} render={({ field: { value, onChange } }) => {
+        return <FormText title='User Name' onChangeText={onChange} text={value} error={errors.username && 'This is required'} />
+      }} />
+      <Controller control={control} name='email' rules={{ required: true }} render={({ field: { value, onChange } }) => {
+        return <FormText title='E-mail' onChangeText={onChange} text={value} error={errors.username && 'This is required'} />
+      }} />
+      <Controller control={control} name='password' rules={{ required: true }} render={({ field: { value, onChange } }) => {
+        return <FormText title='Password' isPaasword onChangeText={onChange} text={value} error={errors.username && 'This is required'} />
+      }} />
+      <Controller control={control} name='phone' rules={{ required: true }} render={({ field: { value, onChange } }) => {
+        return <FormText title='Phone Number' onChangeText={onChange} text={value} error={errors.username && 'This is required'} />
+      }} />
+      <Controller control={control} name='address' rules={{ required: true }} render={({ field: { value, onChange } }) => {
+        return <FormText title='Address' onChangeText={onChange} text={value} error={errors.username && 'This is required'} />
+      }} />
+      <Button
+        style={styles.button}
+        title='Edit Profile'
+        onPress={handleSubmit(onPressRegister)}
+      />
+    </View>
+  } else {
+    return (
+      <View style={styles.container}>
+        <SectionWrapper>
+          <Row title='Name' description={user.username}></Row>
+          <Row title='Email' description={user.email}></Row>
+          <Row title='Phone' description={user.phone}></Row>
+          <Row title='Address' description={user.address}></Row>
+        </SectionWrapper>
+        <Spacing height={size[4]} />
         <Button
           style={styles.button}
           title='Edit Profile'
-          onPress={() => navigation.navigate('EditPage')}
+          onPress={onPressEdit}
         />
       </View>
-    </View>
-  )
+    )
+  }
+
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 20,
-    marginHorizontal: 20,
-  },
-  label: {
-    fontSize: 20,
-    marginTop: 20,
-  },
-  box: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#BDBDBD',
-    width: '100%',
-    paddingHorizontal: 15,
-    paddingVertical: 12,
-    borderRadius: 5,
-    marginTop: 5,
-    fontSize: 20,
-  },
-  text: {
-    fontSize: 16,
-  },
-  top: {
-    width: '100%',
-    alignItems: 'stretch',
-    // marginTop: 100,
-  },
-  bottom: {
-    width: '100%',
-    alignItems: 'center',
+    padding: size[4]
   },
   button: {
     width: '100%',

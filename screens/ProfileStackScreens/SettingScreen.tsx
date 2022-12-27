@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ButtonLight } from '../../components/ButtonLight'
 import { FontAwesome } from '@expo/vector-icons'
 import { logout } from '../../reducers/slice/user'
 import { ProfileStackScreenProps } from '../../types'
 import { useDispatch, useSelector } from 'react-redux'
+import { userInfoSeletor } from '@slice/userInfo'
 import {
   Dimensions,
   StyleSheet,
@@ -19,6 +20,14 @@ const width = Dimensions.get('window').width
 export default function SettingScreen({
   navigation,
 }: ProfileStackScreenProps<'SettingPage'>) {
+  const { user } = useSelector(userInfoSeletor)
+
+  useEffect(() => {
+    if (!user){
+      navigation.navigate('EditPage')
+    }
+  }, [user])
+
   const users = useSelector((state) => state.user.value)
   const dispatch = useDispatch()
   let isLogin = false
