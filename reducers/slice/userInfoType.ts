@@ -20,6 +20,11 @@ interface IUserInfoRegisterRequest {
     address: string
 }
 
+interface IUserInfoLoginRequest {
+    identifier: string
+    password: string
+}
+
 interface IUserInfoRegisterResponse {
     jwt: string
     user: {
@@ -36,7 +41,6 @@ interface IUserInfoRegisterResponse {
 interface IUser {
     username: string
     email: string
-    password: string
     phone: string
     address: string
 }

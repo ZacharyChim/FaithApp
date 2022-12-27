@@ -2,6 +2,7 @@ import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { ProfileStackScreenProps } from '../../types'
 import { useDispatch } from 'react-redux'
+import { userInfoLogin } from '@slice/userInfo'
 import {
   Button,
   FormText,
@@ -33,7 +34,7 @@ export default function LoginScreen({
   })
 
   const onPressLogin = (data: IForm) => {
-
+    dispatch(userInfoLogin(data))
   }
 
   return (

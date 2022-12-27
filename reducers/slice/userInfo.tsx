@@ -6,12 +6,23 @@ export type IUserInfoState = {
   user?: IUser
 }
 
-export const userInfoRegister = createAsyncThunk<IUserInfoRegisterRequest, IUserInfoRegisterRequest>('userInfo/api/register', async (data, {rejectWithValue}) => {
-  const registerResponse = await api().post<IUserInfoRegisterResponse>('/auth/local/register', {...data})
+export const userInfoRegister = createAsyncThunk<IUser, IUserInfoRegisterRequest>('userInfo/api/register', async (data, { rejectWithValue }) => {
+  const registerResponse = await api().post<IUserInfoRegisterResponse>('/auth/local/register', { ...data })
   if (registerResponse.status === 200 && registerResponse.data) {
-    const addClient = await api().post('/clients', {data: {users_permissions_user: registerResponse.data.user.id, ...data}})
-    if (addClient.status === 200) {
-      return data
+    return { ...registerResponse.data.user }
+  }
+  return rejectWithValue('')
+})
+
+export const userInfoLogin = createAsyncThunk<IUser, IUserInfoLoginRequest>('userInfo/api/login', async (data, { rejectWithValue }) => {
+  const loginResponse = await api().post<IUserInfoRegisterResponse>('/auth/local', { ...data })
+  if (loginResponse.status === 200, loginResponse.data) {
+    const { username, email, phone, address, } = loginResponse.data.user
+    return {
+      username,
+      email,
+      phone,
+      address
     }
   }
   return rejectWithValue('')
@@ -45,8 +56,18 @@ export const userInfoSlice = createSlice({
       .addCase(userInfoRegister.rejected, (state, action) => {
         state.status = 'failed'
       })
+      .addCase(userInfoLogin.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(userInfoLogin.fulfilled, (state, action) => {
+        state.status = 'success'
+        state.user = action.payload
+      })
+      .addCase(userInfoLogin.rejected, (state, action) => {
+        state.status = 'failed'
+      })
   },
 })
 
 export const userInfoActions = userInfoSlice.actions
-export const userInfoSeletor = (state: {userInfo: IUserInfoState}) => state.userInfo
+export const userInfoSeletor = (state: { userInfo: IUserInfoState }) => state.userInfo
