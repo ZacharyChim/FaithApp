@@ -23,7 +23,8 @@ function CartStackNavigator() {
         component={InfoScreen}
         options={{
           title: 'Info',
-          headerShown: false,
+          headerBackTitle: '',
+          headerTintColor: '#000'
         }}
       />
       <CartStack.Screen
@@ -32,6 +33,8 @@ function CartStackNavigator() {
         options={{
           title: 'Confirm',
           headerShadowVisible: false,
+          headerBackTitle: '',
+          headerTintColor: '#000'
         }}
       />
       <CartStack.Screen

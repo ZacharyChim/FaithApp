@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { userInfoActions, userInfoSeletor } from '@slice/userInfo'
 import {
   Dimensions,
+  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -43,6 +44,7 @@ export default function SettingScreen({
   }
 
   return (
+    <SafeAreaView style={{ flex: 1 }}>
     <View style={styles.container}>
       <View style={styles.top}>
         {user && <>
@@ -84,6 +86,7 @@ export default function SettingScreen({
           <Button title='register' onPress={onPressProfile} type='outline' />
         </>}
     </View>
+    </SafeAreaView>
   )
 }
 

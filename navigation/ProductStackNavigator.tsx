@@ -1,7 +1,7 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import ProductsScreen from '../screens/ProductStackScreens/ProductsScreen'
 import CategoryScreen from '../screens/ProductStackScreens/CategoryScreen'
 import ProductScreen from '../screens/ProductStackScreens/ProductScreen'
+import ProductsScreen from '../screens/ProductStackScreens/ProductsScreen'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { ProductStackParamList } from '../types'
 
 const ProductStack = createNativeStackNavigator<ProductStackParamList>()
@@ -35,6 +35,8 @@ function ProductStackNavigator() {
           headerTitleStyle: {
             color: '#000',
           },
+          headerBackTitle: '',
+          headerTintColor: '#000'
         }}
       />
       <ProductStack.Screen
@@ -49,6 +51,8 @@ function ProductStackNavigator() {
           headerTitleStyle: {
             color: '#000',
           },
+          headerBackTitle: '',
+          headerTintColor: '#000'
         }}
       />
     </ProductStack.Navigator>

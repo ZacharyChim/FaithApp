@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Button,
   colors,
   FormImage,
   FormText,
+  IImageOutput,
   SectionWrapper,
   size,
   Spacing,
@@ -26,6 +27,7 @@ import {
 export default function InfoScreen({
   navigation,
 }: CartStackScreenProps<'ConfirmPage'>) {
+  const [image, setImage] = useState<IImageOutput | undefined>(undefined)
   const dispatch = useDispatch()
   const { user } = useSelector(userInfoSeletor)
   const { info, items } = useSelector(cartSeletor)
@@ -34,6 +36,7 @@ export default function InfoScreen({
   }
 
   return (
+    <ScrollView style={styles.mainContainer}>
     <View style={styles.container}>
       {/* step bar */}
       <View style={styles.stepContainer}>
@@ -67,12 +70,12 @@ export default function InfoScreen({
       </View>
 
       {/* Form */}
-      <ScrollView style={styles.mainContainer}>
         <SectionWrapper style={{ margin: size[4], padding: size[4], backgroundColor: colors.white }}>
           <FormText title='Full name*' editable={false} onChangeText={() => { }} text={user?.username} />
           <FormText title='Phone*' editable={false} onChangeText={() => { }} text={user?.phone} />
           <FormText title='Email*' editable={false} onChangeText={() => { }} text={user?.email} />
           <FormText title='Delivery Method*' editable={false} onChangeText={() => { }} text={info?.delivery} />
+          <FormText title='Total Price' editable={false} onChangeText={() => { }} text={`$${items.reduce((accumulator, product) => {return accumulator + product.product.price * Number(product.quantity)}, 0)}`} />
           <Text style={styles.moreText}>
             If choosing SF Express, delivery fee to be collected on Receiver
             Paid.
@@ -126,16 +129,15 @@ export default function InfoScreen({
 
           <Text style={styles.label}>Payment of Deposit Advice * </Text>
           <Spacing height={size[4]} />
-          <FormImage title='Payment Proof' placeHolder='Choose...' onPickImage={(image) => { console.log(image) }} />
+          <FormImage title='Payment Proof' placeHolder='Choose...' onPickImage={setImage} error={!image ? 'This is required.' : undefined} />
           <FormText title='Remark' text={info?.remark || 'N/A'} editable={false} onChangeText={() => { }} multiline={!!info?.remark} />
           <Button
             title='Submit'
             onPress={onSubmit}
           />
-
         </SectionWrapper>
-      </ScrollView>
     </View>
+      </ScrollView>
   )
 }
 

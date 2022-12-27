@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { ProfileStackScreenProps } from '../../types'
-import { useDispatch } from 'react-redux'
-import { userInfoLogin } from '@slice/userInfo'
+import { useDispatch, useSelector } from 'react-redux'
+import { userInfoActions, userInfoLogin, userInfoSeletor } from '@slice/userInfo'
 import {
   Button,
   FormText,
@@ -25,6 +25,7 @@ interface IForm {
 export default function LoginScreen({
   navigation,
 }: ProfileStackScreenProps<'LoginPage'>) {
+  const {user} = useSelector(userInfoSeletor)
   const dispatch = useDispatch<any>()
   const { control, handleSubmit, formState: { errors } } = useForm<IForm>({
     defaultValues: {
@@ -32,6 +33,13 @@ export default function LoginScreen({
       password: '',
     }
   })
+
+  useEffect(() => {
+    if (user) {
+      dispatch(userInfoActions.resetStatus())
+      navigation.goBack()
+    }
+  }, [user])
 
   const onPressLogin = (data: IForm) => {
     dispatch(userInfoLogin(data))

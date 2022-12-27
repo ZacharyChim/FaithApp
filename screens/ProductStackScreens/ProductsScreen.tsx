@@ -6,6 +6,7 @@ import {
   Dimensions,
   FlatList,
   Image,
+  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -18,7 +19,7 @@ const width = Dimensions.get('window').width
 export default function ProductsScreen({
   navigation,
 }: ProductStackScreenProps<'ProductsPage'>) {
-  const {categories} = useSelector(categorySeletor)
+  const { categories } = useSelector(categorySeletor)
   const dispatch = useDispatch<any>()
 
   useEffect(() => {
@@ -26,28 +27,30 @@ export default function ProductsScreen({
   }, [])
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={categories}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.product}
-            onPress={() =>
-              navigation.navigate('CategoryPage', {
-                id: item.id
-              })
-            }
-          >
-            <Text style={styles.productName}>{item.name}</Text>
-            <Image
-              style={styles.productImage}
-              source={{uri: `http://165.22.255.85:1337${item.image.data.attributes.url}`}}
-            />
-          </TouchableOpacity>
-        )}
-      />
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={categories}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.product}
+              onPress={() =>
+                navigation.navigate('CategoryPage', {
+                  id: item.id
+                })
+              }
+            >
+              <Text style={styles.productName}>{item.name}</Text>
+              <Image
+                style={styles.productImage}
+                source={{ uri: `http://165.22.255.85:1337${item.image.data.attributes.url}` }}
+              />
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+    </SafeAreaView>
   )
 }
 

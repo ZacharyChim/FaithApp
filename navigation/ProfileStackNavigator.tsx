@@ -24,6 +24,8 @@ function ProfileStackNavigator() {
           headerTitleStyle: {
             color: '#000',
           },
+          headerBackTitle: '',
+          headerTintColor: '#000'
         }}
       />
       <ProfileStack.Screen
@@ -38,6 +40,8 @@ function ProfileStackNavigator() {
           headerTitleStyle: {
             color: '#000',
           },
+          headerBackTitle: '',
+          headerTintColor: '#000'
         }}
       />
       <ProfileStack.Screen
@@ -66,6 +70,8 @@ function ProfileStackNavigator() {
           headerTitleStyle: {
             color: '#000',
           },
+          headerBackTitle: '',
+          headerTintColor: '#000'
         }}
       />
       <ProfileStack.Screen

@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { userInfoSeletor } from '@slice/userInfo'
 
 import {
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -60,49 +61,50 @@ export default function InfoScreen({
   const dispatch = useDispatch()
 
   const onSubmit = (data: IForm) => {
-    dispatch(addInfo({remark: data.remark, delivery: data.delivery}))
+    dispatch(addInfo({ remark: data.remark, delivery: data.delivery }))
     navigation.navigate('ConfirmPage')
   }
 
   return (
-    <View style={styles.container}>
-      {/* step bar */}
-      <View style={styles.stepContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('CartPage')}>
+    <ScrollView>
+      <View style={styles.container}>
+        {/* step bar */}
+        <View style={styles.stepContainer}>
+          <TouchableOpacity onPress={() => navigation.navigate('CartPage')}>
+            <View style={styles.step}>
+              <View style={styles.circle}>
+                <Text style={styles.circleText}>1</Text>
+              </View>
+              <View>
+                <Text style={styles.topText}>Shopping</Text>
+                <Text style={styles.topText}>Cart</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
           <View style={styles.step}>
-            <View style={styles.circle}>
-              <Text style={styles.circleText}>1</Text>
+            <View style={styles.active}>
+              <Text style={styles.circleText}>2</Text>
             </View>
             <View>
-              <Text style={styles.topText}>Shopping</Text>
-              <Text style={styles.topText}>Cart</Text>
+              <Text style={styles.topText}>Fill</Text>
+              <Text style={styles.topText}>Information</Text>
             </View>
           </View>
-        </TouchableOpacity>
-        <View style={styles.step}>
-          <View style={styles.active}>
-            <Text style={styles.circleText}>2</Text>
-          </View>
-          <View>
-            <Text style={styles.topText}>Fill</Text>
-            <Text style={styles.topText}>Information</Text>
-          </View>
-        </View>
-        <View style={styles.step}>
-          <View style={styles.circle}>
-            <Text style={styles.circleText}>3</Text>
-          </View>
-          <View>
-            <Text style={styles.topText}>Order</Text>
-            <Text style={styles.topText}>Confirmation</Text>
+          <View style={styles.step}>
+            <View style={styles.circle}>
+              <Text style={styles.circleText}>3</Text>
+            </View>
+            <View>
+              <Text style={styles.topText}>Order</Text>
+              <Text style={styles.topText}>Confirmation</Text>
+            </View>
           </View>
         </View>
-      </View>
 
-      {/* Form */}
-      <ScrollView>
-        <Spacing height={size[10]}/>
-        <SectionWrapper style={{backgroundColor: colors.white, padding: size[4], margin: size[4]}}>
+        {/* Form */}
+
+        <Spacing height={size[10]} />
+        <SectionWrapper style={{ backgroundColor: colors.white, padding: size[4], margin: size[4] }}>
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
@@ -147,8 +149,8 @@ export default function InfoScreen({
           />
           <Button title='Submit' onPress={handleSubmit(onSubmit)} />
         </SectionWrapper>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   )
 }
 
