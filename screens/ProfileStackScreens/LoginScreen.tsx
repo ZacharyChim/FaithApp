@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import {
-  Button,
-  colors,
-  size,
-  Spacing
-  } from '@starter'
+    Button,
+    colors,
+    size,
+    Spacing
+    } from '@starter'
 import { FontAwesome } from '@expo/vector-icons'
 import { ProfileStackScreenProps } from '../../types'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,9 +20,9 @@ import {
 
 const width = Dimensions.get('window').width
 
-export default function SettingScreen({
+export default function LoginScreen({
   navigation,
-}: ProfileStackScreenProps<'SettingPage'>) {
+}: ProfileStackScreenProps<'LoginPage'>) {
   const dispatch = useDispatch()
   const { user, status } = useSelector(userInfoSeletor)
 
@@ -39,7 +39,7 @@ export default function SettingScreen({
   }
 
   const onPressLogin = () => {
-    navigation.navigate('LoginPage')
+
   }
 
   return (

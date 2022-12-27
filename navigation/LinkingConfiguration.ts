@@ -56,7 +56,8 @@ const linking: LinkingOptions<RootStackParamList> = {
               SettingPage: 'setting',
               DetailPage: 'detail',
               EditPage: 'edit',
-              ContactPage: 'contact'
+              ContactPage: 'contact',
+              LoginPage: 'login'
             }
           }
         },

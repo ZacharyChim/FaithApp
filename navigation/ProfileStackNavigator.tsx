@@ -1,8 +1,9 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import SettingScreen from '../screens/ProfileStackScreens/SettingScreen'
+import ContactScreen from '../screens/ProfileStackScreens/ContactScreen'
 import DetailScreen from '../screens/ProfileStackScreens/DetailScreen'
 import EditScreen from '../screens/ProfileStackScreens/EditScreen'
-import ContactScreen from '../screens/ProfileStackScreens/ContactScreen'
+import LoginScreen from '@screens/ProfileStackScreens/LoginScreen'
+import SettingScreen from '../screens/ProfileStackScreens/SettingScreen'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { ProfileStackParamList } from '../types'
 
 const ProfileStack = createNativeStackNavigator<ProfileStackParamList>()
@@ -58,6 +59,20 @@ function ProfileStackNavigator() {
         component={ContactScreen}
         options={{
           title: 'Contact Us',
+          headerShadowVisible: false,
+          headerStyle: {
+            backgroundColor: '#fff',
+          },
+          headerTitleStyle: {
+            color: '#000',
+          },
+        }}
+      />
+      <ProfileStack.Screen
+        name='LoginPage'
+        component={LoginScreen}
+        options={{
+          title: 'Login',
           headerShadowVisible: false,
           headerStyle: {
             backgroundColor: '#fff',

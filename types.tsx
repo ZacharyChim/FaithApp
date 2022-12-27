@@ -90,6 +90,7 @@ export type ProfileStackParamList = {
   DetailPage: undefined
   EditPage: undefined
   ContactPage: undefined
+  LoginPage: undefined
 }
 
 export type ProfileStackScreenProps<
