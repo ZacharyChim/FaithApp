@@ -5,6 +5,7 @@ import { CartStackScreenProps } from '../../types'
 import { userInfoSeletor } from '@slice/userInfo'
 import { useSelector } from 'react-redux'
 import {
+  Alert,
   Dimensions,
   Image,
   ScrollView,
@@ -21,12 +22,16 @@ export default function CartScreen({
   navigation,
 }: CartStackScreenProps<'CartPage'>) {
   const { items } = useSelector(cartSeletor)
-  const {user} = useSelector(userInfoSeletor)
+  const { user } = useSelector(userInfoSeletor)
 
   const onPressCheckOut = () => {
     if (!user) {
-      // @ts-ignore
-      navigation.navigate('Profile')
+      Alert.alert('Please login first', undefined, [
+        {
+          text: 'ok',
+          // @ts-ignore
+          onPress: () => navigation.navigate('Profile')
+        }])
     } else {
       navigation.navigate('InfoPage')
     }

@@ -1,12 +1,17 @@
 import ButtonToggle from '../../components/ButtonToggle'
 import React, { useEffect, useState } from 'react'
 import { Agenda } from 'react-native-calendars'
+import {
+  Alert,
+  StyleSheet,
+  Text,
+  View
+  } from 'react-native'
 import { Avatar, Button, Card } from 'react-native-paper'
 import { BookingStackScreenProps } from '../../types'
 import { courseGet, courseSeletor } from '@slice/course'
 import { ICourse } from '@slice/courseType'
 import { size } from '../../starter/themes/size'
-import { StyleSheet, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { userInfoSeletor } from '@slice/userInfo'
 
@@ -33,8 +38,12 @@ export default function CalendarScreen({
 
   const onPressMyBook = () => {
     if (!user) {
-      // @ts-ignore
-      navigation.navigate('Profile')
+      Alert.alert('Please login first', undefined, [
+        {
+          text: 'ok',
+          // @ts-ignore
+          onPress: () => navigation.navigate('Profile')
+        }])
     } else {
       navigation.navigate('BookingPage')
     }
