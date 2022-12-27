@@ -48,9 +48,7 @@ export default function SettingScreen({
     <View style={styles.container}>
       <View style={styles.top}>
         {user && <>
-          <View style={styles.circle}>
-            <FontAwesome size={30} name='plus' />
-          </View>
+          <FontAwesome name="user-circle-o" size={150} color="black" />
           <Text style={styles.name}>{user?.username}</Text>
         </>}
         <View style={styles.box}>
@@ -97,15 +95,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: size[4]
-  },
-  circle: {
-    marginTop: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 150,
-    height: 150,
-    backgroundColor: 'white',
-    borderRadius: 100,
   },
   name: {
     margin: 20,
