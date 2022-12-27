@@ -8,7 +8,6 @@ export type IUserInfoState = {
 
 export const userInfoRegister = createAsyncThunk<IUserInfoRegisterRequest, IUserInfoRegisterRequest>('userInfo/api/register', async (data, {rejectWithValue}) => {
   const registerResponse = await api().post<IUserInfoRegisterResponse>('/auth/local/register', {...data})
-  console.log(registerResponse)
   if (registerResponse.status === 200 && registerResponse.data) {
     const addClient = await api().post('/clients', {data: {users_permissions_user: registerResponse.data.user.id, ...data}})
     if (addClient.status === 200) {
@@ -29,8 +28,9 @@ export const userInfoSlice = createSlice({
     resetStatus: (state) => {
       state.status = 'idle'
     },
-    resetLogin: (state) => {
+    logout: (state) => {
       state.status = 'idle'
+      state.user = undefined
     },
   },
   extraReducers: (builder) => {

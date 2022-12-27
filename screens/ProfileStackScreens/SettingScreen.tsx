@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react'
-import { ButtonLight } from '../../components/ButtonLight'
+import {
+  Button,
+  colors,
+  size,
+  Spacing
+  } from '@starter'
 import { FontAwesome } from '@expo/vector-icons'
-import { logout } from '../../reducers/slice/user'
 import { ProfileStackScreenProps } from '../../types'
 import { useDispatch, useSelector } from 'react-redux'
-import { userInfoSeletor } from '@slice/userInfo'
+import { userInfoActions, userInfoSeletor } from '@slice/userInfo'
 import {
   Dimensions,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native'
@@ -20,89 +23,80 @@ const width = Dimensions.get('window').width
 export default function SettingScreen({
   navigation,
 }: ProfileStackScreenProps<'SettingPage'>) {
-  const { user } = useSelector(userInfoSeletor)
-
-  useEffect(() => {
-    if (!user){
-      navigation.navigate('EditPage')
-    }
-  }, [user])
-
-  const users = useSelector((state) => state.user.value)
   const dispatch = useDispatch()
-  let isLogin = false
-  let currentUser
-  if (users.length > 0) {
-    currentUser = users.find((user) => user.isLogin)
-    if (currentUser) {
-      isLogin = true
-    }
-  }
+  const { user, status } = useSelector(userInfoSeletor)
+
   const userLogout = () => {
-    dispatch(logout(currentUser.userId))
+    dispatch(userInfoActions.logout())
   }
-  if (isLogin) {
-    return (
-      <View style={styles.container}>
-        <View style={styles.top}>
+
+  const onPressProfile = () => {
+    navigation.navigate('DetailPage')
+  }
+
+  const onPressContactUs = () => {
+    navigation.navigate('ContactPage')
+  }
+
+  const onPressLogin = () => {
+
+  }
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.top}>
+        {user && <>
           <View style={styles.circle}>
             <FontAwesome size={30} name='plus' />
           </View>
-          <Text style={styles.name}>{currentUser.name}</Text>
-
-          <View style={styles.box}>
-            <Text>Available lesson(s)</Text>
-            <Text style={styles.gray}>5</Text>
-          </View>
-
-          <TouchableOpacity
-            style={styles.box2}
-            onPress={() => navigation.navigate('DetailPage')}
-          >
-            <Text>Profile</Text>
-            <Text style={styles.gray}>{'>'}</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.box}
-            onPress={() => navigation.navigate('ContactPage')}
-          >
-            <Text>Contact Us</Text>
-            <Text style={styles.gray}>{'>'}</Text>
-          </TouchableOpacity>
+          <Text style={styles.name}>{user?.username}</Text>
+        </>}
+        <View style={styles.box}>
+          <Text>Available lesson(s)</Text>
+          <Text style={styles.gray}>5</Text>
         </View>
-
-        <View style={styles.bottom}>
-          <ButtonLight
-            style={styles.button}
-            title='Log Out'
-            onPress={userLogout}
-          />
-        </View>
+        {user && <TouchableOpacity
+          style={styles.box2}
+          onPress={onPressProfile}
+        >
+          <Text>Profile</Text>
+          <Text style={styles.gray}>{'>'}</Text>
+        </TouchableOpacity>}
+        <TouchableOpacity
+          style={styles.box}
+          onPress={onPressContactUs}
+        >
+          <Text>Contact Us</Text>
+          <Text style={styles.gray}>{'>'}</Text>
+        </TouchableOpacity>
       </View>
-    )
-  } else {
-    return (
-      <View style={styles.emptyContainer}>
-        <Text style={styles.empty}>Your are not logged in</Text>
-      </View>
-    )
-  }
+      <Spacing height={size[6]} />
+      {user
+        ?
+        <Button
+          title='Log Out'
+          color={colors.danger}
+          onPress={userLogout}
+        />
+        : <>
+          <Button title='login' onPress={onPressLogin} type='outline' />
+          <Spacing height={size[4]} />
+          <Button title='register' onPress={onPressProfile} type='outline' />
+        </>}
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
   emptyContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   container: {
-    width: width,
     flex: 1,
-    // alignItems: 'center',
-    justifyContent: 'space-between',
+    padding: size[4]
   },
   circle: {
+    marginTop: 100,
     alignItems: 'center',
     justifyContent: 'center',
     width: 150,
@@ -118,7 +112,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: 'white',
-    width: '90%',
+    width: '100%',
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderWidth: 1,
@@ -129,7 +123,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: 'white',
-    width: '90%',
+    width: '100%',
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderWidth: 1,
@@ -144,9 +138,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   top: {
-    width: '100%',
     alignItems: 'center',
-    marginTop: 100,
   },
   bottom: {
     width: '100%',
