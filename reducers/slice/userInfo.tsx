@@ -17,12 +17,13 @@ export const userInfoRegister = createAsyncThunk<IUser, IUserInfoRegisterRequest
 export const userInfoLogin = createAsyncThunk<IUser, IUserInfoLoginRequest>('userInfo/api/login', async (data, { rejectWithValue }) => {
   const loginResponse = await api().post<IUserInfoRegisterResponse>('/auth/local', { ...data })
   if (loginResponse.status === 200, loginResponse.data) {
-    const { username, email, phone, address, } = loginResponse.data.user
+    const { username, email, phone, address, id } = loginResponse.data.user
     return {
       username,
       email,
       phone,
-      address
+      address,
+      id
     }
   }
   return rejectWithValue('')

@@ -43,4 +43,5 @@ interface IUser {
     email: string
     phone: string
     address: string
+    id: number
 }

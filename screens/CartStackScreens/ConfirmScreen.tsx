@@ -1,21 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Button,
   colors,
   FormImage,
   FormText,
   IImageOutput,
+  LoadingLottie,
   SectionWrapper,
   size,
   Spacing,
   Text
   } from '@starter'
-import { cartSeletor } from '@slice/cart'
+import { cartSeletor, createOrder } from '@slice/cart'
 import { CartStackScreenProps } from '../../types'
 import { useDispatch } from 'react-redux'
 import { userInfoSeletor } from '@slice/userInfo'
 import { useSelector } from 'react-redux'
 import {
+  Alert,
   Image,
   Linking,
   ScrollView,
@@ -28,54 +30,70 @@ export default function InfoScreen({
   navigation,
 }: CartStackScreenProps<'ConfirmPage'>) {
   const [image, setImage] = useState<IImageOutput | undefined>(undefined)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<any>()
   const { user } = useSelector(userInfoSeletor)
-  const { info, items } = useSelector(cartSeletor)
+  const { info, items, status } = useSelector(cartSeletor)
+
+  useEffect(() => {
+    if (status === 'success') {
+      Alert.alert('Create order success', 'We will proceed your order very soon. Thank you', [{text: 'ok', onPress: () => {
+        navigation.goBack()
+        navigation.goBack()
+        navigation.goBack()
+      }}])
+    } else if (status === 'failed') {
+      
+    }
+  }, [status])
 
   const onSubmit = () => {
+    if (image) {
+      dispatch(createOrder({ image }))
+    }
   }
 
   return (
+    <View style={{flex: 1}}>
     <ScrollView style={styles.mainContainer}>
-    <View style={styles.container}>
-      {/* step bar */}
-      <View style={styles.stepContainer}>
-        <View style={styles.step}>
-          <View style={styles.circle}>
-            <Text style={styles.circleText}>1</Text>
+      <View style={styles.container}>
+        {/* step bar */}
+        <View style={styles.stepContainer}>
+          <View style={styles.step}>
+            <View style={styles.circle}>
+              <Text style={styles.circleText}>1</Text>
+            </View>
+            <View>
+              <Text style={styles.topText}>Shopping</Text>
+              <Text style={styles.topText}>Cart</Text>
+            </View>
           </View>
-          <View>
-            <Text style={styles.topText}>Shopping</Text>
-            <Text style={styles.topText}>Cart</Text>
+          <View style={styles.step}>
+            <View style={styles.circle}>
+              <Text style={styles.circleText}>2</Text>
+            </View>
+            <View>
+              <Text style={styles.topText}>Fill</Text>
+              <Text style={styles.topText}>Information</Text>
+            </View>
+          </View>
+          <View style={styles.step}>
+            <View style={styles.active}>
+              <Text style={styles.circleText}>3</Text>
+            </View>
+            <View>
+              <Text style={styles.topText}>Order</Text>
+              <Text style={styles.topText}>Confirmation</Text>
+            </View>
           </View>
         </View>
-        <View style={styles.step}>
-          <View style={styles.circle}>
-            <Text style={styles.circleText}>2</Text>
-          </View>
-          <View>
-            <Text style={styles.topText}>Fill</Text>
-            <Text style={styles.topText}>Information</Text>
-          </View>
-        </View>
-        <View style={styles.step}>
-          <View style={styles.active}>
-            <Text style={styles.circleText}>3</Text>
-          </View>
-          <View>
-            <Text style={styles.topText}>Order</Text>
-            <Text style={styles.topText}>Confirmation</Text>
-          </View>
-        </View>
-      </View>
 
-      {/* Form */}
+        {/* Form */}
         <SectionWrapper style={{ margin: size[4], padding: size[4], backgroundColor: colors.white }}>
           <FormText title='Full name*' editable={false} onChangeText={() => { }} text={user?.username} />
           <FormText title='Phone*' editable={false} onChangeText={() => { }} text={user?.phone} />
           <FormText title='Email*' editable={false} onChangeText={() => { }} text={user?.email} />
           <FormText title='Delivery Method*' editable={false} onChangeText={() => { }} text={info?.delivery} />
-          <FormText title='Total Price' editable={false} onChangeText={() => { }} text={`$${items.reduce((accumulator, product) => {return accumulator + product.product.price * Number(product.quantity)}, 0)}`} />
+          <FormText title='Total Price' editable={false} onChangeText={() => { }} text={`$${items.reduce((accumulator, product) => { return accumulator + product.product.price * Number(product.quantity) }, 0)}`} />
           <Text style={styles.moreText}>
             If choosing SF Express, delivery fee to be collected on Receiver
             Paid.
@@ -136,8 +154,10 @@ export default function InfoScreen({
             onPress={onSubmit}
           />
         </SectionWrapper>
+      </View>
+    </ScrollView>
+    <LoadingLottie isIndicator isVisible={status === 'loading'}/>
     </View>
-      </ScrollView>
   )
 }
 
