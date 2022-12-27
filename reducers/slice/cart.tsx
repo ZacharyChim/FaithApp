@@ -5,6 +5,12 @@ import { StoreStatus } from '@starter'
 export type ICartState = {
   status: StoreStatus
   items: CartItem[]
+  info?: ICartInfo
+}
+
+export interface ICartInfo {
+  delivery: string
+  remark?: string
 }
 
 
@@ -44,11 +50,14 @@ export const cartSlice = createSlice({
         }
       )
     },
+    addInfo: (state, action: { payload: ICartInfo }) => {
+      state.info = action.payload
+    }
   },
 })
 
-export const { addProduct, delProduct } = cartSlice.actions
+export const { addProduct, delProduct, addInfo } = cartSlice.actions
 
 export default cartSlice.reducer
 
-export const cartSeletor = (state: {cart: ICartState}) => state.cart
+export const cartSeletor = (state: { cart: ICartState }) => state.cart

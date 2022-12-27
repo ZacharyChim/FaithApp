@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { userInfoActions, userInfoRegister, userInfoSeletor } from '@slice/userInfo'
 
 
+const EMAIL_REGEX =
+  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 interface IForm extends IUserInfoRegisterRequest {
 }
 
@@ -59,7 +61,12 @@ export default function DetailScreen({
       <Controller control={control} name='username' rules={{ required: true }} render={({ field: { value, onChange } }) => {
         return <FormText title='User Name' onChangeText={onChange} text={value} error={errors.username && 'This is required'} />
       }} />
-      <Controller control={control} name='email' rules={{ required: true }} render={({ field: { value, onChange } }) => {
+      <Controller control={control} name='email' rules={{
+        required: true, pattern: {
+          value: EMAIL_REGEX,
+          message: 'Not a valid email',
+        },
+      }} render={({ field: { value, onChange } }) => {
         return <FormText title='E-mail' onChangeText={onChange} text={value} error={errors.username && 'This is required'} />
       }} />
       <Controller control={control} name='password' rules={{ required: true }} render={({ field: { value, onChange } }) => {
