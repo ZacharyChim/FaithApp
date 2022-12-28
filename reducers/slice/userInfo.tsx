@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export type IUserInfoState = {
   status: StoreStatus
+  updateInfoStatus: StoreStatus
   user?: IUser
 }
 
@@ -29,8 +30,27 @@ export const userInfoLogin = createAsyncThunk<IUser, IUserInfoLoginRequest>('use
   return rejectWithValue('')
 })
 
+export const userInfoUpdate = createAsyncThunk<IUser, IUserInfoRegisterRequest>('userInfo/api/update', async (data, {getState, rejectWithValue}) => {
+  const {userInfo} = getState() as {userInfo: IUserInfoState}
+  let payload: any = {
+    username: data.username,
+    email: data.email,
+    phone: data.phone,
+    address: data.address
+  }
+  if (!!data.password) {
+    payload['password'] = data.password
+  }
+  const response = await api().put<IUser>(`/users/${userInfo.user?.id}`, payload)
+  if (response.status === 200 && response.data) {
+    return response.data
+  }
+  return rejectWithValue('')
+})
+
 const initialState: IUserInfoState = {
   status: 'idle',
+  updateInfoStatus: 'idle'
 }
 
 export const userInfoSlice = createSlice({
@@ -39,6 +59,7 @@ export const userInfoSlice = createSlice({
   reducers: {
     resetStatus: (state) => {
       state.status = 'idle'
+      state.updateInfoStatus = 'idle'
     },
     logout: (state) => {
       state.status = 'idle'
@@ -66,6 +87,16 @@ export const userInfoSlice = createSlice({
       })
       .addCase(userInfoLogin.rejected, (state, action) => {
         state.status = 'failed'
+      })
+      .addCase(userInfoUpdate.pending, (state, action) => {
+        state.updateInfoStatus = 'loading'
+      })
+      .addCase(userInfoUpdate.fulfilled, (state, action) => {
+        state.updateInfoStatus = 'success'
+        state.user = action.payload
+      })
+      .addCase(userInfoUpdate.rejected, (state, action) => {
+        state.updateInfoStatus = 'failed'
       })
   },
 })

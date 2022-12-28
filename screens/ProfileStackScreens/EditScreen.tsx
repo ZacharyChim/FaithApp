@@ -1,20 +1,22 @@
-import React from 'react'
-import {
-  Button,
-  colors,
-  FormText,
-  size,
-  Spacing
-  } from '@starter'
-import { Controller, useForm } from 'react-hook-form'
-import { ProfileStackScreenProps } from '../../types'
-import { useDispatch, useSelector } from 'react-redux'
-import { userInfoActions, userInfoSeletor } from '@slice/userInfo'
+import React, { useEffect } from 'react'
 import {
   Alert,
   ScrollView,
   StyleSheet,
-} from 'react-native'
+  View
+  } from 'react-native'
+import { Controller, useForm } from 'react-hook-form'
+import { ProfileStackScreenProps } from '../../types'
+import { useDispatch, useSelector } from 'react-redux'
+import { userInfoActions, userInfoSeletor, userInfoUpdate } from '@slice/userInfo'
+import {
+  Button,
+  FormText,
+  LoadingLottie,
+  Spacing,
+  colors,
+  size,
+} from '@starter'
 
 
 const EMAIL_REGEX =
@@ -28,11 +30,20 @@ interface IForm extends IUserInfoRegisterRequest {
 export default function EditScreen({
   navigation,
 }: ProfileStackScreenProps<'EditPage'>) {
-  const {user} = useSelector(userInfoSeletor)
+  const {user, updateInfoStatus} = useSelector(userInfoSeletor)
 
   if (!user) {
     return null
   }
+
+  useEffect(() => {
+    if (updateInfoStatus === 'success') {
+      dispatch(userInfoActions.resetStatus())
+      Alert.alert('Update success', undefined, [{text: 'ok', onPress: () => {
+        navigation.goBack()
+      }}])
+    }
+  }, [updateInfoStatus])
 
   const {
     control,
@@ -53,24 +64,7 @@ export default function EditScreen({
   const dispatch = useDispatch<any>()
 
   const onSubmit = (data: IForm) => {
-    // if (data.password !== data.password2) {
-    //   return alert('Passwords do not match')
-    // } else {
-    //   const user = {
-    //     userId: currentUser.userId,
-    //     name: data.username,
-    //     phone: data.phone,
-    //     email: data.email,
-    //     password: data.password,
-    //     isLogin: true,
-    //   }
-    //   dispatch(updateUser(user))
-    //   reset()
-    //   console.log(data)
-    //   console.log(user)
-    //   // console.log(users)
-    //   navigation.navigate('DetailPage')
-    // }
+    dispatch(userInfoUpdate(data))
   }
 
   const onPressDelete = () => {
@@ -81,6 +75,7 @@ export default function EditScreen({
 
   return (
     <ScrollView style={styles.container}>
+      <View style={{flex: 1}}>
         <Controller
           control={control}
           rules={{
@@ -165,6 +160,8 @@ export default function EditScreen({
           onPress={onPressDelete}
           type='outline'
         />
+        <LoadingLottie isVisible={updateInfoStatus === 'success'} isIndicator/>
+        </View>
     </ScrollView>
   )
 }
