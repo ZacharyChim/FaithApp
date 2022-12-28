@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Faith",
-    "slug": "Faith",
+    "name": "Faith Fitness",
+    "slug": "faith_fitness",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "faithfitness",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -19,15 +19,15 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.example.app.dev",
+      "bundleIdentifier": "com.faithfitness.app",
       "supportsTablet": true,
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
-      "package": "com.example.app.dev",
-      "versionCode": 0,
+      "package": "com.faithfitness.app",
+      "versionCode": 5,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -47,4 +47,3 @@
     ]
   }
 }
-
