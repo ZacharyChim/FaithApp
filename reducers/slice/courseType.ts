@@ -17,3 +17,9 @@ export interface ICourse extends ICourseAttributes {
 export interface IGetCourse {
     data: { attributes: ICourseAttributes, id: number }[]
 }
+
+export interface ICourseBookRequest {
+    course: number // "1",
+    starting: string // "12:54:00.000",
+    users_permissions_user: number // "5"
+}

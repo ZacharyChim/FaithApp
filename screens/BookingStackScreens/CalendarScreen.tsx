@@ -1,6 +1,6 @@
 import ButtonToggle from '../../components/ButtonToggle'
 import React, { useEffect, useState } from 'react'
-import { Agenda } from 'react-native-calendars'
+import { Agenda, DateData } from 'react-native-calendars'
 import {
   Alert,
   StyleSheet,
@@ -9,8 +9,9 @@ import {
   } from 'react-native'
 import { Avatar, Button, Card } from 'react-native-paper'
 import { BookingStackScreenProps } from '../../types'
-import { courseGet, courseSeletor } from '@slice/course'
+import { courseBook, courseGet, courseSeletor } from '@slice/course'
 import { ICourse } from '@slice/courseType'
+import { LoadingLottie } from '../../starter/component/LoadingLottie'
 import { size } from '../../starter/themes/size'
 import { useDispatch, useSelector } from 'react-redux'
 import { userInfoSeletor } from '@slice/userInfo'
@@ -23,7 +24,7 @@ const XDate = require('xdate')
 export default function CalendarScreen({
   navigation,
 }: BookingStackScreenProps<'CalendarPage'>) {
-  const { courses } = useSelector(courseSeletor)
+  const { courses, status } = useSelector(courseSeletor)
   const { user } = useSelector(userInfoSeletor)
   const [selected, setSelected] = useState<Date>(new Date())
   const dispatch = useDispatch<any>()
@@ -33,7 +34,10 @@ export default function CalendarScreen({
   }, [])
 
   const onPressBook = (course: ICourse) => {
-
+    if (!user) {
+      return
+    }
+    dispatch(courseBook({course: course.id, starting: course.start, users_permissions_user: user.id}))
   }
 
   const onPressMyBook = () => {
@@ -49,45 +53,49 @@ export default function CalendarScreen({
     }
   }
 
+  const onDayPress = (d: DateData) => {
+    setSelected(new Date(d.dateString))
+  }
+
+  const renderEmptyData = () => {
+      const date = selected.getDay()
+      const month = selected.getMonth()
+      const items = courses.filter(c => c.available_date.includes(date) && c.available_month.includes(month + 1))
+      return <View style={styles.cartContainer}>
+        <Text style={styles.title}>{new XDate(selected).toLocaleDateString()}</Text>
+        {items.map(i =>
+          <Card style={{ marginTop: 17 }} key={i.id}>
+            <Card.Content>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-evenly',
+                  alignItems: 'center',
+                }}
+              >
+                <Avatar.Image size={50} source={{ uri: `http://165.22.255.85:1337${i.trainer.data.attributes.image.data.attributes.url}` }} />
+                <View>
+                  <Text style={styles.title}>{i.name}</Text>
+                  <Text style={styles.smallText}>{`${i.start.substring(0, 5)} to ${i.end.substring(0, 5)}`} </Text>
+                  <Text style={styles.smallText}>{i.trainer.data.attributes.name}</Text>
+                </View>
+                <ButtonToggle
+                  title='Book'
+                  color='#28A745'
+                  onPress={() => onPressBook(i)}
+                />
+              </View>
+            </Card.Content>
+          </Card>)}
+      </View>
+  }
+
   return (
     <View style={{ flex: 1, marginTop: 40 }}>
       <Agenda
         selected={new XDate(selected).toString('yyyy-MM-dd')}
-        onDayPress={(d) => {
-          setSelected(new Date(d.dateString))
-        }}
-        renderEmptyData={() => {
-          const date = selected.getDay()
-          const month = selected.getMonth()
-          const items = courses.filter(c => c.available_date.includes(date) && c.available_month.includes(month + 1))
-          return <View style={styles.cartContainer}>
-            <Text style={styles.title}>{new XDate(selected).toLocaleDateString()}</Text>
-            {items.map(i =>
-              <Card style={{ marginTop: 17 }} key={i.id}>
-                <Card.Content>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-evenly',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Avatar.Image size={50} source={{ uri: `http://165.22.255.85:1337${i.trainer.data.attributes.image.data.attributes.url}` }} />
-                    <View>
-                      <Text style={styles.title}>{i.name}</Text>
-                      <Text style={styles.smallText}>{`${i.start.substring(0, 5)} to ${i.end.substring(0, 5)}`} </Text>
-                      <Text style={styles.smallText}>{i.trainer.data.attributes.name}</Text>
-                    </View>
-                    <ButtonToggle
-                      title='Book'
-                      color='#28A745'
-                      onPress={() => onPressBook(i)}
-                    />
-                  </View>
-                </Card.Content>
-              </Card>)}
-          </View>
-        }}
+        onDayPress={onDayPress}
+        renderEmptyData={renderEmptyData}
       />
       <Button
         style={styles.button}
@@ -97,6 +105,7 @@ export default function CalendarScreen({
       >
         My Bookings
       </Button>
+      <LoadingLottie isIndicator isVisible={status === 'loading'}/>
     </View>
   )
 }
