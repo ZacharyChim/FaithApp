@@ -16,6 +16,8 @@ function HomeStackNavigator() {
         options={{
           title: 'Home',
           headerShown: false,
+          headerBackTitle: '',
+          headerTintColor: '#000'
         }}
       />
       <HomeStack.Screen
@@ -30,6 +32,8 @@ function HomeStackNavigator() {
           headerTitleStyle: {
             color: '#000',
           },
+          headerBackTitle: '',
+          headerTintColor: '#000'
         }}
       />
       <HomeStack.Screen
@@ -44,6 +48,8 @@ function HomeStackNavigator() {
           headerTitleStyle: {
             color: '#000',
           },
+          headerBackTitle: '',
+          headerTintColor: '#000'
         }}
       />
       <HomeStack.Screen
@@ -58,6 +64,8 @@ function HomeStackNavigator() {
           headerTitleStyle: {
             color: '#000',
           },
+          headerBackTitle: '',
+          headerTintColor: '#000'
         }}
       />
     </HomeStack.Navigator>
