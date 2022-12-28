@@ -97,7 +97,7 @@ export default function CalendarScreen({
               <Button
                 title={myCourse ? 'Booked' : 'Book'}
                 color={isPassed ? colors.gray600 : myCourse ? '#FFC107' : '#28A745'}
-                onPress={myCourse ? () => {} : () => onPressBook(i)}
+                onPress={myCourse || isPassed ? () => {} : () => onPressBook(i)}
               />
             </View>
           </Card.Content>

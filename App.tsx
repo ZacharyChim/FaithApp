@@ -9,7 +9,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 
 
-const { store, persistor } = redux({ reducers: reducers, blacklist: ['course'] })
+const { store, persistor } = redux({ reducers: reducers, blacklist: [] })
 
 setUpI18n({})
 
