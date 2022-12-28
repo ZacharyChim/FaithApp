@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import { Button } from '../../components/Button'
-import { Controller, useForm } from 'react-hook-form'
 import {
+  colors,
   FormText,
   Row,
   SectionWrapper,
   size,
   Spacing
   } from '@starter'
+import { Controller, useForm } from 'react-hook-form'
 import { ProfileStackScreenProps } from '../../types'
 import { useDispatch, useSelector } from 'react-redux'
 import { userInfoActions, userInfoRegister, userInfoSeletor } from '@slice/userInfo'

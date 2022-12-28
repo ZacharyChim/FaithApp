@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   Button,
   colors,
+  Icons,
+  Row,
   size,
   Spacing
   } from '@starter'
@@ -11,7 +13,6 @@ import { ProfileStackScreenProps } from '../../types'
 import { useDispatch, useSelector } from 'react-redux'
 import { userInfoActions, userInfoSeletor } from '@slice/userInfo'
 import {
-  Dimensions,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -45,45 +46,30 @@ export default function SettingScreen({
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-    <View style={styles.container}>
-      <View style={styles.top}>
-        {user && <>
-          <FontAwesome name="user-circle-o" size={150} color="black" />
-          <Text style={styles.name}>{user?.username}</Text>
-        </>}
-        <View style={styles.box}>
-          <Text>Available lesson(s)</Text>
-          <Text style={styles.gray}>5</Text>
+      <View style={styles.container}>
+        <View style={styles.top}>
+          {user && <>
+            <FontAwesome name="user-circle-o" size={150} color="black" />
+            <Text style={styles.name}>{user?.username}</Text>
+          </>}
         </View>
-        {user && <TouchableOpacity
-          style={styles.box2}
-          onPress={onPressProfile}
-        >
-          <Text>Profile</Text>
-          <Text style={styles.gray}>{'>'}</Text>
-        </TouchableOpacity>}
-        <TouchableOpacity
-          style={styles.box}
-          onPress={onPressContactUs}
-        >
-          <Text>Contact Us</Text>
-          <Text style={styles.gray}>{'>'}</Text>
-        </TouchableOpacity>
+        <Row title='Available lesson(s)' description='5' />
+        {user && <Row title='Profile' rightIcon={Icons({ name: 'right', color: colors.gray600 })} onPress={onPressProfile} />}
+        <Row title='Contact Us' rightIcon={Icons({ name: 'right', color: colors.gray600 })} onPress={onPressContactUs} />
+        <Spacing height={size[6]} />
+        {user
+          ?
+          <Button
+            title='Log Out'
+            color={colors.danger}
+            onPress={userLogout}
+          />
+          : <>
+            <Button title='login' onPress={onPressLogin} type='outline' />
+            <Spacing height={size[4]} />
+            <Button title='register' onPress={onPressProfile} type='outline' />
+          </>}
       </View>
-      <Spacing height={size[6]} />
-      {user
-        ?
-        <Button
-          title='Log Out'
-          color={colors.danger}
-          onPress={userLogout}
-        />
-        : <>
-          <Button title='login' onPress={onPressLogin} type='outline' />
-          <Spacing height={size[4]} />
-          <Button title='register' onPress={onPressProfile} type='outline' />
-        </>}
-    </View>
     </SafeAreaView>
   )
 }
@@ -94,7 +80,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: size[4]
+    padding: size[4],
   },
   name: {
     margin: 20,
@@ -130,7 +116,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   top: {
-    alignItems: 'center',
+    alignItems: 'center'
   },
   bottom: {
     width: '100%',
