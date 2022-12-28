@@ -1,12 +1,19 @@
 import { api, StoreStatus } from '@starter'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { ICourse, ICourseBookRequest, IGetCourse } from './courseType'
+import {
+  ICourse,
+  ICourseBookRequest,
+  IGetCourse,
+  IMyCourse,
+  IMyCourseResponse
+  } from './courseType'
 import { IUserInfoState } from './userInfo'
 
 
 export type ICourseState = {
   status: StoreStatus
   courses: ICourse[]
+  myCourses: IMyCourse[]
 }
 
 export const courseGet = createAsyncThunk<ICourse[]>('course/api/get', async () => {
@@ -14,22 +21,25 @@ export const courseGet = createAsyncThunk<ICourse[]>('course/api/get', async () 
   return response.data?.data.map((d) => ({ ...d.attributes, id: d.id })) || []
 })
 
-export const getMyCourse = createAsyncThunk('course/api/getMyCourse',async (_, {getState}) => {
+export const getMyCourse = createAsyncThunk<IMyCourse[]>('course/api/getMyCourse',async (_, {getState, rejectWithValue}) => {
   const {userInfo} = getState() as {userInfo: IUserInfoState}
   const {user} = userInfo
   if (user) {
-    const response = await api().get('/bookings', {'populate[course][populate]': 'trainer', 'populate': 'users_permissions_user', 'filters[users_permissions_user][id][$eq]': user.id})
+    const response = await api().get<IMyCourseResponse>('/bookings', {'populate[course][populate]': 'trainer', 'filters[users_permissions_user][id][$eq]': user.id})
     console.log(response)
+    return response.data?.data || []
   }
+  return rejectWithValue('')
 })
 
-export const courseBook = createAsyncThunk<{}, ICourseBookRequest>('course/api/booking',async ({course, starting, users_permissions_user}, {rejectWithValue, dispatch}) => {
+export const courseBook = createAsyncThunk<{}, ICourseBookRequest>('course/api/booking',async ({course, starting, users_permissions_user, date}, {rejectWithValue, dispatch}) => {
   const payload = {
     data: {
       course,
       starting,
       users_permissions_user,
-      status: 'pending'
+      status: 'pending',
+      date
     }
   }
   const bookResponse = await api().post('/bookings', payload)
@@ -42,7 +52,8 @@ export const courseBook = createAsyncThunk<{}, ICourseBookRequest>('course/api/b
 
 const initialState: ICourseState = {
   status: 'idle',
-  courses: []
+  courses: [],
+  myCourses: []
 }
 
 export const courseSlice = createSlice({
@@ -75,6 +86,16 @@ export const courseSlice = createSlice({
         state.status = 'success'
       })
       .addCase(courseBook.rejected, (state, action) => {
+        state.status = 'failed'
+      })
+      .addCase(getMyCourse.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(getMyCourse.fulfilled, (state, action) => {
+        state.status = 'success'
+        state.myCourses = action.payload
+      })
+      .addCase(getMyCourse.rejected, (state, action) => {
         state.status = 'failed'
       })
   },

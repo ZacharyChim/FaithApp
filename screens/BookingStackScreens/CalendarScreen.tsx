@@ -1,4 +1,3 @@
-import ButtonToggle from '../../components/ButtonToggle'
 import React, { useEffect, useState } from 'react'
 import { Agenda, DateData } from 'react-native-calendars'
 import {
@@ -7,14 +6,23 @@ import {
   Text,
   View
   } from 'react-native'
-import { Avatar, Button, Card } from 'react-native-paper'
+import { Avatar, Card } from 'react-native-paper'
 import { BookingStackScreenProps } from '../../types'
-import { courseBook, courseGet, courseSeletor } from '@slice/course'
+import {
+  courseBook,
+  courseGet,
+  courseSeletor,
+  getMyCourse
+  } from '@slice/course'
 import { ICourse } from '@slice/courseType'
-import { LoadingLottie } from '../../starter/component/LoadingLottie'
 import { size } from '../../starter/themes/size'
 import { useDispatch, useSelector } from 'react-redux'
 import { userInfoSeletor } from '@slice/userInfo'
+import {
+  Button,
+  LoadingLottie,
+  colors,
+} from '@starter'
 
 
 const XDate = require('xdate')
@@ -24,20 +32,21 @@ const XDate = require('xdate')
 export default function CalendarScreen({
   navigation,
 }: BookingStackScreenProps<'CalendarPage'>) {
-  const { courses, status } = useSelector(courseSeletor)
+  const { courses, status, myCourses } = useSelector(courseSeletor)
   const { user } = useSelector(userInfoSeletor)
   const [selected, setSelected] = useState<Date>(new Date())
   const dispatch = useDispatch<any>()
 
   useEffect(() => {
     dispatch(courseGet())
+    dispatch(getMyCourse())
   }, [])
 
   const onPressBook = (course: ICourse) => {
     if (!user) {
       return
     }
-    dispatch(courseBook({course: course.id, starting: course.start, users_permissions_user: user.id}))
+    dispatch(courseBook({ course: course.id, starting: course.start, users_permissions_user: user.id, date: new XDate(selected).toString('yyyy-MM-dd') }))
   }
 
   const onPressMyBook = () => {
@@ -58,36 +67,44 @@ export default function CalendarScreen({
   }
 
   const renderEmptyData = () => {
-      const date = selected.getDay()
-      const month = selected.getMonth()
-      const items = courses.filter(c => c.available_date.includes(date) && c.available_month.includes(month + 1))
-      return <View style={styles.cartContainer}>
-        <Text style={styles.title}>{new XDate(selected).toLocaleDateString()}</Text>
-        {items.map(i =>
-          <Card style={{ marginTop: 17 }} key={i.id}>
-            <Card.Content>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-evenly',
-                  alignItems: 'center',
-                }}
-              >
-                <Avatar.Image size={50} source={{ uri: `http://165.22.255.85:1337${i.trainer.data.attributes.image.data.attributes.url}` }} />
-                <View>
-                  <Text style={styles.title}>{i.name}</Text>
-                  <Text style={styles.smallText}>{`${i.start.substring(0, 5)} to ${i.end.substring(0, 5)}`} </Text>
-                  <Text style={styles.smallText}>{i.trainer.data.attributes.name}</Text>
-                </View>
-                <ButtonToggle
-                  title='Book'
-                  color='#28A745'
-                  onPress={() => onPressBook(i)}
-                />
+    const date = selected.getDay()
+    const month = selected.getMonth()
+    const items = courses.filter(c => c.available_date.includes(date) && c.available_month.includes(month + 1))
+    return <View style={styles.cartContainer}>
+      <Text style={styles.title}>{new XDate(selected).toLocaleDateString()}</Text>
+      {items.map(i => {
+        const myCourse = myCourses.find(m => {
+          const date = new XDate(m.attributes.date)
+          const dateDiff = date.diffDays(selected)
+          return m.attributes.course.data.id === i.id && dateDiff < 1 && dateDiff > 0
+        })
+        const isPassed = new XDate(new Date()).diffDays(selected) < 0
+        return <Card style={{ marginTop: 17 }} key={i.id}>
+          <Card.Content>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+              }}
+            >
+              <Avatar.Image size={50} source={{ uri: `http://165.22.255.85:1337${i.trainer.data.attributes.image.data.attributes.url}` }} />
+              <View>
+                <Text style={styles.title}>{i.name}</Text>
+                <Text style={styles.smallText}>{`${i.start.substring(0, 5)} to ${i.end.substring(0, 5)}`} </Text>
+                <Text style={styles.smallText}>{i.trainer.data.attributes.name}</Text>
               </View>
-            </Card.Content>
-          </Card>)}
-      </View>
+              <Button
+                title={myCourse ? 'Booked' : 'Book'}
+                color={isPassed ? colors.gray600 : myCourse ? '#FFC107' : '#28A745'}
+                onPress={myCourse ? () => {} : () => onPressBook(i)}
+              />
+            </View>
+          </Card.Content>
+        </Card>
+      }
+      )}
+    </View>
   }
 
   return (
@@ -98,14 +115,11 @@ export default function CalendarScreen({
         renderEmptyData={renderEmptyData}
       />
       <Button
-        style={styles.button}
-        buttonColor='black'
-        textColor='white'
+        style={{ padding: size[4] }}
+        title='My Bookings'
         onPress={onPressMyBook}
-      >
-        My Bookings
-      </Button>
-      <LoadingLottie isIndicator isVisible={status === 'loading'}/>
+      />
+      <LoadingLottie isIndicator isVisible={status === 'loading'} />
     </View>
   )
 }
@@ -127,10 +141,5 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#757575',
     marginTop: 5,
-  },
-  button: {
-    width: '90%',
-    margin: 20,
-    borderRadius: 10,
   },
 })
