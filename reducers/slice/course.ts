@@ -63,8 +63,9 @@ export const courseSlice = createSlice({
     resetStatus: (state) => {
       state.status = 'idle'
     },
-    resetLogin: (state) => {
+    resetCourse: (state) => {
       state.status = 'idle'
+      state.myCourses = []
     },
   },
   extraReducers: (builder) => {

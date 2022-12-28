@@ -5,6 +5,7 @@ import {
   size,
   Spacing
   } from '@starter'
+import { courseActions } from '@slice/course'
 import { FontAwesome } from '@expo/vector-icons'
 import { ProfileStackScreenProps } from '../../types'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,16 +20,15 @@ import {
 } from 'react-native'
 
 
-const width = Dimensions.get('window').width
-
 export default function SettingScreen({
   navigation,
 }: ProfileStackScreenProps<'SettingPage'>) {
   const dispatch = useDispatch()
-  const { user, status } = useSelector(userInfoSeletor)
+  const { user } = useSelector(userInfoSeletor)
 
   const userLogout = () => {
     dispatch(userInfoActions.logout())
+    dispatch(courseActions.resetCourse())
   }
 
   const onPressProfile = () => {

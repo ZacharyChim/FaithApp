@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import XDate from 'xdate'
 import { Avatar, Card } from 'react-native-paper'
 import { BookingStackScreenProps } from '../../types'
-import { courseSeletor } from '@slice/course'
+import { courseSeletor, getMyCourse } from '@slice/course'
 import {
   Dimensions,
   ScrollView,
@@ -12,7 +12,7 @@ import {
   } from 'react-native'
 import { groupBy } from 'ramda'
 import { size, Spacing } from '@starter'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 const width = Dimensions.get('window').width
@@ -20,6 +20,12 @@ const width = Dimensions.get('window').width
 export default function BookingScreen({
   navigation,
 }: BookingStackScreenProps<'BookingPage'>) {
+  const dispatch = useDispatch<any>()
+
+  useEffect(() => {
+    dispatch(getMyCourse())  
+  }, [])
+
   const { myCourses } = useSelector(courseSeletor)
   const groupedCourses = groupBy((c) => c.attributes.date, myCourses)
 
