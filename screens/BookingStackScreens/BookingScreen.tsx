@@ -1,101 +1,71 @@
 import React from 'react'
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
-
+import XDate from 'xdate'
+import { Avatar, Card } from 'react-native-paper'
 import { BookingStackScreenProps } from '../../types'
-import { Card, Avatar, Button } from 'react-native-paper'
+import { courseSeletor } from '@slice/course'
+import {
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+  } from 'react-native'
+import { groupBy } from 'ramda'
+import { size, Spacing } from '@starter'
+import { useSelector } from 'react-redux'
 
-import trainer2 from '../../assets/images/trainers/course.png'
-
-const item = {
-  id: 2,
-  title: '17:15泰拳小組訓練',
-  dateTime: '2022-10-05T09:15:00+08:00',
-  duration: '60min',
-  trainer: '阿陳',
-  image: trainer2,
-  isFull: false,
-  users: [1],
-}
 
 const width = Dimensions.get('window').width
 
 export default function BookingScreen({
   navigation,
 }: BookingStackScreenProps<'BookingPage'>) {
-  return (
-    <View style={styles.container}>
-      <View style={styles.bar}>
-        <Text style={styles.bold}>Wed</Text>
-        <Text>1 Jun 2022</Text>
-      </View>
-      <Card style={{ margin: 20 }}>
-        <Card.Content>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              // width: '80%',
-              alignItems: 'center',
-            }}
-          >
-            <Avatar.Image size={50} source={item.image} />
-            <View>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.smallText}>
-                {item.duration} {item.trainer}
-              </Text>
-            </View>
-            <Button
-              style={{ borderRadius: 10 }}
-              textColor='black'
-              buttonColor='#28A745'
-            >
-              Booked
-            </Button>
-          </View>
-        </Card.Content>
-      </Card>
+  const { myCourses } = useSelector(courseSeletor)
+  const groupedCourses = groupBy((c) => c.attributes.date, myCourses)
 
-      <View style={styles.bar}>
-        <Text style={styles.bold}>Thu</Text>
-        <Text>2 Jun 2022</Text>
-      </View>
-      <Card style={{ marginTop: 17, marginHorizontal: 20 }}>
-        <Card.Content>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              // width: '80%',
-              alignItems: 'center',
-            }}
-          >
-            <Avatar.Image size={50} source={item.image} />
-            <View>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.smallText}>
-                {item.duration} {item.trainer}
-              </Text>
-            </View>
-            <Button
-              style={{ borderRadius: 10 }}
-              textColor='black'
-              buttonColor='#28A745'
-            >
-              Booked
-            </Button>
+  return <ScrollView>
+    <View style={styles.container}>
+      {Object.keys(groupedCourses).map(k => {
+        const date = new XDate(k)
+        const courses = groupedCourses[k]
+        return <>
+          <View style={styles.bar}>
+            <Text style={styles.bold}>{date.toString('ddd')}</Text>
+            <Text>{date.toString('dd MMM YYYY')}</Text>
           </View>
-        </Card.Content>
-      </Card>
+          {courses.map(c => {
+            return <Card style={{ margin: 20 }} key={c.id}>
+              <Card.Content>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Avatar.Image size={50} source={{ uri: `http://165.22.255.85:1337${c.attributes.course.data.attributes.trainer.data.attributes.image.data.attributes.url}` }} />
+                  <Spacing width={size[4]} />
+                  <View>
+                    <Text style={styles.title}>{c.attributes.course.data.attributes.name}</Text>
+                    <Text style={styles.smallText}>
+                      {c.attributes.course.data.attributes.trainer.data.attributes.name}
+                    </Text>
+                    <Text style={styles.smallText}>
+                      {`${c.attributes.course.data.attributes.start.substring(0, 5)} - ${c.attributes.course.data.attributes.end.substring(0, 5)}`}
+                    </Text>
+                  </View>
+                </View>
+              </Card.Content>
+            </Card>
+          })}
+        </>
+      })}
     </View>
-  )
+  </ScrollView>
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
     width: width,
   },
   bar: {

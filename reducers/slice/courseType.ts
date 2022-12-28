@@ -34,7 +34,7 @@ export interface IMyCourse {
         status: "pending",
         date: string // "2022-12-28"
         course: {
-            data: ICourse
+            data: {attributes: ICourse, id: number}
         }
     }
 }

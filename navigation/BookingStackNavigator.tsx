@@ -1,8 +1,7 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import CalendarScreen from '../screens/BookingStackScreens/CalendarScreen'
 import BookingScreen from '../screens/BookingStackScreens/BookingScreen'
-
+import CalendarScreen from '../screens/BookingStackScreens/CalendarScreen'
 import { BookingStackParamList } from '../types'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 const BookingStack = createNativeStackNavigator<BookingStackParamList>()
 
@@ -37,6 +36,8 @@ function BookingStackNavigator() {
           headerTitleStyle: {
             color: '#000',
           },
+          headerBackTitle: '',
+          headerTintColor: '#000'
         }}
       />
     </BookingStack.Navigator>

@@ -25,7 +25,7 @@ export const getMyCourse = createAsyncThunk<IMyCourse[]>('course/api/getMyCourse
   const {userInfo} = getState() as {userInfo: IUserInfoState}
   const {user} = userInfo
   if (user) {
-    const response = await api().get<IMyCourseResponse>('/bookings', {'populate[course][populate]': 'trainer', 'filters[users_permissions_user][id][$eq]': user.id})
+    const response = await api().get<IMyCourseResponse>('/bookings', {'populate[course][populate][trainer][populate]': 'image', 'filters[users_permissions_user][id][$eq]': user.id})
     console.log(response)
     return response.data?.data || []
   }
