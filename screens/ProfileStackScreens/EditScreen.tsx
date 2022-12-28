@@ -1,193 +1,179 @@
 import React from 'react'
-import { Button } from '../../components/Button'
-import { ButtonCancel } from '../../components/ButtonCancel'
-import { ButtonLight } from '../../components/ButtonLight'
-import { Controller, useForm } from 'react-hook-form'
 import {
-    Dimensions,
-    StyleSheet,
-    Text,
-    TextInput,
-    View
-    } from 'react-native'
+  Button,
+  colors,
+  FormText,
+  size,
+  Spacing
+  } from '@starter'
+import { Controller, useForm } from 'react-hook-form'
 import { ProfileStackScreenProps } from '../../types'
-import { updateUser } from '../../reducers/slice/user'
 import { useDispatch, useSelector } from 'react-redux'
+import { userInfoActions, userInfoSeletor } from '@slice/userInfo'
+import {
+  Alert,
+  ScrollView,
+  StyleSheet,
+} from 'react-native'
 
 
 const EMAIL_REGEX =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
+interface IForm extends IUserInfoRegisterRequest {
+  password2: string
+}
 
-
-const width = Dimensions.get('window').width
 
 export default function EditScreen({
   navigation,
 }: ProfileStackScreenProps<'EditPage'>) {
-  const users = useSelector((state) => state.user.value)
-  let currentUser = users.find((user) => user.isLogin)
+  const {user} = useSelector(userInfoSeletor)
+
+  if (!user) {
+    return null
+  }
 
   const {
     control,
     handleSubmit,
+    getValues,
     formState: { errors },
-    reset,
-  } = useForm({
+  } = useForm<IForm>({
     defaultValues: {
-      name: currentUser.name,
-      phone: currentUser.phone,
-      email: currentUser.email,
+      username: user.username,
+      phone: user.phone,
+      email: user.email,
+      address: user.address,
       password: '',
       password2: '',
     },
   })
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<any>()
 
-  const onSubmit = (data) => {
-    if (data.password !== data.password2) {
-      return alert('Passwords do not match')
-    } else {
-      const user = {
-        userId: currentUser.userId,
-        name: data.name,
-        phone: data.phone,
-        email: data.email,
-        password: data.password,
-        isLogin: true,
-      }
-      dispatch(updateUser(user))
-      reset()
-      console.log(data)
-      console.log(user)
-      // console.log(users)
-      navigation.navigate('DetailPage')
-    }
+  const onSubmit = (data: IForm) => {
+    // if (data.password !== data.password2) {
+    //   return alert('Passwords do not match')
+    // } else {
+    //   const user = {
+    //     userId: currentUser.userId,
+    //     name: data.username,
+    //     phone: data.phone,
+    //     email: data.email,
+    //     password: data.password,
+    //     isLogin: true,
+    //   }
+    //   dispatch(updateUser(user))
+    //   reset()
+    //   console.log(data)
+    //   console.log(user)
+    //   // console.log(users)
+    //   navigation.navigate('DetailPage')
+    // }
   }
-  return (
-    <View style={styles.container}>
-      <View style={styles.top}>
-        <Text style={styles.label}>Name*</Text>
-        <Controller
-          control={control}
-          rules={{
-            required: true,
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              style={styles.box}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              defaultValue={currentUser.name}
-            />
-          )}
-          name='name'
-        />
-        {errors.name && <Text>This is required.</Text>}
 
-        <Text style={styles.label}>Phone*</Text>
+  const onPressDelete = () => {
+    Alert.alert('Confirm', 'We will delete you account after reviewing your order and booking. Are you sure to delete the account?', [{text: 'Yest', onPress: () => {
+      dispatch(userInfoActions.logout())
+    }}])
+  }
+
+  return (
+    <ScrollView style={styles.container}>
         <Controller
           control={control}
           rules={{
             required: true,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              style={styles.box}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              defaultValue={currentUser.phone}
-            />
+            <FormText title='Name*' text={value} onChangeText={onChange} error={errors.username ? 'This is required.' : undefined}/>
+          )}
+          name='username'
+        />
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <FormText title='Phone*' text={value} onChangeText={onChange} error={errors.phone ? 'This is required.' : undefined}/>
           )}
           name='phone'
         />
-        {errors.phone && <Text>This is required.</Text>}
-
-        <Text style={styles.label}>Email*</Text>
         <Controller
           control={control}
           rules={{
             required: true,
+            pattern: {
+              value: EMAIL_REGEX,
+              message: 'Not a valid email',
+            },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              style={styles.box}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              defaultValue={currentUser.email}
-            />
+            <FormText title='Email*' text={value} onChangeText={onChange} error={errors.email ? 'This is required.' : undefined}/>
           )}
           name='email'
         />
-        {errors.email && <Text>This is required.</Text>}
-
-        <Text style={styles.label}>Password*</Text>
         <Controller
           control={control}
           rules={{
             required: true,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              style={styles.box}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              defaultValue=''
-            />
+            <FormText title='Address*' text={value} onChangeText={onChange} error={errors.address ? 'This is required.' : undefined}/>
+          )}
+          name='address'
+        />
+        <Controller
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <FormText isPaasword title='Password*' text={value} onChangeText={onChange} error={errors.password ? 'This is required.' : undefined}/>
           )}
           name='password'
         />
-        {errors.password && <Text>This is required.</Text>}
-
-        <Text style={styles.label}>Password, again*</Text>
         <Controller
           control={control}
           rules={{
-            required: true,
+            validate: (value) => {
+              const values = getValues()
+              console.log(values)
+              return values.password === value
+            }
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              style={styles.box}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              defaultValue=''
-            />
+            <FormText isPaasword title='Password, again*' text={value} onChangeText={onChange} error={errors.password2 ? 'This needs to be equal password.' : undefined}/>
           )}
           name='password2'
         />
-        {errors.password2 && <Text>This is required.</Text>}
-      </View>
-
-      <View style={styles.bottom}>
+        <Spacing height={size[4]}/>
         <Button
-          style={styles.button}
           title='Save'
           onPress={handleSubmit(onSubmit)}
         />
-
-        <ButtonCancel
-          style={styles.button}
+        <Spacing height={size[4]}/>
+        <Button
           title='Cancel'
-          onPress={() => navigation.navigate('DetailPage')}
+          color={colors.primaryDark}
+          onPress={() => navigation.goBack()}
+          type='neat'
         />
-      </View>
-    </View>
+        <Spacing height={size[8]}/>
+        <Button
+          title='Delete Account'
+          color={colors.danger}
+          onPress={onPressDelete}
+          type='outline'
+        />
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 10,
-    width: width,
+    padding: size[4],
+    backgroundColor: colors.white
   },
   label: {
     fontSize: 20,
@@ -209,20 +195,12 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
   },
-  top: {
-    width: '100%',
-    // alignItems: 'stretch',
-    // marginTop: 100,
-    marginHorizontal: 20,
-  },
   bottom: {
     width: '100%',
     marginTop: 10,
-    // alignItems: 'stretch',
   },
   button: {
     width: '90%',
-    // marginHorizontal: 20,
     marginLeft: 20,
   },
 })
