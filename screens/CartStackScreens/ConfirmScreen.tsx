@@ -9,9 +9,10 @@ import {
   SectionWrapper,
   size,
   Spacing,
+  t,
   Text
   } from '@starter'
-import { cartSeletor, createOrder } from '@slice/cart'
+import { cartSeletor, cartSlice, createOrder } from '@slice/cart'
 import { CartStackScreenProps } from '../../types'
 import { useDispatch } from 'react-redux'
 import { userInfoSeletor } from '@slice/userInfo'
@@ -24,6 +25,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
+import { orderSlice } from '@slice/order'
 
 
 export default function InfoScreen({
@@ -36,13 +38,14 @@ export default function InfoScreen({
 
   useEffect(() => {
     if (status === 'success') {
-      Alert.alert('Create order success', 'We will proceed your order very soon. Thank you', [{text: 'ok', onPress: () => {
+      Alert.alert(t('createOrderSuccess'), t('createOrderSuccessDescription'), [{text: 'ok', onPress: () => {
+        dispatch(cartSlice.actions.resetStatus())
         navigation.goBack()
         navigation.goBack()
         navigation.goBack()
       }}])
     } else if (status === 'failed') {
-      
+      Alert.alert(t('createOrderFailed'), t('tryAgainLater'), [{text: 'ok'}])
     }
   }, [status])
 
@@ -59,21 +62,19 @@ export default function InfoScreen({
         {/* step bar */}
         <View style={styles.stepContainer}>
           <View style={styles.step}>
-            <View style={styles.circle}>
+            <View style={styles.active}>
               <Text style={styles.circleText}>1</Text>
             </View>
             <View>
-              <Text style={styles.topText}>Shopping</Text>
-              <Text style={styles.topText}>Cart</Text>
+              <Text style={styles.topText}>{t('shoppingCart')}</Text>
             </View>
           </View>
           <View style={styles.step}>
-            <View style={styles.circle}>
+            <View style={styles.active}>
               <Text style={styles.circleText}>2</Text>
             </View>
             <View>
-              <Text style={styles.topText}>Fill</Text>
-              <Text style={styles.topText}>Information</Text>
+              <Text style={styles.topText}>{t('fillInformation')}</Text>
             </View>
           </View>
           <View style={styles.step}>
@@ -81,28 +82,24 @@ export default function InfoScreen({
               <Text style={styles.circleText}>3</Text>
             </View>
             <View>
-              <Text style={styles.topText}>Order</Text>
-              <Text style={styles.topText}>Confirmation</Text>
+              <Text style={styles.topText}>{t('orderConfirmation')}</Text>
             </View>
           </View>
         </View>
 
         {/* Form */}
         <SectionWrapper style={{ margin: size[4], padding: size[4], backgroundColor: colors.white }}>
-          <FormText title='Full name*' editable={false} onChangeText={() => { }} text={user?.username} />
-          <FormText title='Phone*' editable={false} onChangeText={() => { }} text={user?.phone} />
-          <FormText title='Email*' editable={false} onChangeText={() => { }} text={user?.email} />
-          <FormText title='Delivery Method*' editable={false} onChangeText={() => { }} text={info?.delivery} />
-          <FormText title='Total Price' editable={false} onChangeText={() => { }} text={`$${items.reduce((accumulator, product) => { return accumulator + product.product.price * Number(product.quantity) }, 0)}`} />
-          <Text style={styles.moreText}>
-            If choosing SF Express, delivery fee to be collected on Receiver
-            Paid.
-          </Text>
-          <Text.H1>Payment Method:</Text.H1>
+          <FormText title={t('fullName*')} editable={false} onChangeText={() => { }} text={user?.username} />
+          <FormText title={t('phone*')} editable={false} onChangeText={() => { }} text={user?.phone} />
+          <FormText title={t('email*')} editable={false} onChangeText={() => { }} text={user?.email} />
+          <FormText title={t('deliveryMethod*')} editable={false} onChangeText={() => { }} text={info?.delivery} />
+          <FormText title={t('totalPrice')} editable={false} onChangeText={() => { }} text={`$${items.reduce((accumulator, product) => { return accumulator + product.product.price * Number(product.quantity) }, 0)}`} />
+          <Text style={styles.moreText}>{t('sfPaymentDescrription')}</Text>
+          <Text.H1>{`${t('paymentMethod')}:`}</Text.H1>
           <>
             <Text.H2>FPS</Text.H2>
             <Text.Caption >Bank: HSBC</Text.Caption>
-            <Text.Caption >FPS Identifier: 33333333</Text.Caption>
+            <Text.Caption >FPS ID: 6018 7633</Text.Caption>
             <Text.Caption >Payment send to: Faith Cxxxx</Text.Caption>
             <Spacing height={size[2]} />
             <Image
@@ -135,22 +132,14 @@ export default function InfoScreen({
           </>
           <Spacing height={size[8]} />
 
-          <Text style={styles.moreText}>
-            Please settle the payment by ATM/FPS/PAYME in 24 hours, and upload
-            the payment of Deposit Advice to confirm your payment.
-          </Text>
-          <Text style={styles.moreText}>
-            Please make sure the payment of Deposit Advice clearly shows the
-            deposit date, time, account number and name, otherwise order may be
-            treated as invalid.
-          </Text>
-
-          <Text style={styles.label}>Payment of Deposit Advice * </Text>
+          <Text style={styles.moreText}>{t('paymentDescription')}</Text>
+          <Text style={styles.moreText}>{t('paymentDescription2')}</Text>
+          <Text style={styles.label}>{t('depositEvidence*')}</Text>
           <Spacing height={size[4]} />
-          <FormImage title='Payment Proof' placeHolder='Choose...' onPickImage={setImage} error={!image ? 'This is required.' : undefined} />
-          <FormText title='Remark' text={info?.remark || 'N/A'} editable={false} onChangeText={() => { }} multiline={!!info?.remark} />
+          <FormImage title={t('paymentProof')} placeHolder={t('choose')} onPickImage={setImage} error={!image ? 'This is required.' : undefined} />
+          <FormText title={t('remark')} text={info?.remark || 'N/A'} editable={false} onChangeText={() => { }} multiline={!!info?.remark} />
           <Button
-            title='Submit'
+            title={t('submit')}
             onPress={onSubmit}
           />
         </SectionWrapper>

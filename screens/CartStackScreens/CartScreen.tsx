@@ -13,6 +13,7 @@ import {
   Text,
   View,
 } from 'react-native'
+import { t } from '../../starter/helper/i18n'
 
 
 const width = Dimensions.get('window').width
@@ -26,7 +27,7 @@ export default function CartScreen({
 
   const onPressCheckOut = () => {
     if (!user) {
-      Alert.alert('Please login first', undefined, [
+      Alert.alert(t('pleaseLoginFirst'), undefined, [
         {
           text: 'ok',
           // @ts-ignore
@@ -46,8 +47,7 @@ export default function CartScreen({
               <Text style={styles.circleText}>1</Text>
             </View>
             <View>
-              <Text style={styles.topText}>Shopping</Text>
-              <Text style={styles.topText}>Cart</Text>
+              <Text style={styles.topText}>{t('shoppingCart')}</Text>
             </View>
           </View>
           <View style={styles.step}>
@@ -55,8 +55,7 @@ export default function CartScreen({
               <Text style={styles.circleText}>2</Text>
             </View>
             <View>
-              <Text style={styles.topText}>Fill</Text>
-              <Text style={styles.topText}>Information</Text>
+              <Text style={styles.topText}>{t('fillInformation')}</Text>
             </View>
           </View>
           <View style={styles.step}>
@@ -64,8 +63,7 @@ export default function CartScreen({
               <Text style={styles.circleText}>3</Text>
             </View>
             <View>
-              <Text style={styles.topText}>Order</Text>
-              <Text style={styles.topText}>Confirmation</Text>
+              <Text style={styles.topText}>{t('orderConfirmation')}</Text>
             </View>
           </View>
         </View>
@@ -88,7 +86,7 @@ export default function CartScreen({
                 </View>
                 <View style={styles.priceBox}>
                   <View style={styles.quantity}>
-                    <Text style={styles.priceText}>{`Qty:`}</Text>
+                    <Text style={styles.priceText}>{`${t('qty')}:`}</Text>
                     <Text style={styles.priceText}>{i.quantity}</Text>
                   </View>
                   <View style={styles.price}>
@@ -102,7 +100,7 @@ export default function CartScreen({
           })}
           <View style={styles.totalBox}>
             <Text style={styles.totalText}>
-              Total ({items.length} Items)
+              {`${t('total')} (${items.length} ${t('items')})`}
             </Text>
             <Text style={styles.totalText}>
               $
@@ -116,7 +114,7 @@ export default function CartScreen({
         <View style={styles.bottom}>
           <Button
             style={styles.button}
-            title='Checkout'
+            title={t('checkout')}
             onPress={onPressCheckOut}
           />
         </View>
@@ -125,7 +123,7 @@ export default function CartScreen({
   } else {
     return (
       <View style={styles.container}>
-        <Text style={styles.empty}>Your cart is empty.</Text>
+        <Text style={styles.empty}>{t('cartIsEmpty')}</Text>
       </View>
     )
   }
@@ -144,11 +142,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-evenly',
     marginTop: 40,
-    // backgroundColor: '#ccc',
   },
   mainContainer: {
     flex: 9 / 12,
-    // marginTop: 10,
   },
   totalBox: {
     backgroundColor: 'white',
@@ -166,7 +162,6 @@ const styles = StyleSheet.create({
   },
   step: {
     flexDirection: 'column',
-    // justifyContent: 'center',
     alignItems: 'center',
   },
   circle: {
@@ -202,7 +197,6 @@ const styles = StyleSheet.create({
   },
   smallText: {
     fontSize: 16,
-    // alignSelf: 'flex-end',
     marginTop: 5,
     color: '#757575',
   },
@@ -228,9 +222,6 @@ const styles = StyleSheet.create({
   descBox: {
     flex: 2,
     margin: 5,
-    // height: 100,
-    // width: '100%',
-    // flexDirection: 'column',
   },
   productImage: {
     width: 100,
@@ -239,8 +230,6 @@ const styles = StyleSheet.create({
   priceBox: {
     flex: 1,
     flexDirection: 'row',
-    // marginTop: 15,
-    // padding: 5,
   },
   quantity: {
     flex: 1,
@@ -265,14 +254,11 @@ const styles = StyleSheet.create({
   },
   top: {
     width: '100%',
-    // alignItems: 'stretch',
-    // marginTop: 100,
     marginHorizontal: 20,
   },
   bottom: {
     width: '100%',
     marginTop: 10,
     marginLeft: 40,
-    // alignItems: 'stretch',
   },
 })

@@ -9,7 +9,8 @@ import {
   FormText,
   SectionWrapper,
   size,
-  Spacing
+  Spacing,
+  t
   } from '@starter'
 import { Controller, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
@@ -26,8 +27,8 @@ import {
 
 
 const deliveryOptions = [
-  { value: 'Store pick up', title: 'Store pick up' },
-  { value: 'SF Express', title: 'SF Express' },
+  { value: 'Store pick up', title: t('storePickUp') },
+  { value: 'SF Express', title: t('sfExpress') },
 ]
 
 interface IForm {
@@ -70,24 +71,22 @@ export default function InfoScreen({
       <View style={styles.container}>
         {/* step bar */}
         <View style={styles.stepContainer}>
-          <TouchableOpacity onPress={() => navigation.navigate('CartPage')}>
-            <View style={styles.step}>
-              <View style={styles.circle}>
-                <Text style={styles.circleText}>1</Text>
-              </View>
-              <View>
-                <Text style={styles.topText}>Shopping</Text>
-                <Text style={styles.topText}>Cart</Text>
-              </View>
+        <TouchableOpacity onPress={() => navigation.navigate('CartPage')}>
+          <View style={styles.step}>
+            <View style={styles.active}>
+              <Text style={styles.circleText}>1</Text>
             </View>
+            <View>
+              <Text style={styles.topText}>{t('shoppingCart')}</Text>
+            </View>
+          </View>
           </TouchableOpacity>
           <View style={styles.step}>
             <View style={styles.active}>
               <Text style={styles.circleText}>2</Text>
             </View>
             <View>
-              <Text style={styles.topText}>Fill</Text>
-              <Text style={styles.topText}>Information</Text>
+              <Text style={styles.topText}>{t('fillInformation')}</Text>
             </View>
           </View>
           <View style={styles.step}>
@@ -95,8 +94,7 @@ export default function InfoScreen({
               <Text style={styles.circleText}>3</Text>
             </View>
             <View>
-              <Text style={styles.topText}>Order</Text>
-              <Text style={styles.topText}>Confirmation</Text>
+              <Text style={styles.topText}>{t('orderConfirmation')}</Text>
             </View>
           </View>
         </View>
@@ -108,21 +106,21 @@ export default function InfoScreen({
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
-              <FormText title='User name*' text={value} editable={false} onChangeText={onChange} />
+              <FormText title={t('fullName*')} text={value} editable={false} onChangeText={onChange} />
             )}
             name='name'
           />
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
-              <FormText title='Phone*' text={value} editable={false} onChangeText={onChange} />
+              <FormText title={t('phone*')} text={value} editable={false} onChangeText={onChange} />
             )}
             name='phone'
           />
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
-              <FormText title='Email*' text={value} editable={false} onChangeText={onChange} />
+              <FormText title={t('email*')} text={value} editable={false} onChangeText={onChange} />
             )}
             name='email'
           />
@@ -133,21 +131,18 @@ export default function InfoScreen({
               required: true,
             }}
             render={({ field: { onChange, value, ref } }) => (
-              <FormSelect title={'Delivery Method*'} text={value} options={deliveryOptions} onChangeOption={(o) => onChange(o.value)} error={errors.delivery && 'This is required.'} />
+              <FormSelect title={t('deliveryMethod*')} text={deliveryOptions.find(o => o.value === value)?.title} options={deliveryOptions} onChangeOption={(o) => onChange(o.value)} error={errors.delivery && 'This is required.'} />
             )}
           />
-          <Text style={styles.moreText}>
-            If choosing SF Express, delivery fee to be collected on Receiver
-            Paid.
-          </Text>
+          <Text style={styles.moreText}>{t('sfPaymentDescrription')}</Text>
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
-              <FormText title='Remark' text={value} onChangeText={onChange} multiline />
+              <FormText title={t('remark')} text={value} onChangeText={onChange} multiline />
             )}
             name='remark'
           />
-          <Button title='Submit' onPress={handleSubmit(onSubmit)} />
+          <Button title={t('submit')} onPress={handleSubmit(onSubmit)} />
         </SectionWrapper>
       </View>
     </ScrollView>

@@ -2,6 +2,7 @@ import CartScreen from '../screens/CartStackScreens/CartScreen'
 import ConfirmScreen from '../screens/CartStackScreens/ConfirmScreen'
 import EmptyScreen from '../screens/CartStackScreens/EmptyScreen'
 import InfoScreen from '../screens/CartStackScreens/InfoScreen'
+import { t } from '../starter/helper/i18n'
 import { CartStackParamList } from '../types'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
@@ -22,7 +23,7 @@ function CartStackNavigator() {
         name='InfoPage'
         component={InfoScreen}
         options={{
-          title: 'Info',
+          title: t('info'),
           headerBackTitle: '',
           headerTintColor: '#000'
         }}
@@ -31,7 +32,7 @@ function CartStackNavigator() {
         name='ConfirmPage'
         component={ConfirmScreen}
         options={{
-          title: 'Confirm',
+          title: t('confirm'),
           headerShadowVisible: false,
           headerBackTitle: '',
           headerTintColor: '#000'

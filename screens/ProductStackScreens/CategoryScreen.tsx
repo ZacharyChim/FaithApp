@@ -44,7 +44,7 @@ export default function CategoryScreen({
               <View style={styles.priceContainer}>
                 <Text style={styles.price}>{item.price}</Text>
               </View>
-              <Text style={styles.desc}>
+              <Text numberOfLines={2} style={styles.desc}>
                 {item.description.length > 30
                   ? item.description.substring(0, 29) + '...'
                   : item.description}
