@@ -6,6 +6,7 @@ import { courseSlice } from './slice/course'
 import { productSlice } from './slice/product'
 import { trainerSlice } from './slice/trainer'
 import { userInfoSlice } from './slice/userInfo'
+import { settingSlice } from '@slice/setting'
 
 export const reducers = {
     cart: cartReducer,
@@ -15,5 +16,6 @@ export const reducers = {
     category: categorySlice.reducer,
     product: productSlice.reducer,
     course: courseSlice.reducer,
-    userInfo: userInfoSlice.reducer
+    userInfo: userInfoSlice.reducer,
+    setting: settingSlice.reducer,
 }

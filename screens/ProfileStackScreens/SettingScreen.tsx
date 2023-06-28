@@ -5,8 +5,9 @@ import {
   Icons,
   Row,
   size,
-  Spacing
-  } from '@starter'
+  Spacing,
+  t
+} from '@starter'
 import { courseActions } from '@slice/course'
 import { FontAwesome } from '@expo/vector-icons'
 import { ProfileStackScreenProps } from '../../types'
@@ -19,13 +20,19 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import { useActionSheet } from '@expo/react-native-action-sheet'
+import { settingActions, settingSeletor } from '@slice/setting'
+import * as Updates from 'expo-updates'
 
 
 export default function SettingScreen({
   navigation,
 }: ProfileStackScreenProps<'SettingPage'>) {
+  const { showActionSheetWithOptions } = useActionSheet()
   const dispatch = useDispatch()
   const { user } = useSelector(userInfoSeletor)
+
+  const { language }  = useSelector(settingSeletor)
 
   const userLogout = () => {
     dispatch(userInfoActions.logout())
@@ -44,6 +51,30 @@ export default function SettingScreen({
     navigation.navigate('LoginPage')
   }
 
+  const onPressChangeLanguage = () => {
+    const options = ['English', '中(繁)', '中(簡)', t('cancel')]
+    const cancelButtonIndex = 3
+
+    showActionSheetWithOptions({options}, (selectedIndex) => {
+      switch (selectedIndex) {
+        case 0:
+          dispatch(settingActions.changeLanguage('en'))
+          break
+        case 1:
+          dispatch(settingActions.changeLanguage('zh'))
+          break
+        case 2:
+          dispatch(settingActions.changeLanguage('zh_CN'))
+          break
+        case cancelButtonIndex:
+        // Canceled
+      }
+      setTimeout(() => {
+        Updates.reloadAsync()
+      }, 300);
+    })
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -56,6 +87,7 @@ export default function SettingScreen({
         <Row title='Available lesson(s)' description='5' />
         {user && <Row title='Profile' rightIcon={Icons({ name: 'right', color: colors.gray600 })} onPress={onPressProfile} />}
         <Row title='Contact Us' rightIcon={Icons({ name: 'right', color: colors.gray600 })} onPress={onPressContactUs} />
+        <Row title='Change language' rightIcon={Icons({ name: 'right', color: colors.gray600 })} onPress={onPressChangeLanguage} />
         <Spacing height={size[6]} />
         {user
           ?

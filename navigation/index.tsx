@@ -17,7 +17,10 @@ import {
   RootTabParamList,
   RootTabScreenProps,
 } from '../types'
-import { t } from '../starter/helper/i18n'
+import { changeLocale, t } from '../starter/helper/i18n'
+import { useSelector } from 'react-redux'
+import { View } from 'react-native'
+import { settingSeletor } from '@slice/setting'
 
 /**
  * If you are not familiar with React Navigation, refer to the "Fundamentals" guide:
@@ -26,6 +29,15 @@ import { t } from '../starter/helper/i18n'
  */
 
 export default function Navigation() {
+  const rehydrated = useSelector((state: any) => state._persist.rehydrated)
+  const { language }  = useSelector(settingSeletor)
+  
+  if (!rehydrated) {
+    return <View />
+  }
+
+  changeLocale(language)
+
   return (
     <NavigationContainer linking={LinkingConfiguration}>
       <RootNavigator />
