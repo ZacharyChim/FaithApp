@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import { t } from '../../starter/helper/i18n'
 
 
 export default function HomeScreen({
@@ -39,7 +40,7 @@ export default function HomeScreen({
       <Slider images={images} />
       <View style={styles.TextContainer}>
         <TouchableOpacity onPress={() => navigation.navigate('TeamPage')}>
-          <Text style={styles.TextOurTeam}>Our Team</Text>
+          <Text style={styles.TextOurTeam}>{t('ourTeam')}</Text>
         </TouchableOpacity>
       </View>
       <TeamScroll trainers={trainers} onSelected={navigationToTrainerDetail} />

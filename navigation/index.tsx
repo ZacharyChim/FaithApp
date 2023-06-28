@@ -9,7 +9,7 @@ import ProductStackNavigator from './ProductStackNavigator'
 import ProfileStackNavigator from './ProfileStackNavigator'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { DarkTheme, NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer } from '@react-navigation/native'
 import { FontAwesome } from '@expo/vector-icons'
 
 import {
@@ -17,6 +17,7 @@ import {
   RootTabParamList,
   RootTabScreenProps,
 } from '../types'
+import { t } from '../starter/helper/i18n'
 
 /**
  * If you are not familiar with React Navigation, refer to the "Fundamentals" guide:
@@ -79,7 +80,7 @@ function BottomTabNavigator() {
         name='Home'
         component={HomeStackNavigator}
         options={({ navigation }: RootTabScreenProps<'Home'>) => ({
-          title: 'Home',
+          title: t('home'),
           tabBarIcon: ({ color }) => <TabBarIcon name='home' color={color} />,
           headerShown: false,
         })}
@@ -88,7 +89,7 @@ function BottomTabNavigator() {
         name='Products'
         component={ProductStackNavigator}
         options={{
-          title: 'Product',
+          title: t('product'),
           tabBarIcon: ({ color }) => <TabBarIcon name='list' color={color} />,
           headerShown: false,
         }}
@@ -97,7 +98,7 @@ function BottomTabNavigator() {
         name='Booking'
         component={BookingStackNavigator}
         options={{
-          title: 'Booking',
+          title: t('booking'),
           headerShown: false,
           tabBarIcon: ({ color }) => (
             <TabBarIcon name='hand-rock-o' color={color} />
@@ -108,7 +109,7 @@ function BottomTabNavigator() {
         name='Cart'
         component={CartStackNavigator}
         options={{
-          title: 'Cart',
+          title: t('cart'),
           headerShown: false,
           tabBarIcon: ({ color }) => (
             <TabBarIcon name='shopping-cart' color={color} />
@@ -119,7 +120,7 @@ function BottomTabNavigator() {
         name='Profile'
         component={ProfileStackNavigator}
         options={{
-          title: 'Profile',
+          title: t('profile'),
           headerShown: false,
           tabBarIcon: ({ color }) => (
             <TabBarIcon name='user-circle-o' color={color} />

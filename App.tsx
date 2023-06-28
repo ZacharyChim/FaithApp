@@ -7,11 +7,11 @@ import { reducers } from './reducers'
 import { redux, setUpI18n } from '@starter'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
-
+const lan = require('./assets/csvjson.json')
 
 const { store, persistor } = redux({ reducers: reducers, blacklist: [] })
 
-setUpI18n({})
+setUpI18n(lan)
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
