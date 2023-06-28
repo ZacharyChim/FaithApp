@@ -11,9 +11,12 @@
     "ourTeam": "Our Team",
     "noGalleryTitle": "Cannot access gallery",
     "noGalleryDes": "Please provide permission to open the gallery.",
-    "save": "Save",
-    "reset": "Reset",
-    "resetDes": "Are you sure to remove all images?"
+    "category": "Category",
+    "addToCart": "Add to Cart",
+    "itemAdded": "Item added",
+    "color": "Color",
+    "size": "Size",
+    "quantity": "Quantity"
   },
   "zh": {
     "home": "主頁",
@@ -27,25 +30,31 @@
     "ourTeam": "我們的團隊",
     "noGalleryTitle": "無法訪問畫廊",
     "noGalleryDes": "請允許打開畫廊。",
-    "save": "節省",
-    "reset": "重置",
-    "resetDes": "您一定要刪除所有圖像嗎？"
+    "category": "類別",
+    "addToCart": "添加到購物車",
+    "itemAdded": "添加了項目",
+    "color": "顏色",
+    "size": "尺寸",
+    "quantity": "數量"
   },
   "zh_CN": {
-    "home": "家",
+    "home": "主页",
     "product": "产品",
-    "booking": "预订",
-    "cart": "大车",
-    "profile": "轮廓",
-    "yes": "是的",
-    "no": "不",
+    "booking": "订堂",
+    "cart": "购物车",
+    "profile": "个人资料",
+    "yes": "是",
+    "no": "否",
     "welcome": "欢迎回来！",
-    "ourTeam": "我们的队伍",
+    "ourTeam": "我们的团队",
     "noGalleryTitle": "无法访问画廊",
     "noGalleryDes": "请允许打开画廊。",
-    "save": "节省",
-    "reset": "重置",
-    "resetDes": "您一定要删除所有图像吗？"
+    "category": "类别",
+    "addToCart": "添加到购物车",
+    "itemAdded": "添加了项目",
+    "color": "颜色",
+    "size": "尺寸",
+    "quantity": "数量"
   },
   "hi": {
     "home": "घर",
@@ -59,9 +68,12 @@
     "ourTeam": "हमारी टीम",
     "noGalleryTitle": "गैलरी एक्सेस नहीं कर सकते",
     "noGalleryDes": "कृपया गैलरी खोलने की अनुमति प्रदान करें।",
-    "save": "बचाना",
-    "reset": "रीसेट",
-    "resetDes": "क्या आप सभी छवियों को हटाना सुनिश्चित करते हैं?"
+    "category": "वर्ग",
+    "addToCart": "कार्ट में जोड़ें",
+    "itemAdded": "आइटम जोड़ा गया",
+    "color": "रंग",
+    "size": "आकार",
+    "quantity": "मात्रा"
   },
   "ja": {
     "home": "家",
@@ -75,9 +87,12 @@
     "ourTeam": "私たちのチーム",
     "noGalleryTitle": "ギャラリーにアクセスできません",
     "noGalleryDes": "ギャラリーを開く許可を提供してください。",
-    "save": "保存",
-    "reset": "リセット",
-    "resetDes": "すべての画像を削除しますか？"
+    "category": "カテゴリー",
+    "addToCart": "カートに追加",
+    "itemAdded": "追加されたアイテム",
+    "color": "色",
+    "size": "サイズ",
+    "quantity": "量"
   },
   "ru": {
     "home": "Дом",
@@ -91,9 +106,12 @@
     "ourTeam": "Наша команда",
     "noGalleryTitle": "Не может получить доступ к галерее",
     "noGalleryDes": "Пожалуйста, предоставьте разрешение на открытие галереи.",
-    "save": "Сохранять",
-    "reset": "Перезагрузить",
-    "resetDes": "Вы обязательно удалите все изображения?"
+    "category": "Категория",
+    "addToCart": "добавить в корзину",
+    "itemAdded": "Пункт добавлен",
+    "color": "Цвет",
+    "size": "Размер",
+    "quantity": "Количество"
   },
   "vi": {
     "home": "Trang chủ",
@@ -107,9 +125,12 @@
     "ourTeam": "Đội của chúng tôi",
     "noGalleryTitle": "Không thể truy cập thư viện",
     "noGalleryDes": "Vui lòng cung cấp cho phép mở bộ sưu tập.",
-    "save": "Cứu",
-    "reset": "Cài lại",
-    "resetDes": "Bạn có chắc chắn sẽ xóa tất cả các hình ảnh?"
+    "category": "Loại",
+    "addToCart": "Thêm vào giỏ hàng",
+    "itemAdded": "Mục được thêm vào",
+    "color": "Màu sắc",
+    "size": "Kích cỡ",
+    "quantity": "Số lượng"
   },
   "fr": {
     "home": "Maison",
@@ -123,9 +144,12 @@
     "ourTeam": "Notre équipe",
     "noGalleryTitle": "Impossible d'accès à la galerie",
     "noGalleryDes": "Veuillez donner la permission d'ouvrir la galerie.",
-    "save": "Sauvegarder",
-    "reset": "Réinitialiser",
-    "resetDes": "Êtes-vous sûr de supprimer toutes les images?"
+    "category": "Catégorie",
+    "addToCart": "Ajouter au panier",
+    "itemAdded": "Article ajouté",
+    "color": "Couleur",
+    "size": "Taille",
+    "quantity": "Quantité"
   },
   "de": {
     "home": "Heim",
@@ -139,9 +163,12 @@
     "ourTeam": "Unser Team",
     "noGalleryTitle": "Kann nicht auf Galerie zugreifen",
     "noGalleryDes": "Bitte geben Sie die Erlaubnis zur Öffnung der Galerie.",
-    "save": "Speichern",
-    "reset": "Zurücksetzen",
-    "resetDes": "Sind Sie sicher, alle Bilder zu entfernen?"
+    "category": "Kategorie",
+    "addToCart": "in den Warenkorb legen",
+    "itemAdded": "Artikel hinzugefügt",
+    "color": "Farbe",
+    "size": "Größe",
+    "quantity": "Menge"
   },
   "id": {
     "home": "Rumah",
@@ -155,9 +182,12 @@
     "ourTeam": "Tim kita",
     "noGalleryTitle": "Tidak dapat mengakses galeri",
     "noGalleryDes": "Harap berikan izin untuk membuka galeri.",
-    "save": "Menyimpan",
-    "reset": "Mengatur ulang",
-    "resetDes": "Apakah Anda pasti akan menghapus semua gambar?"
+    "category": "Kategori",
+    "addToCart": "Masukkan ke keranjang",
+    "itemAdded": "Item ditambahkan",
+    "color": "Warna",
+    "size": "Ukuran",
+    "quantity": "Kuantitas"
   },
   "es": {
     "home": "Hogar",
@@ -171,9 +201,12 @@
     "ourTeam": "Nuestro equipo",
     "noGalleryTitle": "No se puede acceder a la galería",
     "noGalleryDes": "Por favor proporcione permiso para abrir la galería.",
-    "save": "Ahorrar",
-    "reset": "Reiniciar",
-    "resetDes": "¿Estás seguro de eliminar todas las imágenes?"
+    "category": "Categoría",
+    "addToCart": "añadir a la cesta",
+    "itemAdded": "Artículo agregado",
+    "color": "Color",
+    "size": "Tamaño",
+    "quantity": "Cantidad"
   },
   "th": {
     "home": "บ้าน",
@@ -187,8 +220,11 @@
     "ourTeam": "ทีมงานของเรา",
     "noGalleryTitle": "ไม่สามารถเข้าถึงแกลเลอรี",
     "noGalleryDes": "โปรดให้สิทธิ์ในการเปิดแกลเลอรี่",
-    "save": "บันทึก",
-    "reset": "รีเซ็ต",
-    "resetDes": "คุณแน่ใจว่าจะลบภาพทั้งหมดได้หรือไม่?"
+    "category": "หมวดหมู่",
+    "addToCart": "เพิ่มลงในรถเข็น",
+    "itemAdded": "เพิ่มรายการ",
+    "color": "สี",
+    "size": "ขนาด",
+    "quantity": "ปริมาณ"
   }
 }

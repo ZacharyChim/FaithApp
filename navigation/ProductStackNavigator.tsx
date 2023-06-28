@@ -3,6 +3,7 @@ import ProductScreen from '../screens/ProductStackScreens/ProductScreen'
 import ProductsScreen from '../screens/ProductStackScreens/ProductsScreen'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { ProductStackParamList } from '../types'
+import { t } from '../starter/helper/i18n'
 
 const ProductStack = createNativeStackNavigator<ProductStackParamList>()
 
@@ -13,7 +14,7 @@ function ProductStackNavigator() {
         name='ProductsPage'
         component={ProductsScreen}
         options={{
-          title: 'Products',
+          title: t('product'),
           headerShadowVisible: false,
           headerStyle: {
             backgroundColor: '#fff',
@@ -27,7 +28,7 @@ function ProductStackNavigator() {
         name='CategoryPage'
         component={CategoryScreen}
         options={{
-          title: 'Category',
+          title: t('category'),
           headerShadowVisible: false,
           headerStyle: {
             backgroundColor: '#fff',

@@ -17,6 +17,8 @@ import { ProductStackScreenProps } from '../../types'
 import { size } from '../../starter/themes/size'
 import { Spacing } from '../../starter/component/Spacing'
 import { useDispatch, useSelector } from 'react-redux'
+import { t } from '../../starter/helper/i18n'
+import { uniq } from 'ramda'
 
 
 interface IForm {
@@ -52,16 +54,16 @@ export default function ProductScreen({
       return
     }
     dispatch(addProduct({ ...data, product: product }))
-    Alert.alert('Item added', undefined, [{
+    Alert.alert(t('itemAdded'), undefined, [{
       text: 'ok', onPress: () => {
         navigation.popToTop()
       }
     }])
   }
 
-  let colorOptions: { value: string; title: string }[] = product?.availability.map(d => ({ value: d.product_color.data.attributes.name, title: d.product_color.data.attributes.name })) || []
+  let colorOptions: { value: string; title: string }[] = uniq(product?.availability.map(d => ({ value: d.product_color.data.attributes.name, title: d.product_color.data.attributes.name })) || [])
 
-  let sizeOptions: { value: string; title: string }[] = product?.availability.map(d => ({ value: d.product_size.data.attributes.name, title: d.product_size.data.attributes.name })) || []
+  let sizeOptions: { value: string; title: string }[] = uniq(product?.availability.map(d => ({ value: d.product_size.data.attributes.name, title: d.product_size.data.attributes.name })) || [])
 
   return (
     <View style={styles.container}>
@@ -81,7 +83,7 @@ export default function ProductScreen({
             required: true,
           }}
           render={({ field: { onChange, value, ref } }) => (
-            <FormSelect title='Color' onChangeOption={(o) => onChange(o.value)} text={value} options={colorOptions} error={errors.size && 'This is required.'} />
+            <FormSelect title={t('color')} onChangeOption={(o) => onChange(o.value)} text={value} options={colorOptions} error={errors.size && 'This is required.'} />
           )}
         />
         <Controller
@@ -91,7 +93,7 @@ export default function ProductScreen({
             required: true,
           }}
           render={({ field: { onChange, value, ref } }) => (
-            <FormSelect title='Size' onChangeOption={(o) => onChange(o.value)} text={value} options={sizeOptions} error={errors.size && 'This is required.'} />
+            <FormSelect title={t('size')} onChangeOption={(o) => onChange(o.value)} text={value} options={sizeOptions} error={errors.size && 'This is required.'} />
           )}
         />
         <Controller
@@ -101,15 +103,16 @@ export default function ProductScreen({
             required: true,
           }}
           render={({ field: { onChange, value, ref } }) => (
-            <FormText title='Quantity' onChangeText={onChange} error={errors.quantity && 'This is required.'} keyboardType='number-pad' />
+            <FormText title={t('quantity')} onChangeText={onChange} error={errors.quantity && 'This is required.'} keyboardType='number-pad' />
           )}
         />
         <Spacing height={size[4]} />
         <Text style={styles.desc}>{product?.description}</Text>
+        <Spacing height={size[12]}/>
       </ScrollView>
       <Button
         style={{ width: '85%' }}
-        title='Add to Cart'
+        title={t('addToCart')}
         onPress={handleSubmit(onSubmit)}
       />
     </View>
