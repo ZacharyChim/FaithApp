@@ -23,7 +23,8 @@
       "supportsTablet": true,
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
-      }
+      },
+      "deploymentTarget": 16.1
     },
     "android": {
       "package": "com.faithfitness.app",
@@ -50,7 +51,8 @@
           "icon": "./assets/images/icon.png",
           "color": "#ffffff"
         }
-      ]
+      ],
+      "expo-build-properties"
     ]
   }
 }
