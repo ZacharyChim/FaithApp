@@ -22,6 +22,7 @@ import {
   Button,
   LoadingLottie,
   colors,
+  t,
 } from '@starter'
 
 
@@ -36,6 +37,8 @@ export default function CalendarScreen({
   const { user } = useSelector(userInfoSeletor)
   const [selected, setSelected] = useState<Date>(new Date())
   const dispatch = useDispatch<any>()
+
+  console.log(courses)
 
   useEffect(() => {
     dispatch(courseGet())
@@ -116,7 +119,7 @@ export default function CalendarScreen({
       />
       <Button
         style={{ padding: size[4] }}
-        title='My Bookings'
+        title={t('myBookings')}
         onPress={onPressMyBook}
       />
       <LoadingLottie isIndicator isVisible={status === 'loading'} />

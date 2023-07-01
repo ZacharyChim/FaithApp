@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native'
 import { ProfileStackScreenProps } from '../../types'
+import { t } from '../../starter/helper/i18n'
 
 const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
@@ -24,37 +25,35 @@ export default function ContactScreen({
         />
         <View style={styles.textContainer}>
           <View style={styles.textRow}>
-            <Text style={styles.bold}>Address</Text>
+            <Text style={styles.bold}>{t('address')}</Text>
             <Text style={styles.gray}>葵涌大連排美安工業大廈</Text>
           </View>
 
           <View style={styles.textRow}>
-            <Text style={styles.bold}>Phone</Text>
-            <Text style={styles.gray}>5555 5555</Text>
+            <Text style={styles.bold}>{t('phone')}</Text>
+            <Text style={styles.gray}>60187633</Text>
           </View>
 
           <View style={styles.textRow}>
-            <Text style={styles.bold}>Email</Text>
-            <Text style={styles.gray}>Faith@gmail.com</Text>
+            <Text style={styles.bold}>{t('email')}</Text>
+            <Text style={styles.gray}>info@faithfitnesshk.com</Text>
           </View>
 
           <View style={styles.textRow}>
-            <Text style={styles.bold}>Instagram</Text>
             <Text
               style={styles.link}
-              onPress={() => Linking.openURL('http://www.faith.com')}
+              onPress={() => Linking.openURL('https://www.instagram.com/faith_muaythai')}
             >
-              http://www.faith.com
+              Instagram
             </Text>
           </View>
 
           <View style={styles.textRow}>
-            <Text style={styles.bold}>Website</Text>
             <Text
               style={styles.link}
-              onPress={() => Linking.openURL('http://www.faith.com')}
+              onPress={() => Linking.openURL('http://www.faithmuaythai.com/')}
             >
-              http://www.faith.com
+              {t('website')}
             </Text>
           </View>
         </View>
@@ -111,6 +110,7 @@ const styles = StyleSheet.create({
   link: {
     fontSize: 16,
     color: '#0D47A1',
+    textDecorationLine: 'underline'
   },
   icons: {
     width: 50,

@@ -1,5 +1,6 @@
 import BookingScreen from '../screens/BookingStackScreens/BookingScreen'
 import CalendarScreen from '../screens/BookingStackScreens/CalendarScreen'
+import { t } from '../starter/helper/i18n'
 import { BookingStackParamList } from '../types'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
@@ -27,7 +28,7 @@ function BookingStackNavigator() {
         name='BookingPage'
         component={BookingScreen}
         options={{
-          title: 'My Bookings',
+          title: t('myBookings'),
           headerShadowVisible: false,
           // headerShown: false,
           headerStyle: {

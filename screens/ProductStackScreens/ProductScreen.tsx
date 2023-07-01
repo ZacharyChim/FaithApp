@@ -83,7 +83,7 @@ export default function ProductScreen({
             required: true,
           }}
           render={({ field: { onChange, value, ref } }) => (
-            <FormSelect title={t('color')} onChangeOption={(o) => onChange(o.value)} text={value} options={colorOptions} error={errors.size && 'This is required.'} />
+            <FormSelect title={t('color')} onChangeOption={(o) => onChange(o.value)} text={value} options={colorOptions} error={errors.size && t('thisIsRequired')} />
           )}
         />
         <Controller
@@ -93,7 +93,7 @@ export default function ProductScreen({
             required: true,
           }}
           render={({ field: { onChange, value, ref } }) => (
-            <FormSelect title={t('size')} onChangeOption={(o) => onChange(o.value)} text={value} options={sizeOptions} error={errors.size && 'This is required.'} />
+            <FormSelect title={t('size')} onChangeOption={(o) => onChange(o.value)} text={value} options={sizeOptions} error={errors.size && t('thisIsRequired')} />
           )}
         />
         <Controller
@@ -103,7 +103,7 @@ export default function ProductScreen({
             required: true,
           }}
           render={({ field: { onChange, value, ref } }) => (
-            <FormText title={t('quantity')} onChangeText={onChange} error={errors.quantity && 'This is required.'} keyboardType='number-pad' />
+            <FormText title={t('quantity')} onChangeText={onChange} error={errors.quantity && t('thisIsRequired')} keyboardType='number-pad' />
           )}
         />
         <Spacing height={size[4]} />

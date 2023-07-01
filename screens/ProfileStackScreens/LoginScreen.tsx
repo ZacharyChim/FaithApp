@@ -6,9 +6,12 @@ import { userInfoActions, userInfoLogin, userInfoSeletor } from '@slice/userInfo
 import {
   Button,
   FormText,
+  LoadingLottie,
   size,
+  t,
 } from '@starter'
 import {
+  Alert,
   Dimensions,
   StyleSheet,
   View,
@@ -25,7 +28,7 @@ interface IForm {
 export default function LoginScreen({
   navigation,
 }: ProfileStackScreenProps<'LoginPage'>) {
-  const {user} = useSelector(userInfoSeletor)
+  const {user, status} = useSelector(userInfoSeletor)
   const dispatch = useDispatch<any>()
   const { control, handleSubmit, formState: { errors } } = useForm<IForm>({
     defaultValues: {
@@ -41,6 +44,16 @@ export default function LoginScreen({
     }
   }, [user])
 
+  useEffect(() => {
+    if (status === 'failed') {
+      Alert.alert(t('loginFailed'), t('loginFailedDescription'), [{text: 'ok', onPress: () => {
+        dispatch(userInfoActions.resetStatus())
+      }}])
+    } else if (status === 'success') {
+      dispatch(userInfoActions.resetStatus())
+    }
+  }, [status])
+
   const onPressLogin = (data: IForm) => {
     dispatch(userInfoLogin(data))
   }
@@ -48,15 +61,16 @@ export default function LoginScreen({
   return (
     <View style={styles.container}>
       <Controller control={control} name='identifier' rules={{ required: true }} render={({ field: { value, onChange } }) => {
-        return <FormText title='User Name' onChangeText={onChange} text={value} error={errors.identifier && 'This is required'} />
+        return <FormText title={t('userName')} onChangeText={onChange} text={value} error={errors.identifier && t('thisIsRequired')} />
       }} />
       <Controller control={control} name='password' rules={{ required: true }} render={({ field: { value, onChange } }) => {
-        return <FormText title='Password' isPaasword onChangeText={onChange} text={value} error={errors.password && 'This is required'} />
+        return <FormText title={t('password*')} isPaasword onChangeText={onChange} text={value} error={errors.password && t('thisIsRequired')} />
       }} />
       <Button
         title='Login'
         onPress={handleSubmit(onPressLogin)}
       />
+      <LoadingLottie isVisible={status === 'loading'} isIndicator/>
     </View>
   )
 }

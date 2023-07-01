@@ -136,7 +136,7 @@ export default function InfoScreen({
           <Text style={styles.moreText}>{t('paymentDescription2')}</Text>
           <Text style={styles.label}>{t('depositEvidence*')}</Text>
           <Spacing height={size[4]} />
-          <FormImage title={t('paymentProof')} placeHolder={t('choose')} onPickImage={setImage} error={!image ? 'This is required.' : undefined} />
+          <FormImage title={t('paymentProof')} placeHolder={t('choose')} onPickImage={setImage} error={!image ? t('thisIsRequired') : undefined} />
           <FormText title={t('remark')} text={info?.remark || 'N/A'} editable={false} onChangeText={() => { }} multiline={!!info?.remark} />
           <Button
             title={t('submit')}

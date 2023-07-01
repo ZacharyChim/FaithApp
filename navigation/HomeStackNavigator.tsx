@@ -4,6 +4,7 @@ import TrainerScreen from '../screens/HomeStackScreens/TrainerScreen'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { HomeStackParamList } from '../types'
 import { JoinUsScreen } from '../screens/HomeStackScreens/JoinUsScreen'
+import { t } from '../starter/helper/i18n'
 
 const HomeStack = createNativeStackNavigator<HomeStackParamList>()
 
@@ -24,7 +25,7 @@ function HomeStackNavigator() {
         name='TeamPage'
         component={TeamScreen}
         options={{
-          title: 'Our Team',
+          title: t('ourTeam'),
           headerShadowVisible: false,
           headerStyle: {
             backgroundColor: '#fff',
@@ -56,7 +57,7 @@ function HomeStackNavigator() {
         name='JoinUsPage'
         component={JoinUsScreen}
         options={{
-          title: '',
+          title: t('joinUs'),
           headerShadowVisible: false,
           headerStyle: {
             backgroundColor: '#fff',

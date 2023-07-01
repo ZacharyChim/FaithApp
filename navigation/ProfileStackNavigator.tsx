@@ -5,6 +5,7 @@ import LoginScreen from '@screens/ProfileStackScreens/LoginScreen'
 import SettingScreen from '../screens/ProfileStackScreens/SettingScreen'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { ProfileStackParamList } from '../types'
+import { t } from '../starter/helper/i18n'
 
 const ProfileStack = createNativeStackNavigator<ProfileStackParamList>()
 
@@ -32,7 +33,7 @@ function ProfileStackNavigator() {
         name='DetailPage'
         component={DetailScreen}
         options={{
-          title: 'Profile',
+          title: t('profile'),
           headerShadowVisible: false,
           headerStyle: {
             backgroundColor: '#f2f2f2',
@@ -48,7 +49,7 @@ function ProfileStackNavigator() {
         name='EditPage'
         component={EditScreen}
         options={{
-          title: 'Profile',
+          title: t('profile'),
           headerShadowVisible: false,
           headerStyle: {
             backgroundColor: '#fff',
@@ -64,7 +65,7 @@ function ProfileStackNavigator() {
         name='ContactPage'
         component={ContactScreen}
         options={{
-          title: 'Contact Us',
+          title: t('contactUs'),
           headerShadowVisible: false,
           headerStyle: {
             backgroundColor: '#fff',
@@ -80,7 +81,7 @@ function ProfileStackNavigator() {
         name='LoginPage'
         component={LoginScreen}
         options={{
-          title: 'Login',
+          title: t('login'),
           headerShadowVisible: false,
           headerStyle: {
             backgroundColor: '#fff',

@@ -84,22 +84,21 @@ export default function SettingScreen({
             <Text style={styles.name}>{user?.username}</Text>
           </>}
         </View>
-        <Row title='Available lesson(s)' description='5' />
-        {user && <Row title='Profile' rightIcon={Icons({ name: 'right', color: colors.gray600 })} onPress={onPressProfile} />}
-        <Row title='Contact Us' rightIcon={Icons({ name: 'right', color: colors.gray600 })} onPress={onPressContactUs} />
-        <Row title='Change language' rightIcon={Icons({ name: 'right', color: colors.gray600 })} onPress={onPressChangeLanguage} />
+        {user && <Row title={t('profile')} rightIcon={Icons({ name: 'right', color: colors.gray600 })} onPress={onPressProfile} />}
+        <Row title={t('contactUs')} rightIcon={Icons({ name: 'right', color: colors.gray600 })} onPress={onPressContactUs} />
+        <Row title={t('changelanguage')} rightIcon={Icons({ name: 'right', color: colors.gray600 })} onPress={onPressChangeLanguage} />
         <Spacing height={size[6]} />
         {user
           ?
           <Button
-            title='Log Out'
+            title={t('logOut')}
             color={colors.danger}
             onPress={userLogout}
           />
           : <>
-            <Button title='login' onPress={onPressLogin} type='outline' />
+            <Button title={t('login')} onPress={onPressLogin} type='outline' />
             <Spacing height={size[4]} />
-            <Button title='register' onPress={onPressProfile} type='outline' />
+            <Button title={t('register')} onPress={onPressProfile} type='outline' />
           </>}
       </View>
     </SafeAreaView>

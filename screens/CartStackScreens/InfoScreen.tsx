@@ -131,7 +131,7 @@ export default function InfoScreen({
               required: true,
             }}
             render={({ field: { onChange, value, ref } }) => (
-              <FormSelect title={t('deliveryMethod*')} text={deliveryOptions.find(o => o.value === value)?.title} options={deliveryOptions} onChangeOption={(o) => onChange(o.value)} error={errors.delivery && 'This is required.'} />
+              <FormSelect title={t('deliveryMethod*')} text={deliveryOptions.find(o => o.value === value)?.title} options={deliveryOptions} onChangeOption={(o) => onChange(o.value)} error={errors.delivery && t('thisIsRequired')} />
             )}
           />
           <Text style={styles.moreText}>{t('sfPaymentDescrription')}</Text>

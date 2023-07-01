@@ -21,6 +21,7 @@ import {
   FormText,
   IImageOutput,
   LoadingLottie,
+  t,
 } from '@starter'
 
 
@@ -113,7 +114,7 @@ export const JoinUsScreen = ({ navigation }: HomeStackScreenProps<'JoinUsPage'>)
             required: true,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <FormText title='First name*' onChangeText={onChange} error={errors.first_name && 'This is required.'} />
+            <FormText title={t('firstName*')} onChangeText={onChange} error={errors.first_name && t('thisIsRequired')} />
           )}
           name='first_name'
         />
@@ -123,7 +124,7 @@ export const JoinUsScreen = ({ navigation }: HomeStackScreenProps<'JoinUsPage'>)
             required: true,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <FormText title='Last name*' onChangeText={onChange} error={errors.last_name && 'This is required.'} />
+            <FormText title={t('lastName*')} onChangeText={onChange} error={errors.last_name && t('thisIsRequired')} />
           )}
           name='last_name'
         />
@@ -133,7 +134,7 @@ export const JoinUsScreen = ({ navigation }: HomeStackScreenProps<'JoinUsPage'>)
             required: true,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <FormText title='Age*' onChangeText={onChange} error={errors.age && 'This is required.'} />
+            <FormText title={t('age*')} onChangeText={onChange} error={errors.age && t('thisIsRequired')} />
           )}
           name='age'
         />
@@ -144,7 +145,7 @@ export const JoinUsScreen = ({ navigation }: HomeStackScreenProps<'JoinUsPage'>)
             required: true,
           }}
           render={({ field: { onChange, value, ref } }) => (
-            <FormSelect title={'sex'} text={value} onChangeOption={(o) => onChange(o.value)} options={options} error={errors.sex && 'This is required.'} />
+            <FormSelect title={t('sex')} text={value} onChangeOption={(o) => onChange(o.value)} options={options} error={errors.sex && t('thisIsRequired')} />
           )}
         />
         <Controller
@@ -153,7 +154,7 @@ export const JoinUsScreen = ({ navigation }: HomeStackScreenProps<'JoinUsPage'>)
             required: true,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <FormText title='Phone*' onChangeText={onChange} error={errors.phone && 'This is required.'} />
+            <FormText title={t('phone*')} onChangeText={onChange} error={errors.phone && t('thisIsRequired')} />
           )}
           name='phone'
         />
@@ -163,19 +164,19 @@ export const JoinUsScreen = ({ navigation }: HomeStackScreenProps<'JoinUsPage'>)
             required: true,
             pattern: {
               value: EMAIL_REGEX,
-              message: 'Not a valid email',
+              message: t('notValidEmail'),
             },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <FormText title='Email*' onChangeText={onChange} error={errors.email && 'This is required.'} />
+            <FormText title={t('email*')} onChangeText={onChange} error={errors.email && t('thisIsRequired')} />
           )}
           name='email'
         />
         <Controller control={control} rules={{ required: true }} name='profile' render={({ field: { onChange } }) => {
-          return <FormImage title='Profile picture*' onPickImage={onChange} />
+          return <FormImage title={t('profilePicture*')} onPickImage={onChange} />
         }} />
         <Controller control={control} rules={{ required: true }} name='resume' render={({ field: { onChange } }) => {
-          return <FormImage title='Resume' onPickImage={onChange} />
+          return <FormImage title={t('resume')} onPickImage={onChange} />
         }} />
         <Controller
           control={control}
@@ -183,11 +184,11 @@ export const JoinUsScreen = ({ navigation }: HomeStackScreenProps<'JoinUsPage'>)
             required: true,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <FormText title='Description' onChangeText={onChange} error={errors.description && 'This is required.'} multiline={true} />
+            <FormText title={t('description')} onChangeText={onChange} error={errors.description && t('thisIsRequired')} multiline={true} />
           )}
           name='description'
         />
-        <Button title='Submit' onPress={handleSubmit(onSubmit)} />
+        <Button title={t('submit')} onPress={handleSubmit(onSubmit)} />
         <Spacing height={size[8]} />
         <LoadingLottie isVisible={registerStatus === 'loading'} isIndicator={true} />
       </View>

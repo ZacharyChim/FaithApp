@@ -10,6 +10,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native'
+import { t } from '../../starter/helper/i18n'
 
 
 export default function TeamScreen({
@@ -45,7 +46,7 @@ export default function TeamScreen({
       ></FlatList>
       <Button
         style={{ width: '90%' }}
-        title='Become Our Trainer'
+        title={t('becomeOurTrainer')}
         onPress={() => navigation.navigate('JoinUsPage')}
       />
     </SafeAreaView>

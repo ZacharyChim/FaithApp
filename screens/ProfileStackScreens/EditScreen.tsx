@@ -16,6 +16,7 @@ import {
   Spacing,
   colors,
   size,
+  t,
 } from '@starter'
 
 
@@ -39,7 +40,7 @@ export default function EditScreen({
   useEffect(() => {
     if (updateInfoStatus === 'success') {
       dispatch(userInfoActions.resetStatus())
-      Alert.alert('Update success', undefined, [{text: 'ok', onPress: () => {
+      Alert.alert(t('updateSuccess'), undefined, [{text: 'ok', onPress: () => {
         navigation.goBack()
       }}])
     }
@@ -68,7 +69,7 @@ export default function EditScreen({
   }
 
   const onPressDelete = () => {
-    Alert.alert('Confirm', 'We will delete you account after reviewing your order and booking. Are you sure to delete the account?', [{text: 'Yest', onPress: () => {
+    Alert.alert(t('confirm'), t('deleteAccountDescription'), [{text: 'Yes', onPress: () => {
       dispatch(userInfoActions.logout())
     }}])
   }
@@ -82,7 +83,7 @@ export default function EditScreen({
             required: true,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <FormText title='Name*' text={value} onChangeText={onChange} error={errors.username ? 'This is required.' : undefined}/>
+            <FormText title={t('userName')} text={value} onChangeText={onChange} error={errors.username ? t('thisIsRequired') : undefined}/>
           )}
           name='username'
         />
@@ -92,7 +93,7 @@ export default function EditScreen({
             required: true,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <FormText title='Phone*' text={value} onChangeText={onChange} error={errors.phone ? 'This is required.' : undefined}/>
+            <FormText title={t('phone*')} text={value} onChangeText={onChange} error={errors.phone ? t('thisIsRequired') : undefined}/>
           )}
           name='phone'
         />
@@ -106,7 +107,7 @@ export default function EditScreen({
             },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <FormText title='Email*' text={value} onChangeText={onChange} error={errors.email ? 'This is required.' : undefined}/>
+            <FormText title={t('email*')} text={value} onChangeText={onChange} error={errors.email ? t('thisIsRequired') : undefined}/>
           )}
           name='email'
         />
@@ -116,14 +117,14 @@ export default function EditScreen({
             required: true,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <FormText title='Address*' text={value} onChangeText={onChange} error={errors.address ? 'This is required.' : undefined}/>
+            <FormText title={t('address*')} text={value} onChangeText={onChange} error={errors.address ? t('thisIsRequired') : undefined}/>
           )}
           name='address'
         />
         <Controller
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <FormText isPaasword title='Password*' text={value} onChangeText={onChange} error={errors.password ? 'This is required.' : undefined}/>
+            <FormText isPaasword title={t('password*')} text={value} onChangeText={onChange} error={errors.password ? t('thisIsRequired') : undefined}/>
           )}
           name='password'
         />
@@ -137,25 +138,25 @@ export default function EditScreen({
             }
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <FormText isPaasword title='Password, again*' text={value} onChangeText={onChange} error={errors.password2 ? 'This needs to be equal password.' : undefined}/>
+            <FormText isPaasword title={t('passwordAgain*')} text={value} onChangeText={onChange} error={errors.password2 ? t('enterPasswordAgainError') : undefined}/>
           )}
           name='password2'
         />
         <Spacing height={size[4]}/>
         <Button
-          title='Save'
+          title={t('save')}
           onPress={handleSubmit(onSubmit)}
         />
         <Spacing height={size[4]}/>
         <Button
-          title='Cancel'
+          title={t('cancel')}
           color={colors.primaryDark}
           onPress={() => navigation.goBack()}
           type='neat'
         />
         <Spacing height={size[8]}/>
         <Button
-          title='Delete Account'
+          title={t('deleteAccount')}
           color={colors.danger}
           onPress={onPressDelete}
           type='outline'

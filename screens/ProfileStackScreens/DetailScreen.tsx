@@ -7,7 +7,8 @@ import {
   Row,
   SectionWrapper,
   size,
-  Spacing
+  Spacing,
+  t
   } from '@starter'
 import { Controller, useForm } from 'react-hook-form'
 import { ProfileStackScreenProps } from '../../types'
@@ -26,9 +27,9 @@ export default function DetailScreen({
   const { user, status } = useSelector(userInfoSeletor)
   useEffect(() => {
     if (status === 'failed') {
-      Alert.alert('Register failed', 'Username or email has been used, please change it', [{ text: 'ok' }])
+      Alert.alert(t('registerFailed'), t('registerFailedDescription'), [{ text: 'ok' }])
     } else if (status === 'success') {
-      Alert.alert('Register Success', undefined, [{
+      Alert.alert(t('registersSuccess'), undefined, [{
         text: 'ok', onPress: () => {
           dispatch(userInfoActions.resetStatus())
           navigation.goBack()
@@ -60,7 +61,7 @@ export default function DetailScreen({
   if (!user) {
     return <View style={styles.container}>
       <Controller control={control} name='username' rules={{ required: true }} render={({ field: { value, onChange } }) => {
-        return <FormText title='User Name' onChangeText={onChange} text={value} error={errors.username && 'This is required'} />
+        return <FormText title={t('userName')} onChangeText={onChange} text={value} error={errors.username && 'This is required'} />
       }} />
       <Controller control={control} name='email' rules={{
         required: true, pattern: {
@@ -81,7 +82,7 @@ export default function DetailScreen({
       }} />
       <Button
         style={styles.button}
-        title='Edit Profile'
+        title={t('submit')}
         onPress={handleSubmit(onPressRegister)}
       />
     </View>
@@ -89,15 +90,15 @@ export default function DetailScreen({
     return (
       <View style={styles.container}>
         <SectionWrapper>
-          <Row title='Name' description={user.username}></Row>
-          <Row title='Email' description={user.email}></Row>
-          <Row title='Phone' description={user.phone}></Row>
-          <Row title='Address' description={user.address}></Row>
+          <Row title={t('userName')} description={user.username}></Row>
+          <Row title={t('email*')} description={user.email}></Row>
+          <Row title={t('phone*')} description={user.phone}></Row>
+          <Row title={t('address*')} description={user.address}></Row>
         </SectionWrapper>
         <Spacing height={size[4]} />
         <Button
           style={styles.button}
-          title='Edit Profile'
+          title={t('editProfile')}
           onPress={onPressEdit}
         />
       </View>
