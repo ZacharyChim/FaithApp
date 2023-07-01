@@ -33,7 +33,7 @@ export default function CategoryScreen({
         numColumns={2}
         showsHorizontalScrollIndicator={false}
         data={products}
-        // keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
             key={item.id}
@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-
     backgroundColor: '#fff',
   },
   productContainer: {
