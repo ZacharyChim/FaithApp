@@ -2,7 +2,7 @@
   "expo": {
     "name": "Faith Fitness",
     "slug": "faith_fitness",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "faithfitness",
@@ -27,7 +27,7 @@
     },
     "android": {
       "package": "com.faithfitness.app",
-      "versionCode": 5,
+      "versionCode": 6,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#000000"
