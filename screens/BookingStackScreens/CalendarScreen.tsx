@@ -24,6 +24,7 @@ import {
   colors,
   t,
 } from '@starter'
+import { schedulePushNotification } from '../../helpers/notificationHelper'
 
 
 const XDate = require('xdate')
@@ -50,6 +51,7 @@ export default function CalendarScreen({
       return
     }
     dispatch(courseBook({ course: course.id, starting: course.start, users_permissions_user: user.id, date: new XDate(selected).toString('yyyy-MM-dd') }))
+    schedulePushNotification({title: '成功預約', body: '教練會盡快聯絡閣下，謝謝！'})
   }
 
   const onPressMyBook = () => {
