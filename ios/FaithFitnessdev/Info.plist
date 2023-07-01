@@ -5,7 +5,7 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleDisplayName</key>
-    <string>Faith Fitness</string>
+    <string>Faith Fitness_dev</string>
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
@@ -26,7 +26,7 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>faithfitness</string>
-          <string>com.faithfitness.app</string>
+          <string>com.faithfitness.app.dev</string>
         </array>
       </dict>
     </array>
