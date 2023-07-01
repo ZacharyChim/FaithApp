@@ -75,7 +75,7 @@ export default function CartScreen({
                   <View style={styles.imageBox}>
                     <Image
                       style={styles.productImage}
-                      source={{ uri: `http://165.22.255.85:1337${i.product.images.data[0].attributes.url}` }}
+                      source={{ uri: `https://admin.faithfitnesshk.com${i.product.images.data[0].attributes.url}` }}
                     />
                   </View>
                   <View style={styles.descBox}>

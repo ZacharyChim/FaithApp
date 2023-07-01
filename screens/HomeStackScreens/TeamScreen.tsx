@@ -37,7 +37,7 @@ export default function TeamScreen({
                 borderColor: '#ddd',
               }}
               imageStyle={{ height: 130, width: 110 }}
-              imageUri={`http://165.22.255.85:1337${item.image.data.attributes.url}`}
+              imageUri={`https://admin.faithfitnesshk.com${item.image.data.attributes.url}`}
               name={item.name}
             />
           </TouchableOpacity>

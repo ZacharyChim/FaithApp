@@ -88,7 +88,7 @@ export default function CalendarScreen({
                 alignItems: 'center',
               }}
             >
-              <Avatar.Image size={50} source={{ uri: `http://165.22.255.85:1337${i.trainer.data.attributes.image.data.attributes.url}` }} />
+              <Avatar.Image size={50} source={{ uri: `https://admin.faithfitnesshk.com${i.trainer.data.attributes.image.data.attributes.url}` }} />
               <View>
                 <Text style={styles.title}>{i.name}</Text>
                 <Text style={styles.smallText}>{`${i.start.substring(0, 5)} to ${i.end.substring(0, 5)}`} </Text>

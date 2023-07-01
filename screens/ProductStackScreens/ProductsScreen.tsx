@@ -44,7 +44,7 @@ export default function ProductsScreen({
               <Text style={styles.productName}>{item.name}</Text>
               <Image
                 style={styles.productImage}
-                source={{ uri: `http://165.22.255.85:1337${item.image.data.attributes.url}` }}
+                source={{ uri: `https://admin.faithfitnesshk.com${item.image.data.attributes.url}` }}
               />
             </TouchableOpacity>
           )}

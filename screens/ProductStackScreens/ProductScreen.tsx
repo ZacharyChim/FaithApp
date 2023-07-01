@@ -67,7 +67,7 @@ export default function ProductScreen({
 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} resizeMode='cover' source={{ uri: `http://165.22.255.85:1337${product?.images.data[0].attributes.url}` }} />
+      <Image style={styles.image} resizeMode='cover' source={{ uri: `https://admin.faithfitnesshk.com${product?.images.data[0].attributes.url}` }} />
       <ScrollView style={styles.textContainer}>
         <Text style={styles.name}>{product?.name}</Text>
         <Spacing height={size[4]} />

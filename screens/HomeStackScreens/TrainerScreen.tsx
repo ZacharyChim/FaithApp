@@ -20,7 +20,7 @@ export default function TrainerScreen({
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image source={{ uri: `http://165.22.255.85:1337${trainer?.image.data.attributes.url}` }} style={styles.image} />
+        <Image source={{ uri: `https://admin.faithfitnesshk.com${trainer?.image.data.attributes.url}` }} style={styles.image} />
         <Text style={styles.title}>{trainer?.name}</Text>
       </View>
       <View style={styles.TextContainer}>

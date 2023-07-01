@@ -48,7 +48,7 @@ export default function BookingScreen({
                     alignItems: 'center',
                   }}
                 >
-                  <Avatar.Image size={50} source={{ uri: `http://165.22.255.85:1337${c.attributes.course.data.attributes.trainer.data.attributes.image.data.attributes.url}` }} />
+                  <Avatar.Image size={50} source={{ uri: `https://admin.faithfitnesshk.com${c.attributes.course.data.attributes.trainer.data.attributes.image.data.attributes.url}` }} />
                   <Spacing width={size[4]} />
                   <View>
                     <Text style={styles.title}>{c.attributes.course.data.attributes.name}</Text>

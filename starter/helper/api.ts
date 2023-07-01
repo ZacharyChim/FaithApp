@@ -20,7 +20,7 @@ export const api = (secret?: Secret) => {
       }
 
   return create({
-    baseURL: 'http://165.22.255.85:1337/api',
+    baseURL: 'https://admin.faithfitnesshk.com/api',
     headers,
     withCredentials: true,
   })

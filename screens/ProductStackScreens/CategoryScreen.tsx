@@ -40,7 +40,7 @@ export default function CategoryScreen({
             onPress={() => navigation.navigate('ProductPage', { id: item.id })}
           >
             <View style={styles.productContainer}>
-              <Image style={styles.image} source={{ uri: `http://165.22.255.85:1337${item.images.data[0].attributes.url}` }} />
+              <Image style={styles.image} source={{ uri: `https://admin.faithfitnesshk.com${item.images.data[0].attributes.url}` }} />
               <View style={styles.priceContainer}>
                 <Text style={styles.price}>{item.price}</Text>
               </View>

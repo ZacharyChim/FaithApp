@@ -33,7 +33,7 @@ export const TeamScroll: FC<ITeamScroll> = ({onSelected, trainers}) => {
                   borderColor: '#ddd',
                 }}
                 imageStyle={{ height: 90, width: 80 }}
-                imageUri={`http://165.22.255.85:1337${item.image.data.attributes.url}`}
+                imageUri={`https://admin.faithfitnesshk.com${item.image.data.attributes.url}`}
                 name={item.name}
               ></TrainerCard>
             </TouchableOpacity>
