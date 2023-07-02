@@ -71,7 +71,7 @@ export default function EditScreen({
   const onPressDelete = () => {
     Alert.alert(t('confirm'), t('deleteAccountDescription'), [{text: 'Yes', onPress: () => {
       dispatch(userInfoActions.logout())
-    }}])
+    }}, {text: 'no'}])
   }
 
   return (

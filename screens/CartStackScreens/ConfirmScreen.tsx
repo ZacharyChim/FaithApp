@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {
   Button,
   colors,
+  FormDate,
   FormImage,
   FormText,
   IImageOutput,
@@ -146,6 +147,7 @@ export default function InfoScreen({
             <Spacing height={size[4]} />
             <FormImage title={t('paymentProof')} placeHolder={t('choose')} onPickImage={setImage} error={!image ? t('thisIsRequired') : undefined} />
             <FormText title={t('remark')} text={info?.remark || 'N/A'} editable={false} onChangeText={() => { }} multiline={!!info?.remark} />
+            <FormDate title={t('paymentDate')} mode='date' placeHolder={t('depositDate')} setTime={date => console.log(date)}/>
             <Button
               title={t('submit')}
               onPress={onSubmit}
