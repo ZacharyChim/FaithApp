@@ -106,31 +106,31 @@ export default function InfoScreen({
             <Text.H1>{`${t('paymentMethod')}:`}</Text.H1>
             <>
               <Text.H2>FPS</Text.H2>
-              <Text.Caption >Bank: HSBC</Text.Caption>
+              <Text.Caption >銀行: 香港恒生銀行</Text.Caption>
               <Text.Caption >FPS ID: 6018 7633</Text.Caption>
-              <Text.Caption >Payment send to: Faith Cxxxx</Text.Caption>
+              <Text.Caption >Payment send to: Lam L*** T***</Text.Caption>
               <Spacing height={size[2]} />
               <Image
                 style={styles.payment}
-                source={require('../../assets/images/fps.png')}
+                source={require('../../assets/images/fps.jpeg')}
               />
             </>
             <Spacing height={size[8]} />
             <>
-              <Text.H2 style={styles.paymentText}>Payme:</Text.H2>
-              <Text.Caption style={styles.paymentText}>Paycode to Payme</Text.Caption>
+              <Text.H2 style={styles.paymentText}>Payme</Text.H2>
+              <Text.Caption >聯絡人帳號: 6018 7633</Text.Caption>
               <Text.Caption
-                style={{ color: 'blue' }}
-                onPress={() => Linking.openURL('http://payme.hsbc/faith')}
+                style={{ color: 'blue', textDecorationLine: 'underline' }}
+                onPress={() => Linking.openURL('https://qr.payme.hsbc.com.hk/1/R3GdmiFrKgJow6UXeomAdq')}
               >
-                http://payme.hsbc/faith
+                支付連結
               </Text.Caption>
               <Image
                 style={styles.payment}
-                source={require('../../assets/images/payme.png')}
+                source={require('../../assets/images/payme.jpeg')}
               />
             </>
-            <Spacing height={size[8]} />
+            {/* <Spacing height={size[8]} />
             <>
               <Text.H2 style={styles.paymentText}>HSBC</Text.H2>
               <Text.Caption style={styles.paymentText}>
@@ -138,7 +138,7 @@ export default function InfoScreen({
               </Text.Caption>
               <Text.Caption style={styles.paymentText}>Account name：Faith Cxxxxxxx</Text.Caption>
             </>
-            <Spacing height={size[8]} />
+            <Spacing height={size[8]} /> */}
 
             <Text style={styles.moreText}>{t('paymentDescription')}</Text>
             <Text style={styles.moreText}>{t('paymentDescription2')}</Text>

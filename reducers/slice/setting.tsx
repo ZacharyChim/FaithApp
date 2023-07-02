@@ -7,7 +7,7 @@ export type ISettingState = {
 }
 
 const initialState: ISettingState = {
-    language: 'en'
+    language: 'zh'
 }
 
 export const settingSlice = createSlice({
