@@ -69,16 +69,16 @@ export default function DetailScreen({
           message: 'Not a valid email',
         },
       }} render={({ field: { value, onChange } }) => {
-        return <FormText title='E-mail' onChangeText={onChange} text={value} error={errors.username && 'This is required'} />
+        return <FormText title={t('email*')} onChangeText={onChange} text={value} error={errors.username && 'This is required'} />
       }} />
       <Controller control={control} name='password' rules={{ required: true }} render={({ field: { value, onChange } }) => {
-        return <FormText title='Password' isPaasword onChangeText={onChange} text={value} error={errors.username && 'This is required'} />
+        return <FormText title={t('password*')} isPaasword onChangeText={onChange} text={value} error={errors.username && 'This is required'} />
       }} />
       <Controller control={control} name='phone' rules={{ required: true }} render={({ field: { value, onChange } }) => {
-        return <FormText title='Phone Number' onChangeText={onChange} text={value} error={errors.username && 'This is required'} />
+        return <FormText title={t('phone*')} onChangeText={onChange} text={value} error={errors.username && 'This is required'} />
       }} />
       <Controller control={control} name='address' rules={{ required: true }} render={({ field: { value, onChange } }) => {
-        return <FormText title='Address' onChangeText={onChange} text={value} error={errors.username && 'This is required'} />
+        return <FormText title={t('address*')} onChangeText={onChange} text={value} error={errors.username && 'This is required'} />
       }} />
       <Button
         style={styles.button}

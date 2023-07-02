@@ -62,7 +62,7 @@ export default function CalendarScreen({
 
   const onPressMyBook = () => {
     if (!user) {
-      Alert.alert('Please login first', undefined, [
+      Alert.alert(t('pleaseLoginFirst'), undefined, [
         {
           text: 'ok',
           // @ts-ignore
